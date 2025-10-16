@@ -2,11 +2,11 @@
 
 This is the documentation to understand better the structure of all boat.json files.
 
-```json
+```
 "FileName" : string
 ```
 Set the name of the 3D model file to load
-```json
+```
 "ScaleFactor" : number
 ```
 The amount to scale the 3D model by Bridge Command uses *metres* as it's units, so if the model is in feet, then this should be around 0.3. <br /> <br /> 
@@ -355,3 +355,4 @@ Each entry corresponds to a single viewpoint, using the same index order as defi
 | `"yaw"` | `array[number]` | List of **yaw (horizontal rotation)** angles for each panorama, in degrees. |
 | `"pitch"` | `array[number]` | List of **pitch (vertical rotation)** angles for each panorama, in degrees. |
 | `"roll"` | `array[number]` | List of **roll (tilt)** angles for each panorama, in degrees. |
+
