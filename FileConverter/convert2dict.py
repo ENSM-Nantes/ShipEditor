@@ -19,7 +19,7 @@ def convert2dict(filename):
 		# Read key and value
 		temp = line.split('=')
 		key = temp[0].strip()
-		value = temp[1].strip()
+		value = temp[1].strip().replace(",", ".")
 
 		# Simple transformation
 		if key in keyfile.key_str:
@@ -284,4 +284,5 @@ def convert2dict(filename):
 
 			else:
 				print("Unknow key:", key, "in file", folder)
+
 	return var
