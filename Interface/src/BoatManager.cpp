@@ -59,7 +59,7 @@ vector<Boat> BoatManager::loadBoats(const string& folderPath) {
     for (const auto& dirEntry : fs::directory_iterator(folderPath)) {
         if (!dirEntry.is_directory()) continue;
 
-        fs::path boatFile = dirEntry.path() / "boat.ini";
+        fs::path boatFile = dirEntry.path() / "boat.json";
         if (!fs::exists(boatFile)) continue;
 
         ifstream file(boatFile);
