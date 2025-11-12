@@ -4,7 +4,7 @@
 #include <memory>
 #include <json/json.h>
 
-// Classes dynamiques
+// Structures dynamiques
 
 struct View {
     float x, y, z;
