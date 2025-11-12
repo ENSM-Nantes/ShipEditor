@@ -1,4 +1,5 @@
 #include "BoatManager.hpp"
+#include <iostream>
 #include <fstream>
 #include <filesystem>
 #include <json/json.h>
@@ -42,7 +43,7 @@ void PanoList::fromJson(const Json::Value& json) {
     const auto& pitches = json["pitch"];
     const auto& rolls = json["roll"];
 
-    int count = min({ files.size(), yaws.size(), pitches.size(), rolls.size() });
+    int count = std::min(std::min(files.size(), yaws.size()), std::min(pitches.size(), rolls.size()));
     for (int i = 0; i < count; ++i) {
         file.push_back(files[i].asString());
         yaw.push_back(yaws[i].asFloat());
@@ -67,6 +68,11 @@ vector<Boat> BoatManager::loadBoats(const string& folderPath) {
 
         Json::Value root;
         file >> root;
+
+        //test Erreur
+        if (root.isNull()) {
+        std::cerr << "Erreur de parsing JSON" << std::endl;
+        }
 
         Boat b;
         b.displayName = dirEntry.path().filename().string();
@@ -223,7 +229,7 @@ vector<Boat> BoatManager::loadBoats(const string& folderPath) {
             b.pano->fromJson(root["Pano"]);
         }
 
-        boats.push_back(b);
+        boats.push_back(std::move(b));
     }
 
     return boats;
