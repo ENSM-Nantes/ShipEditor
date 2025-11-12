@@ -1,3 +1,0 @@
-/c/Users/jujus/Documents/INFOSI/PAPPL/ShipEditor/Interface/build/CMakeFiles/ShipEditor.dir
-/c/Users/jujus/Documents/INFOSI/PAPPL/ShipEditor/Interface/build/CMakeFiles/edit_cache.dir
-/c/Users/jujus/Documents/INFOSI/PAPPL/ShipEditor/Interface/build/CMakeFiles/rebuild_cache.dir
