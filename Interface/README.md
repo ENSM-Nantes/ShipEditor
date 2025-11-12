@@ -20,3 +20,19 @@ Le projet SOMOS vise à modéliser et simuler des scénarios de navigation réal
 - **C / C++** 
 - **MSYS** Pour run et tester nos codes sur Windows
 - **Raspberry Pi** pour tester nos codes sur Linux
+
+## Compilation
+Dans le dossier Interface créer une première fois le dossier build et allez à l'intérieur:
+```
+mkdir build
+cd build
+```
+
+Nous allons ensuite compiler le porgramme avec les commandes suivantes
+```
+cmake -G"Unix Makefiles" ../src/ -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+make
+```
+
+## Exécution
+Pour éxécuter le programme après l'avoir compiler, il faut aller dans le dossier build et éxécuter le fichier *ShipEditor*
