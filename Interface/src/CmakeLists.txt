@@ -31,6 +31,7 @@ include_directories( ${GTKMM_INCLUDE_DIRS} )
 add_executable(ShipEditor
     main.cpp	
     main_window.cpp
+    BoatManager.cpp
 )
 
 # Add folder with all headers:
