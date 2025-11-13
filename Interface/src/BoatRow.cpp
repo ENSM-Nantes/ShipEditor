@@ -6,15 +6,17 @@ box(Gtk::ORIENTATION_HORIZONTAL, 10),
 nameLabel(boat.displayName), 
 menuButton("⋯") // Unicode pour "..."
 {
-    // Définir une taille fixe pour l'image (optionnel)
-    image.set_pixel_size(48);
 
     // Charger une image par défaut
     try {
-        image.set("ressources/default.png"); // Attention à ne pas modifier ce chemin
+        auto pixbuf = Gdk::Pixbuf::create_from_file("../ressources/default.png", 48, 48); // largeur, hauteur
+        image.set(pixbuf);
     } catch (const Glib::FileError& e) {
         std::cerr << "Erreur chargement image : " << e.what() << std::endl;
     }
+    
+    // Définir une taille fixe pour l'image (optionnel)
+    image.set_pixel_size(12);
 
     // Mise en page
     box.set_margin_top(5);
