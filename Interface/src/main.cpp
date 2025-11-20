@@ -1,8 +1,9 @@
 #include <iostream>
+
 #include "main_window.h"
 
 int main (int argc, char *argv[]) {
-  auto app = Gtk::Application::create(argc, argv, "ch.agl-developpement.cpp-tutorial.raspberry-cpp-gtk-opencv");
-  MainWindow mainWindow(300, 300);
-  return app->run(mainWindow);
+	auto app = Gtk::Application::create("org.gtkmm.ship_editor");
+	return app->make_window_and_run<MainWindow>(argc, argv);
+	//return app->run(mainWindow);
 }
