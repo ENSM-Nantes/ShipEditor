@@ -6,20 +6,32 @@
 
 // Structures dynamiques
 
+/**
+ * @brief permet de définir les vues
+ */
 struct View {
     float vector[3];
     bool elevated;
 };
 
+/**
+ * @brief permet de définir les listes des vues
+ */
 struct ViewList {
     std::vector<View> views;
     void fromJson(const Json::Value& json);
 };
 
+/**
+ * @brief permet de définir Sail
+ */
 struct Sail {
     float vector[3];
 };
 
+/**
+ * @brief permet de définir les listes de Sail
+ */
 struct SailList {
     std::vector<Sail> sails;
     std::string type;
@@ -27,6 +39,9 @@ struct SailList {
     void fromJson(const Json::Value& json);
 };
 
+/**
+ * @brief permet de définir les listes Pano
+ */
 struct PanoList {
     std::vector<std::string> file;
     std::vector<float> yaw, pitch, roll;
@@ -35,18 +50,27 @@ struct PanoList {
 
 // Structures simples
 
+/**
+ * @brief permet de définir RadarScreen
+ */
 struct RadarScreen {
     float vector[3];
     float size;
     float tilt;
 };
 
+/**
+ * @brief permet de définir Dynamics
+ */
 struct Dynamics {
     float speed[2];
     float turnDrag[2];
     float lateralDrag[2];
 };
 
+/**
+ * @brief permet de définir Prop
+ */
 struct Prop {
     float space;
     float walkAhead;
@@ -54,6 +78,9 @@ struct Prop {
     float walkDriftEffect;
 };
 
+/**
+ * @brief permet de définir AzimuthDrive
+ */
 struct AzimuthDrive {
     bool azimuthDrive;
     bool astern;
@@ -67,14 +94,23 @@ struct AzimuthDrive {
     float sameDirectionAsSchottel;
 };
 
+/**
+ * @brief permet de définir Rudder
+ */
 struct Rudder {
     float A, B, BAstern;
 };
 
+/**
+ * @brief permet de définir Thruster
+ */
 struct Thruster {
     float Force, Distance;
 };
 
+/**
+ * @brief permet de définir Wheel
+ */
 struct Wheel {
     float vector[3];
     float scale;
@@ -82,6 +118,11 @@ struct Wheel {
 
 // Classe principale
 
+/**
+ * @brief permet de définir la classe des bateaux
+ * 
+ * Cette dernière contient toutes les clés présentent dans les fichiers json et un nom pour l'affichage
+ */
 class Boat {
 public:
     std::string displayName;
@@ -124,6 +165,11 @@ public:
 
 // Manager
 
+/**
+ * @brief permet de charger tous les bateaux dans une liste
+ *
+ * @param folderPath le chemin d'accès dossier contenant les sous dossiers de tous les fichiers json complet
+ */
 class BoatManager {
 public:
     std::vector<Boat> loadBoats(const std::string& folderPath);
