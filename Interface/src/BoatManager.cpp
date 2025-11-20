@@ -13,9 +13,9 @@ void ViewList::fromJson(const Json::Value& json) {
     for (const auto& item : json) {
         if (item.size() >= 3) {
             View v;
-            v.x = item[0].asFloat();
-            v.y = item[1].asFloat();
-            v.z = item[2].asFloat();
+            v.vector[0] = item[0].asFloat(); // x
+            v.vector[1] = item[1].asFloat(); // y
+            v.vector[2] = item[2].asFloat(); // z
             v.elevated = (item.size() > 3) ? item[3].asBool() : false;
             views.push_back(v);
         }
@@ -27,9 +27,9 @@ void SailList::fromJson(const Json::Value& json) {
     for (const auto& item : list) {
         if (item.size() >= 3) {
             Sail s;
-            s.x = item[0].asFloat();
-            s.y = item[1].asFloat();
-            s.z = item[2].asFloat();
+            s.vector[0] = item[0].asFloat(); //x
+            s.vector[1] = item[1].asFloat(); //y
+            s.vector[2] = item[2].asFloat(); //z
             sails.push_back(s);
         }
     }
@@ -95,9 +95,9 @@ vector<Boat> BoatManager::loadBoats(const string& folderPath) {
         // RadarScreen
         if (root.isMember("RadarScreen") && root["RadarScreen"]["vector"].size() == 3) {
             b.radarScreen = make_unique<RadarScreen>();
-            b.radarScreen->x = root["RadarScreen"]["vector"][0].asFloat();
-            b.radarScreen->y = root["RadarScreen"]["vector"][1].asFloat();
-            b.radarScreen->z = root["RadarScreen"]["vector"][2].asFloat();
+            b.radarScreen->vector[0] = root["RadarScreen"]["vector"][0].asFloat(); //x
+            b.radarScreen->vector[1] = root["RadarScreen"]["vector"][1].asFloat(); //y
+            b.radarScreen->vector[2] = root["RadarScreen"]["vector"][2].asFloat(); //z
             b.radarScreen->size = root["RadarScreen"]["size"].asFloat();
             b.radarScreen->tilt = root["RadarScreen"]["tilt"].asFloat();
         }
@@ -211,9 +211,9 @@ vector<Boat> BoatManager::loadBoats(const string& folderPath) {
         // Wheel 
         if (root.isMember("Wheel") && root["Wheel"]["vector"].size() == 3) {
             b.wheel = make_unique<Wheel>();
-            b.wheel->x = root["Wheel"]["vector"][0].asFloat();
-            b.wheel->y = root["Wheel"]["vector"][1].asFloat();
-            b.wheel->z = root["Wheel"]["vector"][2].asFloat();
+            b.wheel->vector[0] = root["Wheel"]["vector"][0].asFloat();
+            b.wheel->vector[1] = root["Wheel"]["vector"][1].asFloat();
+            b.wheel->vector[2] = root["Wheel"]["vector"][2].asFloat();
             b.wheel->scale = root["Wheel"]["scale"].asFloat();
         }
 

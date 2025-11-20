@@ -7,7 +7,7 @@
 // Structures dynamiques
 
 struct View {
-    float x, y, z;
+    float vector[3];
     bool elevated;
 };
 
@@ -17,7 +17,7 @@ struct ViewList {
 };
 
 struct Sail {
-    float x, y, z;
+    float vector[3];
 };
 
 struct SailList {
@@ -36,7 +36,7 @@ struct PanoList {
 // Structures simples
 
 struct RadarScreen {
-    float x, y, z;
+    float vector[3];
     float size;
     float tilt;
 };
@@ -76,7 +76,7 @@ struct Thruster {
 };
 
 struct Wheel {
-    float x, y, z;
+    float vector[3];
     float scale;
 };
 
