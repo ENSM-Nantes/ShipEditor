@@ -3,8 +3,7 @@
 
 #include <gtkmm.h>
 
-//#include "edit_area.h"
-#include "area.h"
+#include "input_area.h"
 
 class MainWindow : public Gtk::Window {
 public:
