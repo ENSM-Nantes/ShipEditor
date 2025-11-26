@@ -1,4 +1,5 @@
-#pragma once
+#ifndef BOAT_MANAGER_H
+#define BOAT_MANAGER_H
 #include <string>
 #include <vector>
 #include <memory>
@@ -136,19 +137,19 @@ public:
     float maxDepth;
     bool makeTransparent;
 
-    std::unique_ptr<ViewList> viewList;
-    std::unique_ptr<RadarScreen> radarScreen;
+    ViewList viewList;
+    RadarScreen radarScreen;
     float portThrottle[3];
     float stbdThrottle[3];
-    std::unique_ptr<Dynamics> dynamics;
+    Dynamics dynamics;
     float maxPropulsionForce;
     float asternEfficiency;
     float blockCoefficient;
     float mass;
     float inertia;
-    std::unique_ptr<Prop> prop;
-    std::unique_ptr<AzimuthDrive> azimuthDrive;
-    std::unique_ptr<Rudder> rudder;
+    Prop prop;
+    AzimuthDrive azimuthDrive;
+    Rudder rudder;
     float buffet, swell, windage, windageTurnEffect;
     float deviationMaximum, deviationMaximumHeading;
     float rollPeriod, pitchPeriod;
@@ -156,11 +157,11 @@ public:
     float maxSpeedAhead;
     float centrifugalDriftEffect;
     bool hasRateOfTurnIndicator;
-    std::unique_ptr<Thruster> bowThruster;
-    std::unique_ptr<Thruster> sternThruster;
-    std::unique_ptr<Wheel> wheel;
-    std::unique_ptr<SailList> sails;
-    std::unique_ptr<PanoList> pano;
+    Thruster bowThruster;
+    Thruster sternThruster;
+    Wheel wheel;
+    SailList sails;
+    PanoList pano;
 };
 
 // Manager
@@ -174,3 +175,5 @@ class BoatManager {
 public:
     std::vector<Boat> loadBoats(const std::string& folderPath);
 };
+
+#endif

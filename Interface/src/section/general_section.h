@@ -15,8 +15,6 @@ public:
 	~GeneralSection() {}
 
 protected:
-	Boat *boat_ref;
-
 	Grid m_grid;
 
 	InputArea m_filename, m_ycorrection, m_gps, m_scale_factor, m_depth, m_depth_sounder, m_max_depth, m_make_transparent;

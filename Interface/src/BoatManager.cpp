@@ -88,18 +88,18 @@ vector<Boat> BoatManager::loadBoats(const string& folderPath) {
 
         // View
         if (root.isMember("View")) {
-            b.viewList = make_unique<ViewList>();
-            b.viewList->fromJson(root["View"]);
+            b.viewList = ViewList();
+            b.viewList.fromJson(root["View"]);
         }
 
         // RadarScreen
         if (root.isMember("RadarScreen") && root["RadarScreen"]["vector"].size() == 3) {
-            b.radarScreen = make_unique<RadarScreen>();
-            b.radarScreen->vector[0] = root["RadarScreen"]["vector"][0].asFloat(); //x
-            b.radarScreen->vector[1] = root["RadarScreen"]["vector"][1].asFloat(); //y
-            b.radarScreen->vector[2] = root["RadarScreen"]["vector"][2].asFloat(); //z
-            b.radarScreen->size = root["RadarScreen"]["size"].asFloat();
-            b.radarScreen->tilt = root["RadarScreen"]["tilt"].asFloat();
+            b.radarScreen = RadarScreen();
+            b.radarScreen.vector[0] = root["RadarScreen"]["vector"][0].asFloat(); //x
+            b.radarScreen.vector[1] = root["RadarScreen"]["vector"][1].asFloat(); //y
+            b.radarScreen.vector[2] = root["RadarScreen"]["vector"][2].asFloat(); //z
+            b.radarScreen.size = root["RadarScreen"]["size"].asFloat();
+            b.radarScreen.tilt = root["RadarScreen"]["tilt"].asFloat();
         }
 
         //Throttle
@@ -110,11 +110,11 @@ vector<Boat> BoatManager::loadBoats(const string& folderPath) {
 
         // Dynamics
         if (root.isMember("Dynamics")) {
-            b.dynamics = make_unique<Dynamics>();
+            b.dynamics = Dynamics();
             for (int i = 0; i < 2; ++i) {
-                b.dynamics->speed[i] = root["Dynamics"]["speed"][i].asFloat();
-                b.dynamics->turnDrag[i] = root["Dynamics"]["turnDrag"][i].asFloat();
-                b.dynamics->lateralDrag[i] = root["Dynamics"]["lateralDrag"][i].asFloat();
+                b.dynamics.speed[i] = root["Dynamics"]["speed"][i].asFloat();
+                b.dynamics.turnDrag[i] = root["Dynamics"]["turnDrag"][i].asFloat();
+                b.dynamics.lateralDrag[i] = root["Dynamics"]["lateralDrag"][i].asFloat();
             }
         }
 
@@ -133,35 +133,35 @@ vector<Boat> BoatManager::loadBoats(const string& folderPath) {
 
         // Prop
         if (root.isMember("Prop")) {
-            b.prop = make_unique<Prop>();
-            b.prop->space = root["Prop"]["space"].asFloat();
-            b.prop->walkAhead = root["Prop"]["walkAhead"].asFloat();
-            b.prop->walkAstern = root["Prop"]["walkAstern"].asFloat();
-            b.prop->walkDriftEffect = root["Prop"]["walkDriftEffect"].asFloat();
+            b.prop = Prop();
+            b.prop.space = root["Prop"]["space"].asFloat();
+            b.prop.walkAhead = root["Prop"]["walkAhead"].asFloat();
+            b.prop.walkAstern = root["Prop"]["walkAstern"].asFloat();
+            b.prop.walkDriftEffect = root["Prop"]["walkDriftEffect"].asFloat();
         }
 
         // Azimuth Drive ou jsp ce que ça représente
         if (root.isMember("AzimuthDrive")) {
             const auto& ad = root["AzimuthDrive"];
-            b.azimuthDrive = make_unique<AzimuthDrive>();
-            b.azimuthDrive->azimuthDrive = ad["azimuthDrive"].asBool();
-            b.azimuthDrive->astern = ad["astern"].asBool();
-            b.azimuthDrive->aziToLengthRatio = ad["aziToLengthRatio"].asFloat();
-            b.azimuthDrive->engineIdleRPM = ad["engineIdleRPM"].asInt();
-            b.azimuthDrive->clutchEngageRPM = ad["clutchEngageRPM"].asInt();
-            b.azimuthDrive->clutchDisengageRPM = ad["clutchDisengageRPM"].asInt();
-            b.azimuthDrive->engineMaxChangePerSecond = ad["engineMaxChangePerSecond"].asFloat();
-            b.azimuthDrive->maxDegPerSecond = ad["maxDegPerSecond"].asFloat();
-            b.azimuthDrive->thrustLeverMaxChangePerSecond = ad["thrustLeverMaxChangePerSecond"].asFloat();
-            b.azimuthDrive->sameDirectionAsSchottel = ad["sameDirectionAsSchottel"].asFloat();
+            b.azimuthDrive = AzimuthDrive();
+            b.azimuthDrive.azimuthDrive = ad["azimuthDrive"].asBool();
+            b.azimuthDrive.astern = ad["astern"].asBool();
+            b.azimuthDrive.aziToLengthRatio = ad["aziToLengthRatio"].asFloat();
+            b.azimuthDrive.engineIdleRPM = ad["engineIdleRPM"].asInt();
+            b.azimuthDrive.clutchEngageRPM = ad["clutchEngageRPM"].asInt();
+            b.azimuthDrive.clutchDisengageRPM = ad["clutchDisengageRPM"].asInt();
+            b.azimuthDrive.engineMaxChangePerSecond = ad["engineMaxChangePerSecond"].asFloat();
+            b.azimuthDrive.maxDegPerSecond = ad["maxDegPerSecond"].asFloat();
+            b.azimuthDrive.thrustLeverMaxChangePerSecond = ad["thrustLeverMaxChangePerSecond"].asFloat();
+            b.azimuthDrive.sameDirectionAsSchottel = ad["sameDirectionAsSchottel"].asFloat();
         }
 
         // Rudder
         if (root.isMember("Rudder")) {
-            b.rudder = make_unique<Rudder>();
-            b.rudder->A = root["Rudder"]["A"].asFloat();
-            b.rudder->B = root["Rudder"]["B"].asFloat();
-            b.rudder->BAstern = root["Rudder"]["BAstern"].asFloat();
+            b.rudder = Rudder();
+            b.rudder.A = root["Rudder"]["A"].asFloat();
+            b.rudder.B = root["Rudder"]["B"].asFloat();
+            b.rudder.BAstern = root["Rudder"]["BAstern"].asFloat();
         }
 
         // Buffet
@@ -196,37 +196,37 @@ vector<Boat> BoatManager::loadBoats(const string& folderPath) {
 
         // Bow Thruster
         if (root.isMember("BowThruster")) {
-            b.bowThruster = make_unique<Thruster>();
-            b.bowThruster->Force = root["BowThruster"]["Force"].asFloat();
-            b.bowThruster->Distance = root["BowThruster"]["Distance"].asFloat();
+            b.bowThruster = Thruster();
+            b.bowThruster.Force = root["BowThruster"]["Force"].asFloat();
+            b.bowThruster.Distance = root["BowThruster"]["Distance"].asFloat();
         }
 
         // Stern Thruster
         if (root.isMember("SternThruster")) {
-            b.sternThruster = make_unique<Thruster>();
-            b.sternThruster->Force = root["SternThruster"]["Force"].asFloat();
-            b.sternThruster->Distance = root["SternThruster"]["Distance"].asFloat();
+            b.sternThruster = Thruster();
+            b.sternThruster.Force = root["SternThruster"]["Force"].asFloat();
+            b.sternThruster.Distance = root["SternThruster"]["Distance"].asFloat();
         }
 
         // Wheel 
         if (root.isMember("Wheel") && root["Wheel"]["vector"].size() == 3) {
-            b.wheel = make_unique<Wheel>();
-            b.wheel->vector[0] = root["Wheel"]["vector"][0].asFloat();
-            b.wheel->vector[1] = root["Wheel"]["vector"][1].asFloat();
-            b.wheel->vector[2] = root["Wheel"]["vector"][2].asFloat();
-            b.wheel->scale = root["Wheel"]["scale"].asFloat();
+            b.wheel = Wheel();
+            b.wheel.vector[0] = root["Wheel"]["vector"][0].asFloat();
+            b.wheel.vector[1] = root["Wheel"]["vector"][1].asFloat();
+            b.wheel.vector[2] = root["Wheel"]["vector"][2].asFloat();
+            b.wheel.scale = root["Wheel"]["scale"].asFloat();
         }
 
         // Sails
         if (root.isMember("Sails")) {
-            b.sails = make_unique<SailList>();
-            b.sails->fromJson(root["Sails"]);
+            b.sails = SailList();
+            b.sails.fromJson(root["Sails"]);
         }
 
         // Pano
         if (root.isMember("Pano")) {
-            b.pano = make_unique<PanoList>();
-            b.pano->fromJson(root["Pano"]);
+            b.pano = PanoList();
+            b.pano.fromJson(root["Pano"]);
         }
 
         boats.push_back(std::move(b));
