@@ -12,7 +12,8 @@ m_box(Gtk::Orientation::VERTICAL),
 m_area0("String", &test_var_string),
 m_area1("Integer", &test_var_int),
 m_area2("Float", &test_var_float),
-m_area3("Bool", &test_var_bool)
+m_area3("Bool", &test_var_bool),
+m_general_frame()
 {
 	// Configure this window:
 	this->set_default_size(600, 400);
@@ -34,11 +35,9 @@ m_area3("Bool", &test_var_bool)
 	m_area1.show();
 	m_area2.show();
 	m_area3.show();
+
+	m_general_frame.show();
 	
-
-
-	//Box b(Gtk::ORIENTATION_HORIZONTAL);
-	//area = new EditArea(&b);
 	
 	// Pack all elements in the box:
 	m_box.append(m_button);
@@ -50,6 +49,7 @@ m_area3("Bool", &test_var_bool)
 	m_box.append(m_area1);
 	m_box.append(m_area2);
 	m_box.append(m_area3);
+	m_box.append(m_general_frame);
 
 	// Add the box in this window:
 	set_child(m_box);
@@ -80,4 +80,34 @@ void MainWindow::buttonClickReset() {
 	m_area1.reset();
 	m_area2.reset();
 	m_area3.reset();
+}
+
+/**
+ * Load a boat to edit its properties
+ * @param b The reference of a boat
+ */
+void MainWindow::loadBoat(Boat *b) {
+	if (b == nullptr) return;
+	
+	for (int i = 0; i < WINDOWS_SECTION_COUNT; i++) {
+		section_list[i]->loadBoat(b);
+	}
+}
+
+/**
+ * Update all the field of all the sections (see InputArea::update())
+ */
+void MainWindow::update() {
+	for (int i = 0; i < WINDOWS_SECTION_COUNT; i++) {
+		section_list[i]->update();
+	}
+}
+
+/**
+ * Reset all the field of all the sections (see InputArea::reset())
+ */
+void MainWindow::reset() {
+	for (int i = 0; i < WINDOWS_SECTION_COUNT; i++) {
+		section_list[i]->reset();
+	}
 }

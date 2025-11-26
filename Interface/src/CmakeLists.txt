@@ -37,6 +37,9 @@ add_executable(ShipEditor
     main_window.cpp
     BoatManager.cpp
     BoatRow.cpp
+    input_area.cpp
+    section/section.cpp
+    section/general_section.cpp
 )
 
 # Add folder with all headers:

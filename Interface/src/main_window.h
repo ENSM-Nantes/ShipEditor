@@ -3,7 +3,17 @@
 
 #include <gtkmm.h>
 
+// Import for functionnal purpose
 #include "input_area.h"
+#include "section/section.h"
+
+// Sections import
+#include "section/general_section.h"
+
+
+
+
+#define WINDOWS_SECTION_COUNT 1
 
 class MainWindow : public Gtk::Window {
 public:
@@ -24,7 +34,19 @@ private:
 	bool test_var_bool = 1;
 
 	InputArea m_area0, m_area1, m_area2, m_area3;
-	//EditArea *area;
+	
+
+
+
+	void loadBoat(Boat *b);
+	void update();
+	void reset();
+
+
+	
+	//SectionSuperClass m_general_frame, m_radar_screen_frame, m_proprtie_frame;
+	GeneralSection m_general_frame;
+	SectionSuperClass *section_list[WINDOWS_SECTION_COUNT] = {&m_general_frame};
 };
 
 #endif
