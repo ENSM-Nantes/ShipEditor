@@ -19,11 +19,11 @@ public:
 	~SectionSuperClass() {}
 
 	// Boat change
-	void loadBoat(Boat *b);
+	virtual void loadBoat(Boat *b);
 
 	// For the entries
-	void update();
-	void reset();
+	virtual void update();
+	virtual void reset();
 
 protected:
 	Boat *boat_ref;
