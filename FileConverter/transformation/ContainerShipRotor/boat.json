@@ -1,0 +1,123 @@
+{
+  "FileName": "shiptestflettner.obj",
+  "ScaleFactor": 1.0,
+  "YCorrection": -1.0,
+  "AngleCorrection": 90,
+  "Depth": 10.0,
+  "HasGPS": true,
+  "HasDepthSounder": true,
+  "MaxDepth": 200,
+  "View": [
+    [
+      -10.0,
+      10.0,
+      0.0,
+      false
+    ],
+    [
+      -20.0,
+      10.0,
+      -10.0,
+      false
+    ],
+    [
+      -20.0,
+      10.0,
+      10.0,
+      false
+    ],
+    [
+      0.0,
+      50.0,
+      0.0,
+      true
+    ]
+  ],
+  "Max_propulsion_force": 2600000.0,
+  "AsternEfficiency": 0.667,
+  "Mass": 35000000,
+  "MaxRevs": 100,
+  "Dynamics": {
+    "speed": [
+      46403.02,
+      78435.83
+    ],
+    "turnDrag": [
+      200000000000,
+      1
+    ],
+    "lateralDrag": [
+      2320150.86627559,
+      392179.151983629
+    ]
+  },
+  "Prop": {
+    "space": 20.0,
+    "walkAhead": 0.0,
+    "walkAstern": 0.0,
+    "walkDriftEffect": 0.0
+  },
+  "Inertia": 87500000000,
+  "Rudder": {
+    "A": 1000000.0,
+    "B": 4.0,
+    "BAstern": 3.0
+  },
+  "centrifugalDriftEffect": 0.03,
+  "Buffet": 0.3,
+  "Swell": 0.05,
+  "Windage": 0.05,
+  "WindageTurnEffect": 1.3,
+  "DeviationMaximum": 5,
+  "DeviationMaximumHeading": 10,
+  "BowThruster": {
+    "force": 26000000,
+    "distance": 67
+  },
+  "SternThruster": {
+    "force": 26000000,
+    "distance": 67
+  },
+  "RadarScreen": {
+    "vector": [
+      -4.9,
+      99.65,
+      192.2
+    ],
+    "size": 1.3,
+    "tilt": 40
+  },
+  "PortThrottle": [
+    -2.678,
+    98.522,
+    190.715
+  ],
+  "StbdThrottle": [
+    -2.478,
+    98.522,
+    190.715
+  ],
+  "Wheel": {
+    "vector": [
+      0.0,
+      98.522,
+      190.0
+    ]
+  },
+  "Sails": {
+    "list": [
+      [
+        -25.5,
+        6.1,
+        -2.6
+      ],
+      [
+        -35.5,
+        6.1,
+        -2.6
+      ]
+    ],
+    "type": "Rotor",
+    "size": "18x3"
+  }
+}

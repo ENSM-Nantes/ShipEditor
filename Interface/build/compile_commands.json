@@ -1,0 +1,20 @@
+[
+{
+  "directory": "C:/Users/jujus/Documents/INFOSI/PAPPL/ShipEditor/Interface/build",
+  "command": "C:\\msys64\\mingw64\\bin\\c++.exe  @CMakeFiles/ShipEditor.dir/includes_CXX.rsp  -Wall -std=c++17 -o CMakeFiles\\ShipEditor.dir\\main.cpp.obj -c C:\\Users\\jujus\\Documents\\INFOSI\\PAPPL\\ShipEditor\\Interface\\src\\main.cpp",
+  "file": "C:/Users/jujus/Documents/INFOSI/PAPPL/ShipEditor/Interface/src/main.cpp",
+  "output": "CMakeFiles/ShipEditor.dir/main.cpp.obj"
+},
+{
+  "directory": "C:/Users/jujus/Documents/INFOSI/PAPPL/ShipEditor/Interface/build",
+  "command": "C:\\msys64\\mingw64\\bin\\c++.exe  @CMakeFiles/ShipEditor.dir/includes_CXX.rsp  -Wall -std=c++17 -o CMakeFiles\\ShipEditor.dir\\BoatManager.cpp.obj -c C:\\Users\\jujus\\Documents\\INFOSI\\PAPPL\\ShipEditor\\Interface\\src\\BoatManager.cpp",
+  "file": "C:/Users/jujus/Documents/INFOSI/PAPPL/ShipEditor/Interface/src/BoatManager.cpp",
+  "output": "CMakeFiles/ShipEditor.dir/BoatManager.cpp.obj"
+},
+{
+  "directory": "C:/Users/jujus/Documents/INFOSI/PAPPL/ShipEditor/Interface/build",
+  "command": "C:\\msys64\\mingw64\\bin\\c++.exe  @CMakeFiles/ShipEditor.dir/includes_CXX.rsp  -Wall -std=c++17 -o CMakeFiles\\ShipEditor.dir\\BoatRow.cpp.obj -c C:\\Users\\jujus\\Documents\\INFOSI\\PAPPL\\ShipEditor\\Interface\\src\\BoatRow.cpp",
+  "file": "C:/Users/jujus/Documents/INFOSI/PAPPL/ShipEditor/Interface/src/BoatRow.cpp",
+  "output": "CMakeFiles/ShipEditor.dir/BoatRow.cpp.obj"
+}
+]

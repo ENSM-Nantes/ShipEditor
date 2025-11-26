@@ -1,0 +1,73 @@
+{
+  "FileName": "boat.x",
+  "ScaleFactor": 0.3038,
+  "YCorrection": -15.0,
+  "AngleCorrection": 0,
+  "HasGPS": true,
+  "HasDepthSounder": true,
+  "MaxDepth": 50,
+  "Depth": 2.07,
+  "View": [
+    [
+      0.0,
+      39.0,
+      56.8,
+      false
+    ],
+    [
+      -15.5,
+      39.7,
+      60.0,
+      false
+    ],
+    [
+      15.5,
+      39.7,
+      60.0,
+      false
+    ],
+    [
+      0.0,
+      400.0,
+      -30.0,
+      true
+    ]
+  ],
+  "Max_propulsion_force": 106000.0,
+  "AsternEfficiency": 1.0,
+  "Mass": 693000,
+  "MaxRevs": 60,
+  "Dynamics": {
+    "speed": [
+      1081.07,
+      1000.0
+    ],
+    "turnDrag": [
+      170000000,
+      30000000
+    ],
+    "lateralDrag": [
+      1081.07,
+      1000.0
+    ]
+  },
+  "Prop": {
+    "space": 0.0,
+    "walkAhead": 0.0,
+    "walkAstern": 0.0,
+    "walkDriftEffect": 0.0
+  },
+  "Inertia": 100000000,
+  "Rudder": {
+    "A": 15000.0,
+    "B": 0.0,
+    "BAstern": 0.0
+  },
+  "centrifugalDriftEffect": 0.03,
+  "Buffet": 1.0,
+  "Swell": 0.15,
+  "Windage": 0.08,
+  "WindageTurnEffect": 0.5,
+  "DeviationMaximum": 5,
+  "DeviationMaximumHeading": 10
+}
