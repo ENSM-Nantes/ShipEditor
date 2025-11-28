@@ -18,7 +18,9 @@ menuButton("⋯") // Unicode pour "..."
     }
 
     // Définir une taille fixe pour l'image (optionnel)
-    image.set_pixel_size(12);
+    image.set_pixel_size(24);
+    image.set_valign(Gtk::Align::CENTER);
+    image.set_halign(Gtk::Align::START);
 
     // Mise en page
     box.set_margin_top(5);
@@ -27,8 +29,16 @@ menuButton("⋯") // Unicode pour "..."
     box.set_margin_end(10);
     box.set_valign(Gtk::Align::CENTER);
 
-    // Ajout des widgets dans la ligne
-    box.append(image);        // remplace pack_start
+    // Ajuster comportements d'expansion / alignement pour une jolie mise en page
+    nameLabel.set_halign(Gtk::Align::CENTER);
+    // Demander à ce que le label prenne l'espace horizontal disponible
+    nameLabel.set_hexpand(true);
+
+    menuButton.set_halign(Gtk::Align::END);
+    menuButton.set_valign(Gtk::Align::CENTER);
+
+    // Ajout des widgets dans la ligne (image à gauche, label centré expansé, bouton à droite)
+    box.append(image);
     box.append(nameLabel);
     box.append(menuButton);
 

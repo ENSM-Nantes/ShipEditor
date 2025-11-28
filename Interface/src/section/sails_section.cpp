@@ -36,22 +36,14 @@ void SailsSection::loadBoat(Boat* b) {
     for (size_t i = 0; i < m_boat->sails.sails.size(); ++i) {
         Sail& sail = m_boat->sails.sails[i];
 
-        std::ostringstream label_x, label_y, label_z;
-        label_x << "Sail " << i << " X:";
-        label_y << "Sail " << i << " Y:";
-        label_z << "Sail " << i << " Z:";
+        std::ostringstream label;
+        label << "Sail" ;
 
-        InputArea* in_x = new InputArea(label_x.str(), &sail.vector[0], true);
-        InputArea* in_y = new InputArea(label_y.str(), &sail.vector[1], true);
-        InputArea* in_z = new InputArea(label_z.str(), &sail.vector[2], true);
+        InputArea* in = new InputArea(label.str(), (float*)(&sail.vector), true);
 
-        m_grid.attach(*in_x, 0, row, 1, 1);
-        m_grid.attach(*in_y, 1, row, 1, 1);
-        m_grid.attach(*in_z, 2, row, 1, 1);
+        m_grid.attach(*in, 0, row, 3, 1);
 
-        m_inputs.push_back(in_x);
-        m_inputs.push_back(in_y);
-        m_inputs.push_back(in_z);
+        m_inputs.push_back(in);
 
         ++row;
     }
