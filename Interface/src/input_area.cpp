@@ -187,7 +187,12 @@ void InputArea::update() {
 		std::string raw_text;
 		for (int i = 0; i < 3; i++) {
 			raw_text = vector_entry[i]->get_buffer()->get_text();
-			var_vector[i] = std::stof(raw_text);
+			if (raw_text.empty()) continue; // leave existing value if empty
+			try {
+				var_vector[i] = std::stof(raw_text);
+			} catch (const std::exception &e) {
+				std::cerr << "Warning: invalid float in vector input: '" << raw_text << "' -> " << e.what() << std::endl;
+			}
 		}
 	} else {
 		// Convert the EntryBuffer into a string
@@ -198,18 +203,33 @@ void InputArea::update() {
 				*var_str = raw_text;
 				break;
 			case TYPE_INTEGER:
-				// Convert then copy the value
-				*var_int = std::stoi(raw_text);
+				// Convert then copy the value (guard empty/invalid input)
+				if (raw_text.empty()) break;
+				try {
+					*var_int = std::stoi(raw_text);
+				} catch (const std::exception &e) {
+					std::cerr << "Warning: invalid integer input: '" << raw_text << "' -> " << e.what() << std::endl;
+				}
 				break;
 			case TYPE_FLOAT:
-				// Convert then copy the value
-				*var_float = std::stof(raw_text);
+				// Convert then copy the value (guard empty/invalid input)
+				if (raw_text.empty()) break;
+				try {
+					*var_float = std::stof(raw_text);
+				} catch (const std::exception &e) {
+					std::cerr << "Warning: invalid float input: '" << raw_text << "' -> " << e.what() << std::endl;
+				}
 				break;
 			case TYPE_DOUBLE:
-				// Convert then copy the value
-				*var_double = std::stod(raw_text);
+				// Convert then copy the value (guard empty/invalid input)
+				if (raw_text.empty()) break;
+				try {
+					*var_double = std::stod(raw_text);
+				} catch (const std::exception &e) {
+					std::cerr << "Warning: invalid double input: '" << raw_text << "' -> " << e.what() << std::endl;
+				}
+				break;
 			default:
-				// TODO: create an error
 				break;
 		}
 	}

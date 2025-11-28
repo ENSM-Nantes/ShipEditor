@@ -9,19 +9,24 @@ int main(int argc, char* argv[]) {
 
     // Charger les bateaux depuis ton dossier de transformation
     BoatManager manager;
-    std::vector<Boat> boats = manager.loadBoats("../../../FileConverter/transformation");
+    std::vector<Boat> boats = manager.loadBoats("../../FileConverter/transformation");
 
-    // Créer la fenêtre principale
+    // Créer la fenêtre principale (ne pas l'ajouter tout de suite)
     MainWindow win;
 
-    // Charger le premier bateau si disponible
-    if (!boats.empty()) {
-        win.loadBoat(&boats[0]);
-    } else {
-        std::cerr << "⚠️ Aucun bateau trouvé dans ../FileConverter/transformation" << std::endl;
-    }
+    // Connecter la présentation de la fenêtre au signal "activate" de l'application
+    // La fenêtre doit être ajoutée après l'émission du signal startup/activate.
+    app->signal_activate().connect([&]() {
+        if (!boats.empty()) {
+            win.loadBoat(&boats[0]);
+        } else {
+            std::cerr << "⚠️ Aucun bateau trouvé dans ../../FileConverter/transformation" << std::endl;
+        }
+        app->add_window(win);
+        win.present();
+    });
 
-    // Lancer l'application
+    // Lancer l'application (passer argc/argv pour la gestion des arguments)
     return app->run(argc, argv);
 }
 //int main (int argc, char *argv[]) {

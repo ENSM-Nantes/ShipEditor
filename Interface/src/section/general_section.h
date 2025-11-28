@@ -12,19 +12,23 @@ using namespace Gtk;
 class GeneralSection: public SectionSuperClass {
 public:
 	GeneralSection();
-	~GeneralSection() {}
+	~GeneralSection();
+	void loadBoat(Boat *b) override;
 
 protected:
-	Boat *boat_ref;
-
 	Grid m_grid;
 
-	InputArea m_filename, m_ycorrection, m_gps, m_scale_factor, m_depth, m_depth_sounder, m_max_depth, m_make_transparent;
-	InputArea *input_list_local[GENERAL_INPUT_COUNT] = {
-		&m_filename, &m_ycorrection, &m_gps, &m_scale_factor,
-		&m_depth, &m_depth_sounder, &m_max_depth,
-		&m_make_transparent
-	};
+	// InputArea are created when a Boat is loaded (to get valid pointers to Boat members)
+	InputArea *m_filename = nullptr;
+	InputArea *m_ycorrection = nullptr;
+	InputArea *m_gps = nullptr;
+	InputArea *m_scale_factor = nullptr;
+	InputArea *m_depth = nullptr;
+	InputArea *m_depth_sounder = nullptr;
+	InputArea *m_max_depth = nullptr;
+	InputArea *m_make_transparent = nullptr;
+
+	InputArea *input_list_local[GENERAL_INPUT_COUNT] = {nullptr};
 };
 
 
