@@ -33,9 +33,9 @@ void SailsSection::loadBoat(Boat* b) {
 }
 
 void SailsSection::rebuild_ui() {
-    std::cout << "SailsSection::rebuild_ui called; boat=" << (void*)m_boat;
-    if (m_boat) std::cout << " sails_count=" << m_boat->sails.sails.size();
-    std::cout << std::endl;
+    // std::cout << "SailsSection::rebuild_ui called; boat=" << (void*)m_boat;
+    // if (m_boat) std::cout << " sails_count=" << m_boat->sails.sails.size();
+    // std::cout << std::endl;
     // Clear the grid and delete old widgets
     for (auto& child : m_grid.get_children()) {
         child->unparent();

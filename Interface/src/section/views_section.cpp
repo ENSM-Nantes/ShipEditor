@@ -32,9 +32,9 @@ void ViewsSection::loadBoat(Boat* b) {
 }
 
 void ViewsSection::rebuild_ui() {
-    std::cout << "ViewsSection::rebuild_ui called; boat=" << (void*)m_boat;
-    if (m_boat) std::cout << " views_count=" << m_boat->viewList.views.size();
-    std::cout << std::endl;
+    // std::cout << "ViewsSection::rebuild_ui called; boat=" << (void*)m_boat;
+    // if (m_boat) std::cout << " views_count=" << m_boat->viewList.views.size();
+    // std::cout << std::endl;
     for (auto &child : m_grid.get_children()) child->unparent();
 
     for (auto &r : m_rows) {

@@ -35,9 +35,9 @@ void PanoSection::loadBoat(Boat* b) {
 }
 
 void PanoSection::rebuild_ui() {
-    std::cout << "PanoSection::rebuild_ui called; boat=" << (void*)m_boat;
-    if (m_boat) std::cout << " pano_count=" << m_boat->pano.file.size();
-    std::cout << std::endl;
+    // std::cout << "PanoSection::rebuild_ui called; boat=" << (void*)m_boat;
+    // if (m_boat) std::cout << " pano_count=" << m_boat->pano.file.size();
+    // std::cout << std::endl;
     // clear grid children
     for (auto &child : m_grid.get_children()) child->unparent();
 
