@@ -1,4 +1,5 @@
-#pragma once
+#ifndef BOAT_MANAGER_H
+#define BOAT_MANAGER_H
 #include <string>
 #include <vector>
 #include <memory>
@@ -160,7 +161,7 @@ public:
     Thruster sternThruster;
     Wheel wheel;
     SailList sails;
-    PanoList  pano;
+    PanoList pano;
 };
 
 // Manager
@@ -174,3 +175,5 @@ class BoatManager {
 public:
     std::vector<Boat> loadBoats(const std::string& folderPath);
 };
+
+#endif

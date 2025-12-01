@@ -8,12 +8,17 @@
 #include "section/section.h"
 
 // Sections import
+#include "section/compass_section.h"
 #include "section/general_section.h"
-#include "section/sails_section.h"
-#include "section/pano_section.h"
-#include "section/views_section.h"
+#include "section/propertie_section.h"
+#include "section/radar_screen_section.h"
+#include "section/rudder_section.h"
+#include "section/weather_section.h"
+#include "section/wheel_section.h"
 
-#define WINDOWS_SECTION_COUNT 4  /** @brief Nombre de sections affichées dans la fenêtre */
+
+#define WINDOWS_SECTION_COUNT 7
+
 
 class MainWindow : public Gtk::Window {
 public:
@@ -25,33 +30,26 @@ public:
     void reset();             /** @brief Réinitialise l’UI depuis Boat */
 
 private:
-    void buttonClick();
-    void buttonClickUpdate();
-    void buttonClickReset();
+	Gtk::ScrolledWindow m_scroll_edit;
+	Gtk::Box m_box;
 
-    Gtk::Button m_button, m_button_update, m_button_reset;
-    Gtk::Box m_box;
-    Gtk::Label m_label1, m_label2;
+	void loadBoat(Boat *b);
+	void update();
+	void reset();
 
-    std::string test_var_string = "file.txt";
-    int test_var_int = 10;
-    float test_var_float = 56.3;
-    bool test_var_bool = 1;
 
-    InputArea m_area0, m_area1, m_area2, m_area3;
+	CompassSection m_compass_section;
+	GeneralSection m_general_section;
+	PropertieSection m_propertie_section;
+	RadarScreenSection m_radar_screen_section;
+	RudderSection m_rudder_section;
+	WeatherSection m_weather_section;
+	WheelSection m_wheel_section;
 
-    // Sections
-    GeneralSection m_general_frame;
-    SailsSection m_sails_frame;
-    PanoSection m_pano_frame;
-    ViewsSection m_views_frame;
-
-    SectionSuperClass* section_list[WINDOWS_SECTION_COUNT] = {
-        &m_general_frame,
-        &m_sails_frame,
-        &m_pano_frame,
-        &m_views_frame
-    };
+	SectionSuperClass *section_list[WINDOWS_SECTION_COUNT] = {
+		//&m_compass_section, &m_general_section, &m_propertie_section,
+		//&m_radar_screen_section, &m_rudder_section, &m_weather_section, &m_wheel_section
+	};
 };
 
 #endif
