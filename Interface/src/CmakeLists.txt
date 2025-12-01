@@ -40,6 +40,7 @@ add_executable(ShipEditor
     input_area.cpp
     section/section.cpp
     section/compass_section.cpp
+    section/dynamics_section.cpp
     section/general_section.cpp
     section/propertie_section.cpp
     section/propulsion_section.cpp

@@ -22,6 +22,7 @@ m_button_delete("Delete"),
 
 // Edit area
 m_compass_section(),
+m_dynamics_section(),
 m_general_section(),
 m_propertie_section(),
 m_propulsion_section(),
@@ -45,6 +46,7 @@ m_wheel_section()
 	/* ********************* */
 	// Show every section
 	m_compass_section.show();
+	m_dynamics_section.show();
 	m_general_section.show();
 	m_propertie_section.show();
 	m_propulsion_section.show();
@@ -58,6 +60,7 @@ m_wheel_section()
 	m_box_edit.append(m_general_section);
 	m_box_edit.append(m_propertie_section);
 	m_box_edit.append(m_propulsion_section);
+	m_box_edit.append(m_dynamics_section);
 	m_box_edit.append(m_radar_screen_section);
 	m_box_edit.append(m_rudder_section);
 	m_box_edit.append(m_weather_section);
