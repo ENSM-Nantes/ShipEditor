@@ -35,10 +35,6 @@ cmake -G"Unix Makefiles" ../src/
 
 Nous allons ensuite compiler le porgramme avec la commande suivante. A chaque fois que vous voulez recompiler le programme éxécutez la.
 ```
-<<<<<<< HEAD
-cmake -G"Unix Makefiles" ../src/
-=======
->>>>>>> origin/prototype_interface
 make
 ```
 
