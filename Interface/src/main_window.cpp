@@ -5,8 +5,22 @@
 
 
 MainWindow::MainWindow():
+// Main window
+m_paned(Gtk::Orientation::HORIZONTAL),
 m_scroll_edit(),
-m_box(Gtk::Orientation::VERTICAL),
+m_scroll_boat(),
+m_box_left_side(Gtk::Orientation::VERTICAL),
+m_box_action_button(Gtk::Orientation::HORIZONTAL),
+m_box_edit(Gtk::Orientation::VERTICAL),
+
+// Boat area
+m_boat_list(),
+m_button_reset(),
+m_button_save(),
+m_button_new(),
+m_button_delete(),
+
+// Edit area
 m_compass_section(),
 m_general_section(),
 m_propertie_section(),
@@ -19,36 +33,84 @@ m_wheel_section()
 	this->set_default_size(600, 400);
 
 	// Configure the scrooled window
+	m_scroll_boat.set_policy(Gtk::PolicyType::AUTOMATIC, Gtk::PolicyType::ALWAYS);
+	m_scroll_boat.set_expand();
 	m_scroll_edit.set_policy(Gtk::PolicyType::AUTOMATIC, Gtk::PolicyType::ALWAYS);
 	m_scroll_edit.set_expand();
+
 	
+	/* ********************* */
+	/* ***** Edit Area ***** */
+	/* ********************* */
 	// Show every section
 	m_compass_section.show();
 	m_general_section.show();
 	m_propertie_section.show();
 	m_radar_screen_section.show();
 	m_rudder_section.show();
-	//m_weather_section.show();
-	//m_wheel_section.show();
-	
+	m_weather_section.show();
+	m_wheel_section.show();
 	
 	// Pack all elements in the box:
-	m_box.append(m_compass_section);
-	m_box.append(m_general_section);
-	m_box.append(m_propertie_section);
-	m_box.append(m_radar_screen_section);
-	m_box.append(m_rudder_section);
-	m_box.append(m_weather_section);
-	m_box.append(m_wheel_section);
+	m_box_edit.append(m_compass_section);
+	m_box_edit.append(m_general_section);
+	m_box_edit.append(m_propertie_section);
+	m_box_edit.append(m_radar_screen_section);
+	m_box_edit.append(m_rudder_section);
+	m_box_edit.append(m_weather_section);
+	m_box_edit.append(m_wheel_section);
 
-	// Make the box visible:
-	m_box.show();
+	// Make the box visible and usable with the scroll bar
+	m_box_edit.show();
+	m_scroll_edit.set_child(m_box_edit);
 
-	// Add the box to the scrolled window
-	m_scroll_edit.set_child(m_box);
 
+	/* ********************* */
+	/* ***** Boat Area ***** */
+	/* ********************* */
+
+	// Link the signals to function
+	// TODO
+
+	// Put an icon
+	// TODO
+
+	// Show the buttons
+	m_button_new.show();
+	m_button_delete.show();
+	m_button_save.show();
+	m_button_reset.show();
+
+	// Pack the button in the box
+	m_box_action_button.append(m_button_new);
+	m_box_action_button.append(m_button_delete);
+	m_box_action_button.append(m_button_save);
+	m_box_action_button.append(m_button_reset);
+
+	// Make the list usable with the scroll bar
+	m_scroll_boat.set_child(m_boat_list);
+
+	// Pack the list and the buttons in the box
+	m_box_left_side.append(m_scroll_boat);
+	m_box_left_side.append(m_box_action_button);
+
+	m_box_action_button.show();
+	m_box_left_side.show();
+
+	
+	
+	
+	
+
+
+	// Configure the paned
+	m_paned.set_margin(10);
+	m_paned.set_start_child(m_box_left_side);
+	m_paned.set_end_child(m_scroll_edit);
+
+	
 	// Add the box in this window:
-	set_child(m_scroll_edit);
+	set_child(m_paned);
 	
 }
 

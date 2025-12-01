@@ -1,5 +1,6 @@
 #include "BoatRow.hpp"
-#include <iostream> // a été utile pour debug donc je le laisse au cas où
+
+#include <iostream>
 #include <giomm/file.h>
 #include <gtkmm/picture.h>
 
@@ -36,4 +37,20 @@ menuButton("⋯") // Unicode pour "..."
     set_child(box);           // remplace add()
 
     // show_all_children() supprimé en GTK 4
+}
+
+
+BoatList::BoatList(): ListBox() {
+    // ListBox qui recevra les BoatRow
+    this->set_selection_mode(Gtk::SelectionMode::NONE);
+
+    // Charger les bateaux depuis les JSON via BoatManager
+    BoatManager manager;
+    auto boats = manager.loadBoats("../../FileConverter/transformation");
+
+    // Remplir la ListBox avec des BoatRow
+    for (const auto& b : boats) {
+        BoatRow* row = Gtk::manage(new BoatRow(b));
+        this->append(*row);
+    }
 }

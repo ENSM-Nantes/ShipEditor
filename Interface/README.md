@@ -30,7 +30,7 @@ cd build
 
 Nous allons ensuite compiler le porgramme avec les commandes suivantes
 ```
-cmake -G"Unix Makefiles" ../src/ -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+cmake -G"Unix Makefiles" ../src/
 make
 ```
 
