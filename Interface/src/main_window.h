@@ -5,6 +5,10 @@
 
 #include <gtkmm.h>
 
+// Import for functional purpose
+#include "input_area.h"
+#include "section/section.h"
+// Boat list/row
 #include "BoatRow.hpp"
 
 // Sections import
@@ -16,18 +20,21 @@
 #include "section/rudder_section.h"
 #include "section/weather_section.h"
 #include "section/wheel_section.h"
+#include "section/sails_section.h"
+#include "section/pano_section.h"
+#include "section/views_section.h"
 
 
-#define WINDOWS_SECTION_COUNT 7
+#define WINDOWS_SECTION_COUNT 10
 
 using namespace std;
 
 
 class MainWindow : public Gtk::Window {
 public:
-	MainWindow();
-	virtual ~MainWindow() = default;
-	
+    MainWindow();
+    virtual ~MainWindow() = default;
+
 private:
 	Gtk::Paned m_paned;
 	Gtk::ScrolledWindow m_scroll_edit, m_scroll_boat;
@@ -49,11 +56,15 @@ private:
 	RudderSection m_rudder_section;
 	WeatherSection m_weather_section;
 	WheelSection m_wheel_section;
+	// Newly integrated sections
+	SailsSection m_sails_section;
+	PanoSection m_pano_section;
+	ViewsSection m_views_section;
 
 	SectionSuperClass *section_list[WINDOWS_SECTION_COUNT] = {
 		&m_compass_section, &m_general_section, &m_propertie_section,
 		&m_radar_screen_section, &m_rudder_section, &m_weather_section,
-		&m_wheel_section
+		&m_wheel_section, &m_sails_section, &m_pano_section, &m_views_section
 	};
 };
 

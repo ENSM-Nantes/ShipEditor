@@ -1,9 +1,6 @@
 #include <iostream>
 #include "main_window.h"
 
-
-
-
 MainWindow::MainWindow():
 // Main window
 m_paned(Gtk::Orientation::HORIZONTAL),
@@ -27,7 +24,10 @@ m_propertie_section(),
 m_radar_screen_section(),
 m_rudder_section(),
 m_weather_section(),
-m_wheel_section()
+	m_wheel_section(),
+	m_sails_section(),
+	m_pano_section(),
+	m_views_section()
 {
 	// Configure this window:
 	this->set_default_size(600, 400);
@@ -50,6 +50,10 @@ m_wheel_section()
 	m_rudder_section.show();
 	m_weather_section.show();
 	m_wheel_section.show();
+	// Show newly added sections
+	m_sails_section.show();
+	m_pano_section.show();
+	m_views_section.show();
 	
 	// Pack all elements in the box:
 	m_box_edit.append(m_compass_section);
@@ -59,6 +63,10 @@ m_wheel_section()
 	m_box_edit.append(m_rudder_section);
 	m_box_edit.append(m_weather_section);
 	m_box_edit.append(m_wheel_section);
+	// Append new sections to the edit box
+	m_box_edit.append(m_sails_section);
+	m_box_edit.append(m_pano_section);
+	m_box_edit.append(m_views_section);
 
 	// Make the box visible and usable with the scroll bar
 	m_box_edit.show();
@@ -110,6 +118,8 @@ m_wheel_section()
 	m_paned.set_start_child(m_box_left_side);
 	m_paned.set_end_child(m_scroll_edit);
 
+	m_paned.set_position(180); // Pour la taille du paneau
+
 	
 	// Add the box in this window:
 	set_child(m_paned);
@@ -118,38 +128,60 @@ m_wheel_section()
 
 
 void MainWindow::boat_callback(Gtk::ListBoxRow *boat_row) {
-	if (boat_row) cout << "Selected a boat" << endl;
-	else cout << "Unselected a boat" << endl;
-	loadBoat(&(((BoatRow*)boat_row)->boat));
+	if (!boat_row) {
+		std::cout << "Unselected a boat" << std::endl;
+		return;
+	}
+
+	// Try a safe cast to BoatRow and load the associated Boat
+	BoatRow* br = dynamic_cast<BoatRow*>(boat_row);
+	if (!br) {
+		std::cerr << "Warning: selected row is not a BoatRow" << std::endl;
+		return;
+	}
+
+	std::cout << "Selected a boat" << std::endl;
+	loadBoat(&br->boat);
 }
 
 
-/**
- * Load a boat to edit its properties
- * @param b The reference of a boat
- */
 void MainWindow::loadBoat(Boat *b) {
-	if (b == nullptr) return;
-	
-	for (int i = 0; i < WINDOWS_SECTION_COUNT; i++) {
-		section_list[i]->loadBoat(b);
-	}
+    if (!b) return;
+	// Call each section's loadBoat directly so derived implementations run
+	m_compass_section.loadBoat(b);
+	m_general_section.loadBoat(b);
+	m_propertie_section.loadBoat(b);
+	m_radar_screen_section.loadBoat(b);
+	m_rudder_section.loadBoat(b);
+	m_weather_section.loadBoat(b);
+	m_wheel_section.loadBoat(b);
+	m_sails_section.loadBoat(b);
+	m_pano_section.loadBoat(b);
+	m_views_section.loadBoat(b);
 }
 
-/**
- * Update all the field of all the sections (see InputArea::update())
- */
 void MainWindow::update() {
-	for (int i = 0; i < WINDOWS_SECTION_COUNT; i++) {
-		section_list[i]->update();
-	}
+	m_compass_section.update();
+	m_general_section.update();
+	m_propertie_section.update();
+	m_radar_screen_section.update();
+	m_rudder_section.update();
+	m_weather_section.update();
+	m_wheel_section.update();
+	m_sails_section.update();
+	m_pano_section.update();
+	m_views_section.update();
 }
 
-/**
- * Reset all the field of all the sections (see InputArea::reset())
- */
 void MainWindow::reset() {
-	for (int i = 0; i < WINDOWS_SECTION_COUNT; i++) {
-		section_list[i]->reset();
-	}
+	m_compass_section.reset();
+	m_general_section.reset();
+	m_propertie_section.reset();
+	m_radar_screen_section.reset();
+	m_rudder_section.reset();
+	m_weather_section.reset();
+	m_wheel_section.reset();
+	m_sails_section.reset();
+	m_pano_section.reset();
+	m_views_section.reset();
 }
