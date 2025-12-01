@@ -22,15 +22,23 @@ Le projet SOMOS vise à modéliser et simuler des scénarios de navigation réal
 - **Raspberry Pi** pour tester nos codes sur Linux
 
 ## Compilation
-Dans le dossier Interface créer une première fois le dossier build et allez à l'intérieur:
+Dans le dossier Interface créez une première fois le dossier build et allez à l'intérieur:
 ```
 mkdir build
 cd build
 ```
 
-Nous allons ensuite compiler le porgramme avec les commandes suivantes
+Exécutez la commande suivante pour créer les fichiers nécessaire pour la compilation:
 ```
 cmake -G"Unix Makefiles" ../src/
+```
+
+Nous allons ensuite compiler le porgramme avec la commande suivante. A chaque fois que vous voulez recompiler le programme éxécutez la.
+```
+<<<<<<< HEAD
+cmake -G"Unix Makefiles" ../src/
+=======
+>>>>>>> origin/prototype_interface
 make
 ```
 
