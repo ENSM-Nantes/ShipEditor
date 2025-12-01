@@ -12,6 +12,8 @@ MainWindow::MainWindow():
     m_area3("Bool", &test_var_bool),
     m_general_frame(),
     m_sails_frame()
+    , m_pano_frame(),
+    m_views_frame()
 {
     set_default_size(600, 400);
 
@@ -30,6 +32,8 @@ MainWindow::MainWindow():
     m_area3.show();
     m_general_frame.show();
     m_sails_frame.show();
+    m_pano_frame.show();
+    m_views_frame.show();
 
     // Ajouter dans la box
     m_box.append(m_button);
@@ -41,6 +45,8 @@ MainWindow::MainWindow():
     m_box.append(m_area3);
     m_box.append(m_general_frame);
     m_box.append(m_sails_frame);
+    m_box.append(m_pano_frame);
+    m_box.append(m_views_frame);
 
     set_child(m_box);
     m_box.show();

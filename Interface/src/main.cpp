@@ -18,10 +18,16 @@ int main(int argc, char* argv[]) {
     // La fenêtre doit être ajoutée après l'émission du signal startup/activate.
     app->signal_activate().connect([&]() {
         if (!boats.empty()) {
-            win.loadBoat(&boats[0]);
+            // For testing: choose the first boat that has sails data, otherwise the first boat
+            int chosen = 0;
+            for (size_t i = 0; i < boats.size(); ++i) {
+                if (!boats[i].sails.sails.empty()) { chosen = (int)i; break; }
+            }
+            win.loadBoat(&boats[chosen]);
         } else {
             std::cerr << "⚠️ Aucun bateau trouvé dans ../../FileConverter/transformation" << std::endl;
         }
+
         app->add_window(win);
         win.present();
     });

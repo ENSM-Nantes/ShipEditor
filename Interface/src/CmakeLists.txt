@@ -41,6 +41,8 @@ add_executable(ShipEditor
     section/section.cpp
     section/general_section.cpp
     section/sails_section.cpp
+    section/views_section.cpp
+    section/pano_section.cpp
 )
 
 # Add folder with all headers:

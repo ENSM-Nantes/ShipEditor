@@ -10,8 +10,10 @@
 // Sections import
 #include "section/general_section.h"
 #include "section/sails_section.h"
+#include "section/pano_section.h"
+#include "section/views_section.h"
 
-#define WINDOWS_SECTION_COUNT 2  /** @brief Nombre de sections affichées dans la fenêtre */
+#define WINDOWS_SECTION_COUNT 4  /** @brief Nombre de sections affichées dans la fenêtre */
 
 class MainWindow : public Gtk::Window {
 public:
@@ -41,10 +43,14 @@ private:
     // Sections
     GeneralSection m_general_frame;
     SailsSection m_sails_frame;
+    PanoSection m_pano_frame;
+    ViewsSection m_views_frame;
 
     SectionSuperClass* section_list[WINDOWS_SECTION_COUNT] = {
         &m_general_frame,
-        &m_sails_frame
+        &m_sails_frame,
+        &m_pano_frame,
+        &m_views_frame
     };
 };
 
