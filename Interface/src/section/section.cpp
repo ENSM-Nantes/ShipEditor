@@ -25,7 +25,6 @@ SectionSuperClass::SectionSuperClass(): SectionSuperClass("") {
 void SectionSuperClass::loadBoat(Boat *b) {
 	if (b == nullptr) return;
 	boat_ref = b;
-
 	// Refresh the interface
 	reset();
 }
@@ -37,12 +36,14 @@ void SectionSuperClass::update() {
 	for (int i = 0; i < input_count; i++) {
 		input_list[i]->update();
 	}
+	*boat_ref = boat_local;
 }
 
 /**
  * Reset all the field (see InputArea::reset())
  */
 void SectionSuperClass::reset() {
+	boat_local = *boat_ref;
 	for (int i = 0; i < input_count; i++) {
 		input_list[i]->reset();
 	}

@@ -1,7 +1,6 @@
 #ifndef AREA_H
 #define AREA_H
 
-#include<iostream>
 #include <string>
 #include <gtkmm.h>
 
@@ -10,7 +9,8 @@ using namespace Gtk;
 class InputArea: public Box {
 public:
 	enum variable_type {
-		TYPE_STRING = 0,
+		TYPE_NULL = 0,
+		TYPE_STRING,
 		TYPE_INTEGER,
 		TYPE_FLOAT,
 		TYPE_DOUBLE,
@@ -31,11 +31,11 @@ public:
 protected:
 	int type;
 	std::string *var_str;
-	int *var_int;
-	float *var_float;
-	double *var_double;
-	float *var_vector;
-	bool *var_bool;
+	int *var_int = nullptr;
+	float *var_float = nullptr;
+	double *var_double = nullptr;
+	float *var_vector = nullptr;
+	bool *var_bool = nullptr;
 
 	Label m_label;
 	Entry m_entry, m_entry_x, m_entry_y, m_entry_z;

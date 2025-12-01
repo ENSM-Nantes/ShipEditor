@@ -13,6 +13,7 @@ m_entry() {
 	// Save the pointer to the target variable
 	type = TYPE_STRING;
 	var_str = ref_var;
+	if (ref_var == nullptr) type = TYPE_NULL;
 
 	// Set the label name
 	m_label.set_text(str);
@@ -41,6 +42,7 @@ m_entry() {
 	// Save the pointer to the target variable
 	type = TYPE_INTEGER;
 	var_int = ref_var;
+	if (ref_var == nullptr) type = TYPE_NULL;
 
 	// Set the label name
 	m_label.set_text(str);
@@ -69,6 +71,7 @@ m_entry() {
 	// Save the pointer to the target variable
 	type = TYPE_FLOAT;
 	var_float = ref_var;
+	if (ref_var == nullptr) type = TYPE_NULL;
 
 	// Set the label name
 	m_label.set_text(str);
@@ -97,6 +100,7 @@ m_entry() {
 	// Save the pointer to the target variable
 	type = TYPE_DOUBLE;
 	var_double = ref_var;
+	if (ref_var == nullptr) type = TYPE_NULL;
 
 	// Set the label name
 	m_label.set_text(str);
@@ -128,6 +132,7 @@ m_entry_z() {
 	// Save the pointer to the target variable
 	type = TYPE_VECTOR;
 	var_vector = ref_var;
+	if (ref_var == nullptr) type = TYPE_NULL;
 
 	// Set the label name
 	m_label.set_text(str);
@@ -162,6 +167,7 @@ m_checkbutton() {
 	// Save the pointer to the target variable
 	type = TYPE_BOOL;
 	var_bool = ref_var;
+	if (ref_var == nullptr) type = TYPE_NULL;
 
 	// Set the label name
 	m_label.set_text(str);
@@ -189,7 +195,7 @@ void InputArea::update() {
 			raw_text = vector_entry[i]->get_buffer()->get_text();
 			var_vector[i] = std::stof(raw_text);
 		}
-	} else {
+	} else if (type != TYPE_NULL) {
 		// Convert the EntryBuffer into a string
 		std::string raw_text = m_entry.get_buffer()->get_text();
 		switch(type) {
@@ -227,7 +233,7 @@ void InputArea::reset() {
 			raw_text = std::to_string(var_vector[i]);
 			vector_entry[i]->get_buffer()->set_text(raw_text);
 		}
-	} else {
+	} else if (type != TYPE_NULL) {
 		std::string raw_text;
 		switch(type) {
 			case TYPE_STRING:

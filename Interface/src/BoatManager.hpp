@@ -1,8 +1,11 @@
 #ifndef BOAT_MANAGER_H
 #define BOAT_MANAGER_H
+
+#include <iostream>
 #include <string>
 #include <vector>
 #include <memory>
+
 #include <json/json.h>
 
 // Structures dynamiques
@@ -124,8 +127,7 @@ struct Wheel {
  * 
  * Cette dernière contient toutes les clés présentent dans les fichiers json et un nom pour l'affichage
  */
-class Boat {
-public:
+struct Boat {
     std::string displayName;
     std::string fileName;
     float scaleFactor;

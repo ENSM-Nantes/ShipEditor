@@ -21,8 +21,10 @@ public:
 	 * @brief Constructeur
 	 * @param boat Instance de Boat contenant les données à afficher
 	 */
-	BoatRow(const Boat& boat);
+	BoatRow(Boat boat_in);
 	~BoatRow() {}
+
+	Boat boat;
 
 private:
 	// Conteneur horizontal principal
@@ -33,9 +35,6 @@ private:
 
 	// Nom du bateau
 	Label nameLabel;
-
-	// Bouton contextuel "..."
-	Button menuButton;
 };
 
 class BoatList: public ListBox {

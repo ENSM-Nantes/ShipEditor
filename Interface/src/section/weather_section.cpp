@@ -3,10 +3,10 @@
 WeatherSection::WeatherSection():
 SectionSuperClass("Weather Influence"),
 m_grid(),
-m_buffet("Buffet", &(boat_ref->buffet)),
-m_swell("Swell", &(boat_ref->swell)),
-m_windage("Windage", &(boat_ref->windage)),
-m_windage_turn_effect("Windage turn effect", &(boat_ref->windageTurnEffect))
+m_buffet("Buffet", &(boat_local.buffet)),
+m_swell("Swell", &(boat_local.swell)),
+m_windage("Windage", &(boat_local.windage)),
+m_windage_turn_effect("Windage turn effect", &(boat_local.windageTurnEffect))
 {
 	// Show every field
 	m_buffet.show();

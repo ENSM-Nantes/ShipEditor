@@ -3,16 +3,16 @@
 PropertieSection::PropertieSection():
 SectionSuperClass("Properties"),
 m_grid(),
-m_mass("Mass", &(boat_ref->mass)),
-m_inertia("Inertia", &(boat_ref->inertia)),
-m_space("Space", &(boat_ref->prop.space)),
-m_walk_ahead("Walk ahead", &(boat_ref->prop.walkAhead)),
-m_walk_astern("Walk Astern", &(boat_ref->prop.walkAstern)),
-m_walk_drift_effect("Walk drift effect", &(boat_ref->prop.walkDriftEffect)),
-m_roll_period("Roll period", &(boat_ref->rollPeriod)),
-m_pitch_period("Pitch period", &(boat_ref->pitchPeriod)),
-m_centrifugal_drift_effect("Centrifugal drift effect", &(boat_ref->centrifugalDriftEffect)),
-m_turn_indicator_rate("Rate of turn indicator", &(boat_ref->hasRateOfTurnIndicator))
+m_mass("Mass", &(boat_local.mass)),
+m_inertia("Inertia", &(boat_local.inertia)),
+m_space("Space", &(boat_local.prop.space)),
+m_walk_ahead("Walk ahead", &(boat_local.prop.walkAhead)),
+m_walk_astern("Walk Astern", &(boat_local.prop.walkAstern)),
+m_walk_drift_effect("Walk drift effect", &(boat_local.prop.walkDriftEffect)),
+m_roll_period("Roll period", &(boat_local.rollPeriod)),
+m_pitch_period("Pitch period", &(boat_local.pitchPeriod)),
+m_centrifugal_drift_effect("Centrifugal drift effect", &(boat_local.centrifugalDriftEffect)),
+m_turn_indicator_rate("Rate of turn indicator", &(boat_local.hasRateOfTurnIndicator))
 {
 	// Show every field
 	m_mass.show();

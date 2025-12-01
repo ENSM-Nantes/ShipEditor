@@ -3,11 +3,11 @@
 RadarScreenSection::RadarScreenSection():
 SectionSuperClass("Radar Screen"),
 m_box(Orientation::VERTICAL),
-m_size("Size", &(boat_ref->radarScreen.size)),
-m_tilt("Tilt", &(boat_ref->radarScreen.tilt)),
-m_vector("Vector", (float*)&(boat_ref->radarScreen.vector), true),
-m_port_throttle("Port throttle", (float*)&(boat_ref->portThrottle), true),
-m_stbd_throttle("Stbd throttle", (float*)&(boat_ref->stbdThrottle), true)
+m_size("Size", &(boat_local.radarScreen.size)),
+m_tilt("Tilt", &(boat_local.radarScreen.tilt)),
+m_vector("Vector", (float*)&(boat_local.radarScreen.vector), true),
+m_port_throttle("Port throttle", (float*)&(boat_local.portThrottle), true),
+m_stbd_throttle("Stbd throttle", (float*)&(boat_local.stbdThrottle), true)
 {
 	// Show every field
 	m_size.show();

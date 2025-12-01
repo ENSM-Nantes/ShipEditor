@@ -5,6 +5,7 @@
 #include "../input_area.h"
 #include "../BoatManager.hpp"
 
+
 /*
 	This class gether the common functions for the sections:
 		void loadBoat(Boat *b)
@@ -26,7 +27,8 @@ public:
 	void reset();
 
 protected:
-	Boat *boat_ref;
+	Boat *boat_ref = nullptr;
+	Boat boat_local;
 
 	int input_count = 0;
 	InputArea **input_list;

@@ -3,14 +3,14 @@
 GeneralSection::GeneralSection():
 SectionSuperClass("General"),
 m_grid(),
-m_filename("File name", &(boat_ref->fileName)),
-m_ycorrection("Y correction", &(boat_ref->yCorrection)),
-m_gps("GPS", &(boat_ref->hasGPS)),
-m_scale_factor("Scale factor", &(boat_ref->scaleFactor)),
-m_depth("Depth", &(boat_ref->depth)),
-m_depth_sounder("Depth sounder", &(boat_ref->hasDepthSounder)),
-m_max_depth("Max depth", &(boat_ref->maxDepth)),
-m_make_transparent("Make transparent", &(boat_ref->makeTransparent))
+m_filename("File name", &(boat_local.fileName)),
+m_ycorrection("Y correction", &(boat_local.yCorrection)),
+m_gps("GPS", &(boat_local.hasGPS)),
+m_scale_factor("Scale factor", &(boat_local.scaleFactor)),
+m_depth("Depth", &(boat_local.depth)),
+m_depth_sounder("Depth sounder", &(boat_local.hasDepthSounder)),
+m_max_depth("Max depth", &(boat_local.maxDepth)),
+m_make_transparent("Make transparent", &(boat_local.makeTransparent))
 {
 	// Show every field
 	m_filename.show();

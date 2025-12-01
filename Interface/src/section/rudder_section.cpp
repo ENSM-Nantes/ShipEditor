@@ -3,9 +3,9 @@
 RudderSection::RudderSection():
 SectionSuperClass("Rudder"),
 m_box(Orientation::VERTICAL),
-m_a("A", &(boat_ref->rudder.A)),
-m_b("B", &(boat_ref->rudder.B)),
-m_bastern("BAstern", &(boat_ref->rudder.BAstern))
+m_a("A", &(boat_local.rudder.A)),
+m_b("B", &(boat_local.rudder.B)),
+m_bastern("BAstern", &(boat_local.rudder.BAstern))
 {
 	// Show every field
 	m_a.show();

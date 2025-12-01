@@ -15,10 +15,10 @@ m_box_edit(Gtk::Orientation::VERTICAL),
 
 // Boat area
 m_boat_list(),
-m_button_reset(),
-m_button_save(),
-m_button_new(),
-m_button_delete(),
+m_button_reset("Reset"),
+m_button_save("Save"),
+m_button_new("New"),
+m_button_delete("Delete"),
 
 // Edit area
 m_compass_section(),
@@ -70,9 +70,11 @@ m_wheel_section()
 	/* ********************* */
 
 	// Link the signals to function
-	// TODO
+	m_boat_list.signal_row_activated().connect(sigc::mem_fun(*this, &MainWindow::boat_callback));
+	m_button_save.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::update));
+	m_button_reset.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::reset));
 
-	// Put an icon
+	// Put an icon in the buttons
 	// TODO
 
 	// Show the buttons
@@ -112,6 +114,13 @@ m_wheel_section()
 	// Add the box in this window:
 	set_child(m_paned);
 	
+}
+
+
+void MainWindow::boat_callback(Gtk::ListBoxRow *boat_row) {
+	if (boat_row) cout << "Selected a boat" << endl;
+	else cout << "Unselected a boat" << endl;
+	loadBoat(&(((BoatRow*)boat_row)->boat));
 }
 
 

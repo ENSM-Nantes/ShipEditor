@@ -3,8 +3,8 @@
 CompassSection::CompassSection():
 SectionSuperClass("Compass"),
 m_box(Orientation::HORIZONTAL),
-m_max_deviation("Maximum deviation", &(boat_ref->deviationMaximum)),
-m_heading_max("Heading maximum", &(boat_ref->deviationMaximumHeading))
+m_max_deviation("Maximum deviation", &(boat_local.deviationMaximum)),
+m_heading_max("Heading maximum", &(boat_local.deviationMaximumHeading))
 {
 	// Show every field
 	m_max_deviation.show();

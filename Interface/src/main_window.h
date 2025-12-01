@@ -1,6 +1,8 @@
 #ifndef MAIN_WINDOW_H
 #define MAIN_WINDOW_H
 
+#include <iostream>
+
 #include <gtkmm.h>
 
 #include "BoatRow.hpp"
@@ -17,6 +19,8 @@
 
 
 #define WINDOWS_SECTION_COUNT 7
+
+using namespace std;
 
 
 class MainWindow : public Gtk::Window {
@@ -35,7 +39,7 @@ private:
 	void update();
 	void reset();
 
-	void boat_callback(ListBoxRow *boat_row); // TODO
+	void boat_callback(Gtk::ListBoxRow *boat_row); // TODO
 
 
 	CompassSection m_compass_section;

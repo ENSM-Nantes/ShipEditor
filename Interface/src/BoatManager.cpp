@@ -1,5 +1,4 @@
 #include "BoatManager.hpp"
-#include <iostream>
 #include <fstream>
 #include <filesystem>
 #include <json/json.h>
@@ -90,6 +89,8 @@ vector<Boat> BoatManager::loadBoats(const string& folderPath) {
         if (root.isMember("View")) {
             b.viewList = ViewList();
             b.viewList.fromJson(root["View"]);
+        } else {
+            b.viewList = ViewList();
         }
 
         // RadarScreen
@@ -100,6 +101,8 @@ vector<Boat> BoatManager::loadBoats(const string& folderPath) {
             b.radarScreen.vector[2] = root["RadarScreen"]["vector"][2].asFloat(); //z
             b.radarScreen.size = root["RadarScreen"]["size"].asFloat();
             b.radarScreen.tilt = root["RadarScreen"]["tilt"].asFloat();
+        } else {
+            b.radarScreen = RadarScreen();
         }
 
         //Throttle
@@ -138,6 +141,8 @@ vector<Boat> BoatManager::loadBoats(const string& folderPath) {
             b.prop.walkAhead = root["Prop"]["walkAhead"].asFloat();
             b.prop.walkAstern = root["Prop"]["walkAstern"].asFloat();
             b.prop.walkDriftEffect = root["Prop"]["walkDriftEffect"].asFloat();
+        } else {
+            b.prop = Prop();
         }
 
         // Azimuth Drive ou jsp ce que ça représente
@@ -154,6 +159,8 @@ vector<Boat> BoatManager::loadBoats(const string& folderPath) {
             b.azimuthDrive.maxDegPerSecond = ad["maxDegPerSecond"].asFloat();
             b.azimuthDrive.thrustLeverMaxChangePerSecond = ad["thrustLeverMaxChangePerSecond"].asFloat();
             b.azimuthDrive.sameDirectionAsSchottel = ad["sameDirectionAsSchottel"].asFloat();
+        } else {
+            b.azimuthDrive = AzimuthDrive();
         }
 
         // Rudder
@@ -162,6 +169,8 @@ vector<Boat> BoatManager::loadBoats(const string& folderPath) {
             b.rudder.A = root["Rudder"]["A"].asFloat();
             b.rudder.B = root["Rudder"]["B"].asFloat();
             b.rudder.BAstern = root["Rudder"]["BAstern"].asFloat();
+        } else {
+            b.rudder = Rudder();
         }
 
         // Buffet
@@ -199,6 +208,8 @@ vector<Boat> BoatManager::loadBoats(const string& folderPath) {
             b.bowThruster = Thruster();
             b.bowThruster.Force = root["BowThruster"]["Force"].asFloat();
             b.bowThruster.Distance = root["BowThruster"]["Distance"].asFloat();
+        } else {
+            b.bowThruster = Thruster();
         }
 
         // Stern Thruster
@@ -206,6 +217,8 @@ vector<Boat> BoatManager::loadBoats(const string& folderPath) {
             b.sternThruster = Thruster();
             b.sternThruster.Force = root["SternThruster"]["Force"].asFloat();
             b.sternThruster.Distance = root["SternThruster"]["Distance"].asFloat();
+        } else {
+            b.sternThruster = Thruster();
         }
 
         // Wheel 
@@ -215,21 +228,27 @@ vector<Boat> BoatManager::loadBoats(const string& folderPath) {
             b.wheel.vector[1] = root["Wheel"]["vector"][1].asFloat();
             b.wheel.vector[2] = root["Wheel"]["vector"][2].asFloat();
             b.wheel.scale = root["Wheel"]["scale"].asFloat();
+        } else {
+            b.wheel = Wheel();
         }
 
         // Sails
         if (root.isMember("Sails")) {
             b.sails = SailList();
             b.sails.fromJson(root["Sails"]);
+        } else {
+            b.sails = SailList();
         }
 
         // Pano
         if (root.isMember("Pano")) {
             b.pano = PanoList();
             b.pano.fromJson(root["Pano"]);
+        } else {
+            b.pano = PanoList();
         }
 
-        boats.push_back(std::move(b));
+        boats.push_back(b);
     }
 
     return boats;

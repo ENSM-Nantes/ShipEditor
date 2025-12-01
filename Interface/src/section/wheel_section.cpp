@@ -3,8 +3,8 @@
 WheelSection::WheelSection():
 SectionSuperClass("Wheel"),
 m_box(Orientation::VERTICAL),
-m_vector("Vector", (float*)&(boat_ref->wheel.vector), true),
-m_scale("Scale", &(boat_ref->wheel.scale))
+m_vector("Vector", (float*)&(boat_local.wheel.vector), true),
+m_scale("Scale", &(boat_local.wheel.scale))
 {
 	// Show every field
 	m_vector.show();
