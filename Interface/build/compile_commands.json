@@ -1,0 +1,80 @@
+[
+{
+  "directory": "C:/msys64/home/Catherine/ShipEditor/Interface/build",
+  "command": "C:/msys64/mingw64/bin/c++.exe  @CMakeFiles/ShipEditor.dir/includes_CXX.rsp  -Wall -std=c++17 -o CMakeFiles/ShipEditor.dir/main.cpp.obj -c C:/msys64/home/Catherine/ShipEditor/Interface/src/main.cpp",
+  "file": "C:/msys64/home/Catherine/ShipEditor/Interface/src/main.cpp",
+  "output": "CMakeFiles/ShipEditor.dir/main.cpp.obj"
+},
+{
+  "directory": "C:/msys64/home/Catherine/ShipEditor/Interface/build",
+  "command": "C:/msys64/mingw64/bin/c++.exe  @CMakeFiles/ShipEditor.dir/includes_CXX.rsp  -Wall -std=c++17 -o CMakeFiles/ShipEditor.dir/main_window.cpp.obj -c C:/msys64/home/Catherine/ShipEditor/Interface/src/main_window.cpp",
+  "file": "C:/msys64/home/Catherine/ShipEditor/Interface/src/main_window.cpp",
+  "output": "CMakeFiles/ShipEditor.dir/main_window.cpp.obj"
+},
+{
+  "directory": "C:/msys64/home/Catherine/ShipEditor/Interface/build",
+  "command": "C:/msys64/mingw64/bin/c++.exe  @CMakeFiles/ShipEditor.dir/includes_CXX.rsp  -Wall -std=c++17 -o CMakeFiles/ShipEditor.dir/BoatManager.cpp.obj -c C:/msys64/home/Catherine/ShipEditor/Interface/src/BoatManager.cpp",
+  "file": "C:/msys64/home/Catherine/ShipEditor/Interface/src/BoatManager.cpp",
+  "output": "CMakeFiles/ShipEditor.dir/BoatManager.cpp.obj"
+},
+{
+  "directory": "C:/msys64/home/Catherine/ShipEditor/Interface/build",
+  "command": "C:/msys64/mingw64/bin/c++.exe  @CMakeFiles/ShipEditor.dir/includes_CXX.rsp  -Wall -std=c++17 -o CMakeFiles/ShipEditor.dir/BoatRow.cpp.obj -c C:/msys64/home/Catherine/ShipEditor/Interface/src/BoatRow.cpp",
+  "file": "C:/msys64/home/Catherine/ShipEditor/Interface/src/BoatRow.cpp",
+  "output": "CMakeFiles/ShipEditor.dir/BoatRow.cpp.obj"
+},
+{
+  "directory": "C:/msys64/home/Catherine/ShipEditor/Interface/build",
+  "command": "C:/msys64/mingw64/bin/c++.exe  @CMakeFiles/ShipEditor.dir/includes_CXX.rsp  -Wall -std=c++17 -o CMakeFiles/ShipEditor.dir/input_area.cpp.obj -c C:/msys64/home/Catherine/ShipEditor/Interface/src/input_area.cpp",
+  "file": "C:/msys64/home/Catherine/ShipEditor/Interface/src/input_area.cpp",
+  "output": "CMakeFiles/ShipEditor.dir/input_area.cpp.obj"
+},
+{
+  "directory": "C:/msys64/home/Catherine/ShipEditor/Interface/build",
+  "command": "C:/msys64/mingw64/bin/c++.exe  @CMakeFiles/ShipEditor.dir/includes_CXX.rsp  -Wall -std=c++17 -o CMakeFiles/ShipEditor.dir/section/section.cpp.obj -c C:/msys64/home/Catherine/ShipEditor/Interface/src/section/section.cpp",
+  "file": "C:/msys64/home/Catherine/ShipEditor/Interface/src/section/section.cpp",
+  "output": "CMakeFiles/ShipEditor.dir/section/section.cpp.obj"
+},
+{
+  "directory": "C:/msys64/home/Catherine/ShipEditor/Interface/build",
+  "command": "C:/msys64/mingw64/bin/c++.exe  @CMakeFiles/ShipEditor.dir/includes_CXX.rsp  -Wall -std=c++17 -o CMakeFiles/ShipEditor.dir/section/compass_section.cpp.obj -c C:/msys64/home/Catherine/ShipEditor/Interface/src/section/compass_section.cpp",
+  "file": "C:/msys64/home/Catherine/ShipEditor/Interface/src/section/compass_section.cpp",
+  "output": "CMakeFiles/ShipEditor.dir/section/compass_section.cpp.obj"
+},
+{
+  "directory": "C:/msys64/home/Catherine/ShipEditor/Interface/build",
+  "command": "C:/msys64/mingw64/bin/c++.exe  @CMakeFiles/ShipEditor.dir/includes_CXX.rsp  -Wall -std=c++17 -o CMakeFiles/ShipEditor.dir/section/general_section.cpp.obj -c C:/msys64/home/Catherine/ShipEditor/Interface/src/section/general_section.cpp",
+  "file": "C:/msys64/home/Catherine/ShipEditor/Interface/src/section/general_section.cpp",
+  "output": "CMakeFiles/ShipEditor.dir/section/general_section.cpp.obj"
+},
+{
+  "directory": "C:/msys64/home/Catherine/ShipEditor/Interface/build",
+  "command": "C:/msys64/mingw64/bin/c++.exe  @CMakeFiles/ShipEditor.dir/includes_CXX.rsp  -Wall -std=c++17 -o CMakeFiles/ShipEditor.dir/section/propertie_section.cpp.obj -c C:/msys64/home/Catherine/ShipEditor/Interface/src/section/propertie_section.cpp",
+  "file": "C:/msys64/home/Catherine/ShipEditor/Interface/src/section/propertie_section.cpp",
+  "output": "CMakeFiles/ShipEditor.dir/section/propertie_section.cpp.obj"
+},
+{
+  "directory": "C:/msys64/home/Catherine/ShipEditor/Interface/build",
+  "command": "C:/msys64/mingw64/bin/c++.exe  @CMakeFiles/ShipEditor.dir/includes_CXX.rsp  -Wall -std=c++17 -o CMakeFiles/ShipEditor.dir/section/radar_screen_section.cpp.obj -c C:/msys64/home/Catherine/ShipEditor/Interface/src/section/radar_screen_section.cpp",
+  "file": "C:/msys64/home/Catherine/ShipEditor/Interface/src/section/radar_screen_section.cpp",
+  "output": "CMakeFiles/ShipEditor.dir/section/radar_screen_section.cpp.obj"
+},
+{
+  "directory": "C:/msys64/home/Catherine/ShipEditor/Interface/build",
+  "command": "C:/msys64/mingw64/bin/c++.exe  @CMakeFiles/ShipEditor.dir/includes_CXX.rsp  -Wall -std=c++17 -o CMakeFiles/ShipEditor.dir/section/rudder_section.cpp.obj -c C:/msys64/home/Catherine/ShipEditor/Interface/src/section/rudder_section.cpp",
+  "file": "C:/msys64/home/Catherine/ShipEditor/Interface/src/section/rudder_section.cpp",
+  "output": "CMakeFiles/ShipEditor.dir/section/rudder_section.cpp.obj"
+},
+{
+  "directory": "C:/msys64/home/Catherine/ShipEditor/Interface/build",
+  "command": "C:/msys64/mingw64/bin/c++.exe  @CMakeFiles/ShipEditor.dir/includes_CXX.rsp  -Wall -std=c++17 -o CMakeFiles/ShipEditor.dir/section/weather_section.cpp.obj -c C:/msys64/home/Catherine/ShipEditor/Interface/src/section/weather_section.cpp",
+  "file": "C:/msys64/home/Catherine/ShipEditor/Interface/src/section/weather_section.cpp",
+  "output": "CMakeFiles/ShipEditor.dir/section/weather_section.cpp.obj"
+},
+{
+  "directory": "C:/msys64/home/Catherine/ShipEditor/Interface/build",
+  "command": "C:/msys64/mingw64/bin/c++.exe  @CMakeFiles/ShipEditor.dir/includes_CXX.rsp  -Wall -std=c++17 -o CMakeFiles/ShipEditor.dir/section/wheel_section.cpp.obj -c C:/msys64/home/Catherine/ShipEditor/Interface/src/section/wheel_section.cpp",
+  "file": "C:/msys64/home/Catherine/ShipEditor/Interface/src/section/wheel_section.cpp",
+  "output": "CMakeFiles/ShipEditor.dir/section/wheel_section.cpp.obj"
+}
+]
