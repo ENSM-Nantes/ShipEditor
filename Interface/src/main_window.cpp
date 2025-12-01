@@ -24,6 +24,7 @@ m_button_delete("Delete"),
 m_compass_section(),
 m_general_section(),
 m_propertie_section(),
+m_propulsion_section(),
 m_radar_screen_section(),
 m_rudder_section(),
 m_weather_section(),
@@ -46,6 +47,7 @@ m_wheel_section()
 	m_compass_section.show();
 	m_general_section.show();
 	m_propertie_section.show();
+	m_propulsion_section.show();
 	m_radar_screen_section.show();
 	m_rudder_section.show();
 	m_weather_section.show();
@@ -55,6 +57,7 @@ m_wheel_section()
 	m_box_edit.append(m_compass_section);
 	m_box_edit.append(m_general_section);
 	m_box_edit.append(m_propertie_section);
+	m_box_edit.append(m_propulsion_section);
 	m_box_edit.append(m_radar_screen_section);
 	m_box_edit.append(m_rudder_section);
 	m_box_edit.append(m_weather_section);
@@ -118,8 +121,6 @@ m_wheel_section()
 
 
 void MainWindow::boat_callback(Gtk::ListBoxRow *boat_row) {
-	if (boat_row) cout << "Selected a boat" << endl;
-	else cout << "Unselected a boat" << endl;
 	loadBoat(&(((BoatRow*)boat_row)->boat));
 }
 

@@ -21,6 +21,13 @@ m_entry() {
 	// Show the variable type in the placeholder (when it's empty)
 	m_entry.set_placeholder_text("string");
 
+	// Layout
+	this->set_margin_top(2);
+	this->set_margin_bottom(2);
+	this->set_margin_start(2);
+	this->set_margin_end(2);
+	m_entry.set_margin_start(5);
+
 	// Display the content
 	m_label.show();
 	m_entry.show();
@@ -49,6 +56,13 @@ m_entry() {
 
 	// Show the variable type in the placeholder (when it's empty)
 	m_entry.set_placeholder_text("integer");
+
+	// Layout
+	this->set_margin_top(2);
+	this->set_margin_bottom(2);
+	this->set_margin_start(2);
+	this->set_margin_end(2);
+	m_entry.set_margin_start(5);
 
 	// Display the content
 	m_label.show();
@@ -79,6 +93,13 @@ m_entry() {
 	// Show the variable type in the placeholder (when it's empty)
 	m_entry.set_placeholder_text("float");
 
+	// Layout
+	this->set_margin_top(2);
+	this->set_margin_bottom(2);
+	this->set_margin_start(2);
+	this->set_margin_end(2);
+	m_entry.set_margin_start(5);
+
 	// Display the content
 	m_label.show();
 	m_entry.show();
@@ -107,6 +128,13 @@ m_entry() {
 
 	// Show the variable type in the placeholder (when it's empty)
 	m_entry.set_placeholder_text("float");
+
+	// Layout
+	this->set_margin_top(2);
+	this->set_margin_bottom(2);
+	this->set_margin_start(2);
+	this->set_margin_end(2);
+	m_entry.set_margin_start(5);
 
 	// Display the content
 	m_label.show();
@@ -142,6 +170,13 @@ m_entry_z() {
 	m_entry_y.set_placeholder_text("y");
 	m_entry_z.set_placeholder_text("z");
 
+	// Layout
+	this->set_margin_top(2);
+	this->set_margin_bottom(2);
+	this->set_margin_start(2);
+	this->set_margin_end(2);
+	m_entry_x.set_margin_start(5);
+
 	// Display the content
 	m_label.show();
 	m_entry_x.show();
@@ -172,6 +207,13 @@ m_checkbutton() {
 	// Set the label name
 	m_label.set_text(str);
 
+	// Layout
+	this->set_margin_top(2);
+	this->set_margin_bottom(2);
+	this->set_margin_start(2);
+	this->set_margin_end(2);
+	m_checkbutton.set_margin_start(5);
+	
 	// Display the content
 	m_label.show();
 	m_checkbutton.show();

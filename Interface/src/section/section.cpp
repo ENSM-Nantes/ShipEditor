@@ -6,7 +6,10 @@
  * @param the name of the section
  */
 SectionSuperClass::SectionSuperClass(const Glib::ustring &label): Frame(label) {
-	// Nothing to do
+	this->set_margin_top(5);
+	this->set_margin_bottom(5);
+	this->set_margin_start(10);
+	this->set_margin_end(10);
 }
 
 /**
