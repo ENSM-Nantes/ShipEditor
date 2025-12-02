@@ -20,6 +20,11 @@ Le projet SOMOS vise à modéliser et simuler des scénarios de navigation réal
 - **C++** 
 - **WSL** 
 
+## Dépendances
+```
+sudo apt-get install libgtk-4-dev libgtkmm-4.0-dev libjsoncpp-dev
+```
+
 ## Compilation
 Dans le dossier Interface créez une première fois le dossier build et allez à l'intérieur:
 ```
