@@ -17,9 +17,8 @@ Le projet SOMOS vise à modéliser et simuler des scénarios de navigation réal
 ## 🛠️ Technologies utilisées
 
 - **GTK 4** 
-- **C / C++** 
-- **MSYS** Pour run et tester nos codes sur Windows
-- **Raspberry Pi** pour tester nos codes sur Linux
+- **C++** 
+- **WSL** 
 
 ## Compilation
 Dans le dossier Interface créez une première fois le dossier build et allez à l'intérieur:
@@ -30,7 +29,7 @@ cd build
 
 Exécutez la commande suivante pour créer les fichiers nécessaire pour la compilation:
 ```
-cmake -G"Unix Makefiles" ../src/
+cmake ../src
 ```
 
 Nous allons ensuite compiler le porgramme avec la commande suivante. A chaque fois que vous voulez recompiler le programme éxécutez la.
