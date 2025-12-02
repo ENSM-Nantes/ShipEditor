@@ -8,19 +8,21 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "C:/msys64/home/Catherine/ShipEditor/Interface/src/BoatManager.cpp" "CMakeFiles/ShipEditor.dir/BoatManager.cpp.obj" "gcc" "CMakeFiles/ShipEditor.dir/BoatManager.cpp.obj.d"
-  "C:/msys64/home/Catherine/ShipEditor/Interface/src/BoatRow.cpp" "CMakeFiles/ShipEditor.dir/BoatRow.cpp.obj" "gcc" "CMakeFiles/ShipEditor.dir/BoatRow.cpp.obj.d"
-  "C:/msys64/home/Catherine/ShipEditor/Interface/src/input_area.cpp" "CMakeFiles/ShipEditor.dir/input_area.cpp.obj" "gcc" "CMakeFiles/ShipEditor.dir/input_area.cpp.obj.d"
-  "C:/msys64/home/Catherine/ShipEditor/Interface/src/main.cpp" "CMakeFiles/ShipEditor.dir/main.cpp.obj" "gcc" "CMakeFiles/ShipEditor.dir/main.cpp.obj.d"
-  "C:/msys64/home/Catherine/ShipEditor/Interface/src/main_window.cpp" "CMakeFiles/ShipEditor.dir/main_window.cpp.obj" "gcc" "CMakeFiles/ShipEditor.dir/main_window.cpp.obj.d"
-  "C:/msys64/home/Catherine/ShipEditor/Interface/src/section/compass_section.cpp" "CMakeFiles/ShipEditor.dir/section/compass_section.cpp.obj" "gcc" "CMakeFiles/ShipEditor.dir/section/compass_section.cpp.obj.d"
-  "C:/msys64/home/Catherine/ShipEditor/Interface/src/section/general_section.cpp" "CMakeFiles/ShipEditor.dir/section/general_section.cpp.obj" "gcc" "CMakeFiles/ShipEditor.dir/section/general_section.cpp.obj.d"
-  "C:/msys64/home/Catherine/ShipEditor/Interface/src/section/propertie_section.cpp" "CMakeFiles/ShipEditor.dir/section/propertie_section.cpp.obj" "gcc" "CMakeFiles/ShipEditor.dir/section/propertie_section.cpp.obj.d"
-  "C:/msys64/home/Catherine/ShipEditor/Interface/src/section/radar_screen_section.cpp" "CMakeFiles/ShipEditor.dir/section/radar_screen_section.cpp.obj" "gcc" "CMakeFiles/ShipEditor.dir/section/radar_screen_section.cpp.obj.d"
-  "C:/msys64/home/Catherine/ShipEditor/Interface/src/section/rudder_section.cpp" "CMakeFiles/ShipEditor.dir/section/rudder_section.cpp.obj" "gcc" "CMakeFiles/ShipEditor.dir/section/rudder_section.cpp.obj.d"
-  "C:/msys64/home/Catherine/ShipEditor/Interface/src/section/section.cpp" "CMakeFiles/ShipEditor.dir/section/section.cpp.obj" "gcc" "CMakeFiles/ShipEditor.dir/section/section.cpp.obj.d"
-  "C:/msys64/home/Catherine/ShipEditor/Interface/src/section/weather_section.cpp" "CMakeFiles/ShipEditor.dir/section/weather_section.cpp.obj" "gcc" "CMakeFiles/ShipEditor.dir/section/weather_section.cpp.obj.d"
-  "C:/msys64/home/Catherine/ShipEditor/Interface/src/section/wheel_section.cpp" "CMakeFiles/ShipEditor.dir/section/wheel_section.cpp.obj" "gcc" "CMakeFiles/ShipEditor.dir/section/wheel_section.cpp.obj.d"
+  "/home/flo/ShipEditor/Interface/src/BoatManager.cpp" "CMakeFiles/ShipEditor.dir/BoatManager.cpp.o" "gcc" "CMakeFiles/ShipEditor.dir/BoatManager.cpp.o.d"
+  "/home/flo/ShipEditor/Interface/src/BoatRow.cpp" "CMakeFiles/ShipEditor.dir/BoatRow.cpp.o" "gcc" "CMakeFiles/ShipEditor.dir/BoatRow.cpp.o.d"
+  "/home/flo/ShipEditor/Interface/src/input_area.cpp" "CMakeFiles/ShipEditor.dir/input_area.cpp.o" "gcc" "CMakeFiles/ShipEditor.dir/input_area.cpp.o.d"
+  "/home/flo/ShipEditor/Interface/src/main.cpp" "CMakeFiles/ShipEditor.dir/main.cpp.o" "gcc" "CMakeFiles/ShipEditor.dir/main.cpp.o.d"
+  "/home/flo/ShipEditor/Interface/src/main_window.cpp" "CMakeFiles/ShipEditor.dir/main_window.cpp.o" "gcc" "CMakeFiles/ShipEditor.dir/main_window.cpp.o.d"
+  "/home/flo/ShipEditor/Interface/src/section/compass_section.cpp" "CMakeFiles/ShipEditor.dir/section/compass_section.cpp.o" "gcc" "CMakeFiles/ShipEditor.dir/section/compass_section.cpp.o.d"
+  "/home/flo/ShipEditor/Interface/src/section/dynamics_section.cpp" "CMakeFiles/ShipEditor.dir/section/dynamics_section.cpp.o" "gcc" "CMakeFiles/ShipEditor.dir/section/dynamics_section.cpp.o.d"
+  "/home/flo/ShipEditor/Interface/src/section/general_section.cpp" "CMakeFiles/ShipEditor.dir/section/general_section.cpp.o" "gcc" "CMakeFiles/ShipEditor.dir/section/general_section.cpp.o.d"
+  "/home/flo/ShipEditor/Interface/src/section/propertie_section.cpp" "CMakeFiles/ShipEditor.dir/section/propertie_section.cpp.o" "gcc" "CMakeFiles/ShipEditor.dir/section/propertie_section.cpp.o.d"
+  "/home/flo/ShipEditor/Interface/src/section/propulsion_section.cpp" "CMakeFiles/ShipEditor.dir/section/propulsion_section.cpp.o" "gcc" "CMakeFiles/ShipEditor.dir/section/propulsion_section.cpp.o.d"
+  "/home/flo/ShipEditor/Interface/src/section/radar_screen_section.cpp" "CMakeFiles/ShipEditor.dir/section/radar_screen_section.cpp.o" "gcc" "CMakeFiles/ShipEditor.dir/section/radar_screen_section.cpp.o.d"
+  "/home/flo/ShipEditor/Interface/src/section/rudder_section.cpp" "CMakeFiles/ShipEditor.dir/section/rudder_section.cpp.o" "gcc" "CMakeFiles/ShipEditor.dir/section/rudder_section.cpp.o.d"
+  "/home/flo/ShipEditor/Interface/src/section/section.cpp" "CMakeFiles/ShipEditor.dir/section/section.cpp.o" "gcc" "CMakeFiles/ShipEditor.dir/section/section.cpp.o.d"
+  "/home/flo/ShipEditor/Interface/src/section/weather_section.cpp" "CMakeFiles/ShipEditor.dir/section/weather_section.cpp.o" "gcc" "CMakeFiles/ShipEditor.dir/section/weather_section.cpp.o.d"
+  "/home/flo/ShipEditor/Interface/src/section/wheel_section.cpp" "CMakeFiles/ShipEditor.dir/section/wheel_section.cpp.o" "gcc" "CMakeFiles/ShipEditor.dir/section/wheel_section.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

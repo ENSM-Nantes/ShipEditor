@@ -21,15 +21,18 @@ include(GNUInstallDirs)
 
 # Pkg_config is used to locate header and files for dependency libraries:
 find_package(PkgConfig)
+
 pkg_check_modules(JSONCPP jsoncpp)
-link_directories(${JSONCPP_LIBRARY_DIRS})
+pkg_check_modules(GTK4 REQUIRED gtk4)
+pkg_check_modules(GTKMM REQUIRED gtkmm-4.0)
+pkg_check_modules(GLIB REQUIRED glib-2.0)
+
+#Include
 include_directories(${JSONCPP_INCLUDE_DIRS})
+include_directories(${GTKMM_INCLUDE_DIRS})
 
-
-# Defines variables GTKMM_INCLUDE_DIRS, GTKMM_LIBRARY_DIRS and GTKMM_LIBRARIES.
-pkg_check_modules(GTKMM gtkmm-4.0) 
-link_directories( ${GTKMM_LIBRARY_DIRS} )
-include_directories( ${GTKMM_INCLUDE_DIRS} )
+#Linker
+link_directories(${JSONCPP_LIBRARY_DIRS})
 
 # Compile files:
 add_executable(ShipEditor

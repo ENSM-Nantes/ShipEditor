@@ -1,3 +1,3 @@
-C:/msys64/home/Catherine/ShipEditor/Interface/build/CMakeFiles/ShipEditor.dir
-C:/msys64/home/Catherine/ShipEditor/Interface/build/CMakeFiles/edit_cache.dir
-C:/msys64/home/Catherine/ShipEditor/Interface/build/CMakeFiles/rebuild_cache.dir
+/home/flo/ShipEditor/Interface/build/CMakeFiles/ShipEditor.dir
+/home/flo/ShipEditor/Interface/build/CMakeFiles/edit_cache.dir
+/home/flo/ShipEditor/Interface/build/CMakeFiles/rebuild_cache.dir
