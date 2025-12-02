@@ -9,6 +9,7 @@
 
 // Sections import
 #include "section/section.h" // Super class
+#include "section/azimuth_section.h"
 #include "section/compass_section.h"
 #include "section/dynamics_section.h"
 #include "section/general_section.h"
@@ -20,7 +21,7 @@
 #include "section/wheel_section.h"
 
 
-#define WINDOWS_SECTION_COUNT 9
+#define WINDOWS_SECTION_COUNT 10
 
 using namespace std;
 
@@ -43,7 +44,7 @@ private:
 
 	void boat_callback(Gtk::ListBoxRow *boat_row);
 
-
+	AzimuthSection m_azimuth_section;
 	CompassSection m_compass_section;
 	DynamicsSection m_dynamics_section;
 	GeneralSection m_general_section;
@@ -55,9 +56,10 @@ private:
 	WheelSection m_wheel_section;
 
 	SectionSuperClass *section_list[WINDOWS_SECTION_COUNT] = {
-		&m_compass_section, &m_dynamics_section, &m_general_section,
-		&m_propertie_section, &m_propulsion_section, &m_radar_screen_section,
-		&m_rudder_section, &m_weather_section, &m_wheel_section
+		&m_azimuth_section, &m_compass_section, &m_dynamics_section,
+		&m_general_section, &m_propertie_section, &m_propulsion_section,
+		&m_radar_screen_section, &m_rudder_section, &m_weather_section,
+		&m_wheel_section
 	};
 };
 
