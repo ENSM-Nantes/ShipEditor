@@ -42,6 +42,7 @@ add_executable(ShipEditor
     BoatRow.cpp
     input_area.cpp
     section/section.cpp
+    section/azimuth_section.cpp
     section/compass_section.cpp
     section/dynamics_section.cpp
     section/general_section.cpp
