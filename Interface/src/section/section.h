@@ -6,32 +6,19 @@
 #include "../BoatManager.hpp"
 
 
-/*
-	This class gether the common functions for the sections:
-		void loadBoat(Boat *b)
-		void update()
-		void reset()
-
-*/
-class SectionSuperClass: public Frame {
+class Section: public Frame {
 public:
-	SectionSuperClass();
-	SectionSuperClass(const Glib::ustring &label);
-	~SectionSuperClass() {}
+  Section();
+  Section(const Glib::ustring &label);
+  ~Section();
 
-	// Boat change
-	void loadBoat(Boat *b);
-
-	// For the entries
-	void update();
-	void reset();
+  void load(Boat *b);
+  virtual void update(void) = 0;
+  virtual void reset(void) = 0;
 
 protected:
-	Boat *boat_ref = nullptr;
-	Boat boat_local;
 
-	int input_count = 0;
-	InputArea **input_list;
+  Boat mBoat;  
 	
 };
 

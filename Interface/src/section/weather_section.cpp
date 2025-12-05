@@ -1,30 +1,42 @@
 #include "weather_section.h"
 
 WeatherSection::WeatherSection():
-SectionSuperClass("Weather Influence"),
-m_grid(),
-m_buffet("Buffet", &(boat_local.buffet)),
-m_swell("Swell", &(boat_local.swell)),
-m_windage("Windage", &(boat_local.windage)),
-m_windage_turn_effect("Windage turn effect", &(boat_local.windageTurnEffect))
+  m_grid()
 {
-	// Show every field
-	m_buffet.show();
-	m_swell.show();
-	m_windage.show();
-	m_windage_turn_effect.show();
+  m_buffet.set("Buffet", &mBoat.buffet);
+  m_swell.set("Swell", &mBoat.swell);
+  m_windage.set("Windage", &mBoat.windage);
+  m_windage_turn_effect.set("Windage turn effect", &mBoat.windageTurnEffect);
+      
+  // Show every field
+  m_buffet.getBox().show();
+  m_swell.getBox().show();
+  m_windage.getBox().show();
+  m_windage_turn_effect.getBox().show();
 
-	// Fill the box
-	m_grid.attach(m_buffet, 0, 0);
-	m_grid.attach(m_swell, 0, 1);
-	m_grid.attach(m_windage, 1, 0);
-	m_grid.attach(m_windage_turn_effect, 1, 1);
+  // Fill the box
+  m_grid.attach(m_buffet.getBox(), 0, 0);
+  m_grid.attach(m_swell.getBox(), 0, 1);
+  m_grid.attach(m_windage.getBox(), 1, 0);
+  m_grid.attach(m_windage_turn_effect.getBox(), 1, 1);
 
-	// Show and set the grid as the child
-	m_grid.show();
-	this->set_child(m_grid);
+  // Show and set the grid as the child
+  m_grid.show();
+  set_child(m_grid);
+}
 
-	// Save the reference to the input list
-	this->input_list = (InputArea**)&input_list_local;
-	this->input_count = WEATHER_INPUT_COUNT;
+void WeatherSection::update(void)
+{
+  for(unsigned char i=0;i<WEATHER_INPUT_COUNT;i++)
+    {
+      mInputList[i]->update();
+    }
+}
+
+void WeatherSection::reset(void)
+{
+  for(unsigned char i=0;i<WEATHER_INPUT_COUNT;i++)
+    {
+      mInputList[i]->reset();
+    }
 }

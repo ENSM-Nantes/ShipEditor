@@ -3,24 +3,30 @@
 
 #include <gtkmm.h>
 #include "../input_area.h"
+#include "../BoatManager.hpp"
 #include "section.h"
 
 #define RADAR_SCREEN_INPUT_COUNT 5
 
 using namespace Gtk;
 
-class RadarScreenSection: public SectionSuperClass {
+class RadarScreenSection: public Section {
 public:
-	RadarScreenSection();
-	~RadarScreenSection() {}
+  RadarScreenSection();
+  ~RadarScreenSection() {}
 
+  virtual void update(void);
+  virtual void reset(void);
+  
 protected:
-	Box m_box;
+  Box m_box;
 
-	InputArea m_size, m_tilt, m_vector, m_port_throttle, m_stbd_throttle;
-	InputArea *input_list_local[RADAR_SCREEN_INPUT_COUNT] = {
-		&m_size, &m_tilt, &m_vector, &m_port_throttle, &m_stbd_throttle
-	};
+  InputArea m_size, m_tilt, m_vector, m_port_throttle, m_stbd_throttle;
+
+  InputArea *mInputList[RADAR_SCREEN_INPUT_COUNT] = {
+    &m_size, &m_tilt, &m_vector, &m_port_throttle, &m_stbd_throttle
+  };
+
 };
 
 

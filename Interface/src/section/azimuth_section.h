@@ -3,26 +3,33 @@
 
 #include <gtkmm.h>
 #include "../input_area.h"
+#include "../BoatManager.hpp"
 #include "section.h"
 
 #define AZIMUTH_INPUT_COUNT 10
 
 using namespace Gtk;
 
-class AzimuthSection: public SectionSuperClass {
+class AzimuthSection: public Section {
 public:
-	AzimuthSection();
-	~AzimuthSection() {}
 
+  AzimuthSection();
+  ~AzimuthSection() {}
+
+  virtual void update(void);
+  virtual void reset(void);
+  
 protected:
-	Grid m_grid;
+  Grid m_grid;
 
-	InputArea m_azimuth, m_astern, m_azimuth_lenth2ratio, m_engine_idle, m_max_deg_sec, m_clutch_engaged, m_clutch_disengage, m_thrust_lever, m_same_dir, m_engine_max_change;
-	InputArea *input_list_local[AZIMUTH_INPUT_COUNT] = {
-		&m_azimuth, &m_astern, &m_azimuth_lenth2ratio, &m_engine_idle,
-		&m_max_deg_sec, &m_clutch_engaged, &m_clutch_disengage,
-		&m_thrust_lever, &m_same_dir, &m_engine_max_change
-	};
+  InputArea m_azimuth, m_astern, m_azimuth_lenth2ratio, m_engine_idle, m_max_deg_sec, m_clutch_engaged, m_clutch_disengage, m_thrust_lever, m_same_dir, m_engine_max_change;
+
+  InputArea *mInputList[AZIMUTH_INPUT_COUNT] = {
+    &m_azimuth, &m_astern, &m_azimuth_lenth2ratio, &m_engine_idle,
+    &m_max_deg_sec, &m_clutch_engaged, &m_clutch_disengage,
+    &m_thrust_lever, &m_same_dir, &m_engine_max_change
+  };
+
 };
 
 

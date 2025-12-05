@@ -3,24 +3,30 @@
 
 #include <gtkmm.h>
 #include "../input_area.h"
+#include "../BoatManager.hpp"
 #include "section.h"
 
 #define WHEEL_INPUT_COUNT 2
 
 using namespace Gtk;
 
-class WheelSection: public SectionSuperClass {
+class WheelSection: public Section {
 public:
-	WheelSection();
-	~WheelSection() {}
+  WheelSection();
+  ~WheelSection() {}
 
+  virtual void update(void);
+  virtual void reset(void);
+  
 protected:
-	Box m_box;
+  Box m_box;
 
-	InputArea m_vector, m_scale;
-	InputArea *input_list_local[WHEEL_INPUT_COUNT] = {
-		&m_vector, &m_scale
-	};
+  InputArea m_vector, m_scale;
+
+  InputArea *mInputList[WHEEL_INPUT_COUNT] = {
+    &m_vector, &m_scale
+  };
+
 };
 
 

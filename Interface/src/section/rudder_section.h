@@ -3,24 +3,30 @@
 
 #include <gtkmm.h>
 #include "../input_area.h"
+#include "../BoatManager.hpp"
 #include "section.h"
 
 #define RUDDER_INPUT_COUNT 3
 
 using namespace Gtk;
 
-class RudderSection: public SectionSuperClass {
+class RudderSection: public Section {
 public:
-	RudderSection();
-	~RudderSection() {}
+  RudderSection();
+  ~RudderSection() {}
 
+  virtual void update(void);
+  virtual void reset(void);
+  
 protected:
-	Box m_box;
+  Box m_box;
 
-	InputArea m_a, m_b, m_bastern;
-	InputArea *input_list_local[RUDDER_INPUT_COUNT] = {
-		&m_a, &m_b, &m_bastern
-	};
+  InputArea m_a, m_b, m_bastern;
+
+  InputArea *mInputList[RUDDER_INPUT_COUNT] = {
+    &m_a, &m_b, &m_bastern
+  };
+
 };
 
 

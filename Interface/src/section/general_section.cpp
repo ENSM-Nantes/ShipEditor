@@ -1,42 +1,56 @@
 #include "general_section.h"
 
 GeneralSection::GeneralSection():
-SectionSuperClass("General"),
-m_grid(),
-m_filename("File name", &(boat_local.fileName)),
-m_ycorrection("Y correction", &(boat_local.yCorrection)),
-m_gps("GPS", &(boat_local.hasGPS)),
-m_scale_factor("Scale factor", &(boat_local.scaleFactor)),
-m_depth("Depth", &(boat_local.depth)),
-m_depth_sounder("Depth sounder", &(boat_local.hasDepthSounder)),
-m_max_depth("Max depth", &(boat_local.maxDepth)),
-m_make_transparent("Make transparent", &(boat_local.makeTransparent))
+  m_grid()
 {
-	// Show every field
-	m_filename.show();
-	m_ycorrection.show();
-	m_gps.show();
-	m_scale_factor.show();
-	m_depth.show();
-	m_depth_sounder.show();
-	m_max_depth.show();
-	m_make_transparent.show();
+  m_filename.set("File name", &mBoat.fileName);
+  m_ycorrection.set("Y correction", &mBoat.yCorrection);
+  m_gps.set("GPS", &mBoat.hasGPS);
+  m_scale_factor.set("Scale factor", &mBoat.scaleFactor);
+  m_depth.set("Depth", &mBoat.depth);
+  m_depth_sounder.set("Depth sounder", &mBoat.hasDepthSounder);
+  m_max_depth.set("Max depth", &mBoat.maxDepth);
+  m_make_transparent.set("Make transparent", &mBoat.makeTransparent);
+  
+  // Show every field
+  m_filename.getBox().show();
+  m_ycorrection.getBox().show();
+  m_gps.getBox().show();
+  m_scale_factor.getBox().show();
+  m_depth.getBox().show();
+  m_depth_sounder.getBox().show();
+  m_max_depth.getBox().show();
+  m_make_transparent.getBox().show();
 
-	// Fill the grid
-	m_grid.attach(m_filename, 0, 0);
-	m_grid.attach(m_ycorrection, 0, 1);
-	m_grid.attach(m_gps, 0, 2);
-	m_grid.attach(m_scale_factor, 1, 0);
-	m_grid.attach(m_depth, 1, 1);
-	m_grid.attach(m_depth_sounder, 1, 2);
-	m_grid.attach(m_max_depth, 2, 0);
-	m_grid.attach(m_make_transparent, 2, 1);
+  // Fill the grid
+  m_grid.attach(m_filename.getBox(), 0, 0);
+  m_grid.attach(m_ycorrection.getBox(), 0, 1);
+  m_grid.attach(m_gps.getBox(), 0, 2);
+  m_grid.attach(m_scale_factor.getBox(), 1, 0);
+  m_grid.attach(m_depth.getBox(), 1, 1);
+  m_grid.attach(m_depth_sounder.getBox(), 1, 2);
+  m_grid.attach(m_max_depth.getBox(), 2, 0);
+  m_grid.attach(m_make_transparent.getBox(), 2, 1);
 
-	// Show and set the grid as the child
-	m_grid.show();
-	this->set_child(m_grid);
+  // Show and set the grid as the child
+  m_grid.show();
+  set_child(m_grid);
 
-	// Save the reference to the input list
-	this->input_list = (InputArea**)&input_list_local;
-	this->input_count = GENERAL_INPUT_COUNT;
+
+}
+
+void GeneralSection::update(void)
+{
+  for(unsigned char i=0;i<GENERAL_INPUT_COUNT;i++)
+    {
+      mInputList[i]->update();
+    }
+}
+
+void GeneralSection::reset(void)
+{
+  for(unsigned char i=0;i<GENERAL_INPUT_COUNT;i++)
+    {
+      mInputList[i]->reset();
+    }
 }

@@ -1,24 +1,36 @@
 #include "wheel_section.h"
 
 WheelSection::WheelSection():
-SectionSuperClass("Wheel"),
-m_box(Orientation::VERTICAL),
-m_vector("Vector", (float*)&(boat_local.wheel.vector), true),
-m_scale("Scale", &(boat_local.wheel.scale))
+  m_box(Orientation::VERTICAL) 
 {
-	// Show every field
-	m_vector.show();
-	m_scale.show();
+  m_vector.set("Vector", (float*)&mBoat.wheel.vector, true);
+  m_scale.set("Scale", &mBoat.wheel.scale);
+  // Show every field
+  m_vector.getBox().show();
+  m_scale.getBox().show();
 
-	// Fill the box
-	m_box.append(m_vector);
-	m_box.append(m_scale);
+  // Fill the box
+  m_box.append(m_vector.getBox());
+  m_box.append(m_scale.getBox());
 
-	// Show and set the grid as the child
-	m_box.show();
-	this->set_child(m_box);
+  // Show and set the grid as the child
+  m_box.show();
+  set_child(m_box);
+}
 
-	// Save the reference to the input list
-	this->input_list = (InputArea**)&input_list_local;
-	this->input_count = WHEEL_INPUT_COUNT;
+void WheelSection::update(void)
+{
+  for(unsigned char i=0;i<WHEEL_INPUT_COUNT;i++)
+    {
+      mInputList[i]->update();
+    }
+}
+
+
+void WheelSection::reset(void)
+{
+  for(unsigned char i=0;i<WHEEL_INPUT_COUNT;i++)
+    {
+      mInputList[i]->reset();
+    }
 }

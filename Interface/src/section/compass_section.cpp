@@ -1,24 +1,38 @@
 #include "compass_section.h"
 
 CompassSection::CompassSection():
-SectionSuperClass("Compass"),
-m_box(Orientation::HORIZONTAL),
-m_max_deviation("Maximum deviation", &(boat_local.deviationMaximum)),
-m_heading_max("Heading maximum", &(boat_local.deviationMaximumHeading))
+  m_box(Orientation::HORIZONTAL)
 {
-	// Show every field
-	m_max_deviation.show();
-	m_heading_max.show();
+  m_max_deviation.set("Maximum deviation", &mBoat.deviationMaximum);
+  m_heading_max.set("Heading maximum", &mBoat.deviationMaximumHeading);
 
-	// Fill the box
-	m_box.append(m_max_deviation);
-	m_box.append(m_heading_max);
+  // Show every field
+  m_max_deviation.getBox().show();
+  m_heading_max.getBox().show();
 
-	// Show and set the grid as the child
-	m_box.show();
-	this->set_child(m_box);
+  // Fill the box
+  m_box.append(m_max_deviation.getBox());
+  m_box.append(m_heading_max.getBox());
 
-	// Save the reference to the input list
-	this->input_list = (InputArea**)&input_list_local;
-	this->input_count = COMPASS_INPUT_COUNT;
+  // Show and set the grid as the child
+  m_box.show();
+  set_child(m_box);
+
+}
+
+
+void CompassSection::update(void)
+{
+  for(unsigned char i=0;i<COMPASS_INPUT_COUNT;i++)
+    {
+      mInputList[i]->update();
+    }
+}
+
+void CompassSection::reset(void)
+{
+  for(unsigned char i=0;i<COMPASS_INPUT_COUNT;i++)
+    {
+      mInputList[i]->reset();
+    }
 }
