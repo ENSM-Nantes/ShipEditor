@@ -255,18 +255,8 @@ bool BoatManager::saveBoat(const std::string& folderPath, Boat& b) {
             fs::path dest = fs::path(folderPath) / name;
             fs::create_directories(dest);
 
-            // Déterminer nom du fichier à partir de fileName
-            std::string fname = b.fileName;
-            if (fname.empty()) fname = name + ".json";
-
-            // Nettoyage basique
-            for (auto &c : fname) if (c == ' ') c = '_';
-
-            // Vérifier extension
-            if (fname.size() < 5 || fname.substr(fname.size()-5) != ".json")
-                fname += ".json";
-
-            out = dest / fname;
+            // Le fichier JSON doit toujours s'appeler "boat.json"
+            out = dest / "boat.json";
 
             // On met à jour filePath pour les futurs Save
             b.filePath = out.string();
@@ -435,4 +425,3 @@ bool BoatManager::saveBoat(const std::string& folderPath, Boat& b) {
         return false;
     }
 }
-

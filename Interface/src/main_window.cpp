@@ -1,5 +1,7 @@
 #include <iostream>
 #include "main_window.h"
+#include "BoatManager.hpp"
+#include "BoatRow.hpp"
 
 
 
@@ -19,6 +21,9 @@ m_button_reset("Reset"),
 m_button_save("Save"),
 m_button_new("New"),
 m_button_delete("Delete"),
+
+// Current boat
+m_current_boat(nullptr),
 
 // Edit area
 m_azimuth_section(),
@@ -91,6 +96,7 @@ m_wheel_section()
 	m_boat_list.signal_row_activated().connect(sigc::mem_fun(*this, &MainWindow::boat_callback));
 	m_button_save.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::update));
 	m_button_reset.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::reset));
+	m_button_new.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::newBoat));
 
 	// Put an icon in the buttons
 	// TODO
@@ -153,6 +159,9 @@ void MainWindow::boat_callback(Gtk::ListBoxRow *boat_row) {
 void MainWindow::loadBoat(Boat *b) {
 	if (b == nullptr) return;
 	
+	// Save reference to current boat
+	m_current_boat = b;
+	
 	for (int i = 0; i < WINDOWS_SECTION_COUNT; i++) {
 		section_list[i]->loadBoat(b);
 	}
@@ -162,12 +171,26 @@ void MainWindow::loadBoat(Boat *b) {
  * Update all the field of all the sections (see InputArea::update())
  */
 void MainWindow::update() {
+	// First, update the boat data from UI fields
 	for (int i = 0; i < WINDOWS_SECTION_COUNT; i++) {
 		section_list[i]->update();
 	}
 
 	if (hasFormatError()) {
 		infoBubble("Input format error", "Correct the fields in red then press \"Save\"");
+		return;
+	}
+	
+	// Save the boat to JSON file
+	if (m_current_boat != nullptr) {
+		BoatManager manager;
+		bool success = manager.saveBoat("../../FileConverter/transformation", *m_current_boat);
+		
+		if (success) {
+			infoBubble("Saved", "The boat has been saved successfully.");
+		} else {
+			infoBubble("Error", "Failed to save the boat.");
+		}
 	}
 }
 
@@ -177,6 +200,37 @@ void MainWindow::update() {
 void MainWindow::reset() {
 	for (int i = 0; i < WINDOWS_SECTION_COUNT; i++) {
 		section_list[i]->reset();
+	}
+}
+
+/**
+ * Create a new boat with default values and save it
+ */
+void MainWindow::newBoat() {
+	// Create a new boat with default values (C++ initializes to 0/false)
+	Boat newBoat = {};
+	newBoat.displayName = "NewBoat";
+	newBoat.fileName = "boat.X";
+	newBoat.scaleFactor = 1.0f;
+	newBoat.asternEfficiency = 1.0f;
+	newBoat.wheel.scale = 1.0f;
+	// filePath reste vide pour indiquer un nouveau bateau
+	
+	// Save the boat immediately to FileConverter/transformation
+	BoatManager manager;
+	bool success = manager.saveBoat("../../FileConverter/transformation", newBoat);
+	
+	if (success) {
+		// Add the new boat to the list
+		BoatRow* row = Gtk::manage(new BoatRow(newBoat));
+		m_boat_list.append(*row);
+		
+		// Load the new boat in the editor (use the boat from the row)
+		loadBoat(&(row->boat));
+		
+		infoBubble("New Boat Created", "A new boat \"NewBoat\" has been created and saved successfully.");
+	} else {
+		infoBubble("Error", "Failed to create the new boat.");
 	}
 }
 

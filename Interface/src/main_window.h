@@ -39,9 +39,13 @@ private:
 	BoatList m_boat_list;
 	Gtk::Button m_button_reset, m_button_save, m_button_new, m_button_delete;
 
+	// Current boat being edited
+	Boat* m_current_boat;
+
 	void loadBoat(Boat *b);
 	void update();
 	void reset();
+	void newBoat();
 	bool hasFormatError();
 	bool hasChanged();
 
