@@ -1,7 +1,7 @@
 # Ignorer le dossier de build
 **/build/
 **/transformation/
-**/pycache/
+**/__pycache__/
 
 # Fichiers temporaires et de sauvegarde
 *.o
