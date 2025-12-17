@@ -17,7 +17,6 @@ SectionSuperClass::SectionSuperClass(): SectionSuperClass("") {
 	// Nothing to do
 }
 
-
 /**
  * Load a boat to edit its properties
  * @param b The reference of a boat
