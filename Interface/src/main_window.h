@@ -11,6 +11,7 @@
 #include "section/compass_section.h"
 #include "section/dynamics_section.h"
 #include "section/general_section.h"
+#include "section/name_section.h"
 #include "section/pano_section.h"
 #include "section/propertie_section.h"
 #include "section/propulsion_section.h"
@@ -22,7 +23,7 @@
 #include "section/wheel_section.h"
 
 
-#define WINDOWS_SECTION_COUNT 13
+#define WINDOWS_SECTION_COUNT 14
 
 using namespace std;
 
@@ -61,6 +62,7 @@ private:
 	CompassSection m_compass_section;
 	DynamicsSection m_dynamics_section;
 	GeneralSection m_general_section;
+	NameSection m_name_section;
 	PanoSection m_pano_section;
 	PropertieSection m_propertie_section;
 	PropulsionSection m_propulsion_section;
@@ -73,9 +75,9 @@ private:
 
 	SectionSuperClass *section_list[WINDOWS_SECTION_COUNT] = {
 		&m_azimuth_section, &m_compass_section, &m_dynamics_section,
-		&m_general_section, &m_pano_section, &m_propertie_section, &m_propulsion_section,
-		&m_radar_screen_section, &m_rudder_section, &m_sails_section, &m_views_section,
-		&m_weather_section, &m_wheel_section
+		&m_general_section, &m_name_section, &m_pano_section, &m_propertie_section,
+		&m_propulsion_section, &m_radar_screen_section, &m_rudder_section, &m_sails_section,
+		&m_views_section, &m_weather_section, &m_wheel_section
 	};
 };
 
