@@ -240,6 +240,7 @@ void MainWindow::newBoat() {
 	// filePath reste vide pour indiquer un nouveau bateau
 	
 	// Save the boat immediately
+	BoatManager manager;
 	bool success = manager.saveBoat(newBoat);
 	
 	if (success) {
