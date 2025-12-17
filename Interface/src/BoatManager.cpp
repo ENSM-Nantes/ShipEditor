@@ -425,3 +425,53 @@ bool BoatManager::saveBoat(const std::string& folderPath, Boat& b) {
         return false;
     }
 }
+
+bool BoatManager::renameBoat(const std::string& folderPath, Boat& b) {
+    try {
+        namespace fs = std::filesystem;
+        
+        // Si pas de filePath, c'est un nouveau bateau, rien à renommer
+        if (b.filePath.empty()) {
+            return true;
+        }
+        
+        // Extraire le nom actuel du dossier depuis filePath
+        fs::path currentPath(b.filePath);
+        fs::path currentDir = currentPath.parent_path();
+        std::string currentFolderName = currentDir.filename().string();
+        
+        // Nettoyer le nouveau nom (remplacer espaces par underscores)
+        std::string newName = b.displayName;
+        for (auto &c : newName) {
+            if (c == ' ') c = '_';
+        }
+        
+        // Vérifier si le nom a changé
+        if (currentFolderName == newName) {
+            return true; // Pas de changement, rien à faire
+        }
+        
+        // Construire le nouveau chemin
+        fs::path parentPath = currentDir.parent_path();
+        fs::path newDir = parentPath / newName;
+        
+        // Vérifier que le nouveau dossier n'existe pas déjà
+        if (fs::exists(newDir)) {
+            std::cerr << "Error: Folder " << newName << " already exists" << std::endl;
+            return false;
+        }
+        
+        // Renommer le dossier
+        fs::rename(currentDir, newDir);
+        
+        // Mettre à jour le filePath du bateau
+        b.filePath = (newDir / "boat.json").string();
+        
+        std::cout << "Boat folder renamed from " << currentFolderName << " to " << newName << std::endl;
+        return true;
+        
+    } catch (const std::exception& e) {
+        std::cerr << "Exception in renameBoat: " << e.what() << std::endl;
+        return false;
+    }
+}

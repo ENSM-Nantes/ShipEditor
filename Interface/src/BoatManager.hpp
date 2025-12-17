@@ -179,6 +179,8 @@ public:
     std::vector<Boat> loadBoats(const std::string& folderPath);
     // Save a Boat into a new subfolder of folderPath. Returns true on success.
     bool saveBoat(const std::string& folderPath, Boat& b);
+    // Rename a boat folder if the displayName has changed. Returns true on success.
+    bool renameBoat(const std::string& folderPath, Boat& b);
 };
 
 #endif

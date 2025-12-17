@@ -1,4 +1,5 @@
 #include <iostream>
+#include <filesystem>
 #include "main_window.h"
 #include "BoatManager.hpp"
 #include "BoatRow.hpp"
@@ -184,6 +185,15 @@ void MainWindow::update() {
 	// Save the boat to JSON file
 	if (m_current_boat != nullptr) {
 		BoatManager manager;
+		
+		// First, rename the boat folder if the name has changed
+		bool renamed = manager.renameBoat("../../FileConverter/transformation", *m_current_boat);
+		if (!renamed) {
+			infoBubble("Error", "Failed to rename the boat folder. The name might already exist.");
+			return;
+		}
+		
+		// Then save the boat data
 		bool success = manager.saveBoat("../../FileConverter/transformation", *m_current_boat);
 		
 		if (success) {
@@ -207,9 +217,22 @@ void MainWindow::reset() {
  * Create a new boat with default values and save it
  */
 void MainWindow::newBoat() {
+	namespace fs = std::filesystem;
+	
+	// Find a unique name for the new boat
+	std::string baseName = "NewBoat";
+	std::string uniqueName = baseName;
+	int counter = 1;
+	
+	fs::path transformationPath = "../../FileConverter/transformation";
+	while (fs::exists(transformationPath / uniqueName)) {
+		uniqueName = baseName + std::to_string(counter);
+		counter++;
+	}
+	
 	// Create a new boat with default values (C++ initializes to 0/false)
 	Boat newBoat = {};
-	newBoat.displayName = "NewBoat";
+	newBoat.displayName = uniqueName;
 	newBoat.fileName = "boat.X";
 	newBoat.scaleFactor = 1.0f;
 	newBoat.asternEfficiency = 1.0f;
@@ -228,7 +251,7 @@ void MainWindow::newBoat() {
 		// Load the new boat in the editor (use the boat from the row)
 		loadBoat(&(row->boat));
 		
-		infoBubble("New Boat Created", "A new boat \"NewBoat\" has been created and saved successfully.");
+		infoBubble("New Boat Created", "A new boat \"" + uniqueName + "\" has been created and saved successfully.");
 	} else {
 		infoBubble("Error", "Failed to create the new boat.");
 	}
