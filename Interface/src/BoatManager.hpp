@@ -164,6 +164,7 @@ struct Boat {
     Wheel wheel;
     SailList sails;
     PanoList pano;
+    std::string filePath; // chemin complet du boat.json
 };
 
 // Manager
@@ -176,6 +177,8 @@ struct Boat {
 class BoatManager {
 public:
     std::vector<Boat> loadBoats(const std::string& folderPath);
+    // Save a Boat into a new subfolder of folderPath. Returns true on success.
+    bool saveBoat(const std::string& folderPath, Boat& b);
 };
 
 #endif

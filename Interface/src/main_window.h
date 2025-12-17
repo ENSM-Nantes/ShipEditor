@@ -42,6 +42,16 @@ private:
 	BoatList m_boat_list;
 	Gtk::Button m_button_reset, m_button_save, m_button_new, m_button_delete;
 
+	// Currently loaded boat pointer
+	Boat* m_current_boat = nullptr;
+
+	// Save handler
+	void on_save_clicked();
+
+	// New boat handler
+	void on_new_clicked();
+
+
 	void loadBoat(Boat *b);
 	void update();
 	void reset();
