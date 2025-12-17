@@ -44,7 +44,7 @@ BoatList::BoatList(): ListBox() {
 
 	// Charger les bateaux depuis les JSON via BoatManager
 	BoatManager manager;
-	std::vector<Boat> boats = manager.loadBoats("../../FileConverter/transformation");
+	std::vector<Boat> boats = manager.loadBoats();
 
 	// Remplir la ListBox avec des BoatRow
 	for (Boat b : boats) {

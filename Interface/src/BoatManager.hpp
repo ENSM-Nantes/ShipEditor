@@ -176,11 +176,21 @@ struct Boat {
  */
 class BoatManager {
 public:
-    std::vector<Boat> loadBoats(const std::string& folderPath);
-    // Save a Boat into a new subfolder of folderPath. Returns true on success.
-    bool saveBoat(const std::string& folderPath, Boat& b);
+    std::vector<Boat> loadBoats();
+    // Save a Boat into a new subfolder. Returns true on success.
+    bool saveBoat(Boat& b);
     // Rename a boat folder if the displayName has changed. Returns true on success.
-    bool renameBoat(const std::string& folderPath, Boat& b);
+    bool renameBoat(Boat& b);
+    
+    // Get the transformation path
+    static const char* getTransformationPath() { return transformationPath; }
+    
+    // Set the transformation path
+    static void setTransformationPath(const char* path) { transformationPath = path; }
+
+private:
+    // Path to the transformation folder containing all boats
+    inline static const char* transformationPath = "";
 };
 
 #endif

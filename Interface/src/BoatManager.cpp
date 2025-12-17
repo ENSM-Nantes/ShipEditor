@@ -55,10 +55,10 @@ void PanoList::fromJson(const Json::Value& json) {
 
 // Lecture des bateaux
 
-vector<Boat> BoatManager::loadBoats(const string& folderPath) {
+vector<Boat> BoatManager::loadBoats() {
 	vector<Boat> boats;
 
-	for (const auto& dirEntry : fs::directory_iterator(folderPath)) {
+	for (const auto& dirEntry : fs::directory_iterator(transformationPath)) {
 		if (!dirEntry.is_directory()) continue;
 
 		fs::path boatFile = dirEntry.path() / "boat.json";
@@ -236,7 +236,7 @@ vector<Boat> BoatManager::loadBoats(const string& folderPath) {
 	return boats;
 }
 
-bool BoatManager::saveBoat(const std::string& folderPath, Boat& b) {
+bool BoatManager::saveBoat(Boat& b) {
     try {
         namespace fs = std::filesystem;
 
@@ -252,7 +252,7 @@ bool BoatManager::saveBoat(const std::string& folderPath, Boat& b) {
             for (auto &c : name)
                 if (c == ' ') c = '_';
 
-            fs::path dest = fs::path(folderPath) / name;
+            fs::path dest = fs::path(transformationPath) / name;
             fs::create_directories(dest);
 
             // Le fichier JSON doit toujours s'appeler "boat.json"
@@ -426,7 +426,7 @@ bool BoatManager::saveBoat(const std::string& folderPath, Boat& b) {
     }
 }
 
-bool BoatManager::renameBoat(const std::string& folderPath, Boat& b) {
+bool BoatManager::renameBoat(Boat& b) {
     try {
         namespace fs = std::filesystem;
         

@@ -187,14 +187,14 @@ void MainWindow::update() {
 		BoatManager manager;
 		
 		// First, rename the boat folder if the name has changed
-		bool renamed = manager.renameBoat("../../FileConverter/transformation", *m_current_boat);
+		bool renamed = manager.renameBoat(*m_current_boat);
 		if (!renamed) {
 			infoBubble("Error", "Failed to rename the boat folder. The name might already exist.");
 			return;
 		}
 		
 		// Then save the boat data
-		bool success = manager.saveBoat("../../FileConverter/transformation", *m_current_boat);
+		bool success = manager.saveBoat(*m_current_boat);
 		
 		if (success) {
 			infoBubble("Saved", "The boat has been saved successfully.");
@@ -224,7 +224,7 @@ void MainWindow::newBoat() {
 	std::string uniqueName = baseName;
 	int counter = 1;
 	
-	fs::path transformationPath = "../../FileConverter/transformation";
+	fs::path transformationPath = BoatManager::getTransformationPath();
 	while (fs::exists(transformationPath / uniqueName)) {
 		uniqueName = baseName + std::to_string(counter);
 		counter++;
@@ -239,9 +239,8 @@ void MainWindow::newBoat() {
 	newBoat.wheel.scale = 1.0f;
 	// filePath reste vide pour indiquer un nouveau bateau
 	
-	// Save the boat immediately to FileConverter/transformation
-	BoatManager manager;
-	bool success = manager.saveBoat("../../FileConverter/transformation", newBoat);
+	// Save the boat immediately
+	bool success = manager.saveBoat(newBoat);
 	
 	if (success) {
 		// Add the new boat to the list
