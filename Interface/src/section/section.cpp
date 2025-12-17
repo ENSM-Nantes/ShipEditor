@@ -36,9 +36,12 @@ void SectionSuperClass::loadBoat(Boat *b) {
  * Update all the field (see InputArea::update())
  */
 void SectionSuperClass::update() {
+	// Load the last version of the boat
+	boat_local = *boat_ref;
 	for (int i = 0; i < input_count; i++) {
 		input_list[i]->update();
 	}
+	// Save the modifications
 	*boat_ref = boat_local;
 }
 
@@ -50,4 +53,32 @@ void SectionSuperClass::reset() {
 	for (int i = 0; i < input_count; i++) {
 		input_list[i]->reset();
 	}
+}
+
+/**
+ * Retreive error from all the field (see InputArea::hasFormatError())
+ */
+bool SectionSuperClass::hasFormatError() {
+	bool flag = false;
+	for (int i = 0; i < input_count; i++) {
+		if (input_list[i]->hasFormatError()) {
+			flag = true;
+			break;
+		}
+	}
+	return flag;
+}
+
+/**
+ * Retreive a change from all the field (see InputArea::hasChanged())
+ */
+bool SectionSuperClass::hasChanged() {
+	bool flag = false;
+	for (int i = 0; i < input_count; i++) {
+		if (input_list[i]->hasChanged()) {
+			flag = true;
+			break;
+		}
+	}
+	return flag;
 }

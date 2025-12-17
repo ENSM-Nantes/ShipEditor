@@ -2,6 +2,7 @@
 #define AREA_H
 
 #include <string>
+#include <iostream>
 #include <gtkmm.h>
 
 using namespace Gtk;
@@ -28,7 +29,11 @@ public:
 
 	void update();
 	void reset();
-protected:
+	bool hasFormatError();
+	bool hasChanged();
+private:
+	bool has_error = false;
+
 	int type;
 	std::string *var_str;
 	int *var_int = nullptr;
@@ -41,6 +46,8 @@ protected:
 	Entry m_entry, m_entry_x, m_entry_y, m_entry_z;
 	Entry *vector_entry[3] = {&m_entry_x, &m_entry_y, &m_entry_z};
 	CheckButton  m_checkbutton;
+
+	void errorCallback(Entry *entry, const std::invalid_argument& ia);
 }; 
 
 

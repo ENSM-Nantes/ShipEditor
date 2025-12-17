@@ -25,6 +25,7 @@ m_azimuth_section(),
 m_compass_section(),
 m_dynamics_section(),
 m_general_section(),
+m_pano_section(),
 m_propertie_section(),
 m_propulsion_section(),
 m_radar_screen_section(),
@@ -50,6 +51,7 @@ m_wheel_section()
 	m_compass_section.show();
 	m_dynamics_section.show();
 	m_general_section.show();
+	m_pano_section.show();
 	m_propertie_section.show();
 	m_propulsion_section.show();
 	m_radar_screen_section.show();
@@ -64,6 +66,7 @@ m_wheel_section()
 	m_box_edit.append(m_propulsion_section);
 	m_box_edit.append(m_dynamics_section);
 	m_box_edit.append(m_radar_screen_section);
+	m_box_edit.append(m_pano_section);
 	m_box_edit.append(m_azimuth_section);
 	m_box_edit.append(m_rudder_section);
 	m_box_edit.append(m_weather_section);
@@ -110,7 +113,8 @@ m_wheel_section()
 
 	
 	
-	
+	// Select the first boat by default
+	loadBoat(&(((BoatRow*)m_boat_list.get_row_at_index(0))->boat));
 	
 
 
@@ -118,6 +122,7 @@ m_wheel_section()
 	m_paned.set_margin(10);
 	m_paned.set_start_child(m_box_left_side);
 	m_paned.set_end_child(m_scroll_edit);
+	m_paned.set_position(180);
 
 	
 	// Add the box in this window:
@@ -127,7 +132,11 @@ m_wheel_section()
 
 
 void MainWindow::boat_callback(Gtk::ListBoxRow *boat_row) {
-	loadBoat(&(((BoatRow*)boat_row)->boat));
+	if (!hasChanged()) {
+		loadBoat(&(((BoatRow*)boat_row)->boat));
+	} else {
+		infoBubble("Unsaved data", "You have unsaved data in some fields.\nPress \"Save\" to save or \"Reset\" to reset");
+	}
 }
 
 
@@ -150,6 +159,10 @@ void MainWindow::update() {
 	for (int i = 0; i < WINDOWS_SECTION_COUNT; i++) {
 		section_list[i]->update();
 	}
+
+	if (hasFormatError()) {
+		infoBubble("Input format error", "Correct the fields in red then press \"Save\"");
+	}
 }
 
 /**
@@ -159,4 +172,50 @@ void MainWindow::reset() {
 	for (int i = 0; i < WINDOWS_SECTION_COUNT; i++) {
 		section_list[i]->reset();
 	}
+}
+
+/**
+ * Retreive error from all the field (see InputArea::hasFormatError())
+ */
+bool MainWindow::hasFormatError() {
+	bool flag = false;
+	for (int i = 0; i < WINDOWS_SECTION_COUNT; i++) {
+		if (section_list[i]->hasFormatError()) {
+			flag = true;
+			break;
+		}
+	}
+	return flag;
+}
+
+/**
+ * Retreive a change from all the field (see InputArea::hasChanged())
+ */
+bool MainWindow::hasChanged() {
+	bool flag = false;
+	for (int i = 0; i < WINDOWS_SECTION_COUNT; i++) {
+		if (section_list[i]->hasChanged()) {
+			flag = true;
+			break;
+		}
+	}
+	return flag;
+}
+
+void MainWindow::infoBubble(const Glib::ustring &message, const Glib::ustring &detail) {
+	if (!m_dialog) {
+		m_dialog = Gtk::AlertDialog::create();
+	}
+	
+	// Reset values that may have been set by on_button_question_clicked().
+	//m_pDialog->set_buttons({});
+	m_dialog->set_default_button(-1);
+	m_dialog->set_cancel_button(-1);
+
+	m_dialog->set_modal(); // Block the window until the dialog closes
+
+
+	m_dialog->set_message(message);
+	m_dialog->set_detail(detail);
+	m_dialog->show(*this);
 }

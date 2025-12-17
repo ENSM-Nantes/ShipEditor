@@ -43,6 +43,7 @@ add_executable(ShipEditor
     section/compass_section.cpp
     section/dynamics_section.cpp
     section/general_section.cpp
+    section/pano_section.cpp
     section/propertie_section.cpp
     section/propulsion_section.cpp
     section/radar_screen_section.cpp

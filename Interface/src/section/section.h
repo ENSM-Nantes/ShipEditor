@@ -25,6 +25,8 @@ public:
 	// For the entries
 	void update();
 	void reset();
+	bool hasFormatError();
+	bool hasChanged();
 
 protected:
 	Boat *boat_ref = nullptr;
