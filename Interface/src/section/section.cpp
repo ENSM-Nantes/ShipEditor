@@ -28,7 +28,7 @@ void SectionSuperClass::loadBoat(Boat *b) {
 	// Refresh the interface
 	reset();
 }
-
+ 
 /**
  * Update all the field (see InputArea::update())
  */
