@@ -1,0 +1,28 @@
+# Ignorer le dossier de build
+**/build/
+**/transformation/
+**/pycache/
+
+# Fichiers temporaires et de sauvegarde
+*.o
+*.obj
+*.so
+*.exe
+*.dll
+*.log
+*.tmp
+
+# Dossiers générés par CMake
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Fichiers d'éditeur
+*.swp
+*~
+
+# Autres fichiers à ignorer
+.DS_Store
+*.user
+*.suo
