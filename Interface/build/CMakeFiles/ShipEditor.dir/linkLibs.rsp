@@ -1,1 +1,0 @@
- -lgtkmm-4.0 -lgtk-4 -lcairo-gobject -lgraphene-1.0 -lpangomm-2.48 -lgiomm-2.68 -lglibmm-2.68 -lcairomm-1.16 -lsigc-3.0 -lpangocairo-1.0 -lpangowin32-1.0 -lpango-1.0 -lcairo -lharfbuzz -lgdk_pixbuf-2.0 -lgio-2.0 -lgobject-2.0 -lglib-2.0 -lintl -lvulkan-1 -ljsoncpp -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 
