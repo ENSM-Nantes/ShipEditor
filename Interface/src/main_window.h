@@ -3,10 +3,6 @@
 
 #include <gtkmm.h>
 
-// Import for functional purpose
-#include "input_area.h"
-#include "section/section.h"
-// Boat list/row
 #include "BoatRow.hpp"
 
 // Sections import
@@ -24,9 +20,6 @@
 #include "section/views_section.h"
 #include "section/weather_section.h"
 #include "section/wheel_section.h"
-#include "section/sails_section.h"
-#include "section/pano_section.h"
-#include "section/views_section.h"
 
 
 #define WINDOWS_SECTION_COUNT 13
@@ -45,16 +38,6 @@ private:
 	Gtk::Box m_box_left_side, m_box_action_button, m_box_edit;
 	BoatList m_boat_list;
 	Gtk::Button m_button_reset, m_button_save, m_button_new, m_button_delete;
-
-	// Currently loaded boat pointer
-	Boat* m_current_boat = nullptr;
-
-	// Save handler
-	void on_save_clicked();
-
-	// New boat handler
-	void on_new_clicked();
-
 
 	void loadBoat(Boat *b);
 	void update();
@@ -83,10 +66,6 @@ private:
 	ViewsSection m_views_section;
 	WeatherSection m_weather_section;
 	WheelSection m_wheel_section;
-	// Newly integrated sections
-	SailsSection m_sails_section;
-	PanoSection m_pano_section;
-	ViewsSection m_views_section;
 
 	SectionSuperClass *section_list[WINDOWS_SECTION_COUNT] = {
 		&m_azimuth_section, &m_compass_section, &m_dynamics_section,

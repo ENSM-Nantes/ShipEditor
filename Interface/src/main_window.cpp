@@ -1,6 +1,8 @@
 #include <iostream>
-#include "BoatManager.hpp"
 #include "main_window.h"
+
+
+
 
 MainWindow::MainWindow():
 // Main window
@@ -31,10 +33,7 @@ m_rudder_section(),
 m_sails_section(),
 m_views_section(),
 m_weather_section(),
-	m_wheel_section(),
-	m_sails_section(),
-	m_pano_section(),
-	m_views_section()
+m_wheel_section()
 {
 	// Configure this window:
 	this->set_default_size(600, 400);
@@ -63,10 +62,6 @@ m_weather_section(),
 	m_views_section.show();
 	m_weather_section.show();
 	m_wheel_section.show();
-	// Show newly added sections
-	m_sails_section.show();
-	m_pano_section.show();
-	m_views_section.show();
 	
 	// Pack all elements in the box:
 	m_box_edit.append(m_compass_section);
@@ -82,10 +77,6 @@ m_weather_section(),
 	m_box_edit.append(m_views_section);
 	m_box_edit.append(m_weather_section);
 	m_box_edit.append(m_wheel_section);
-	// Append new sections to the edit box
-	m_box_edit.append(m_sails_section);
-	m_box_edit.append(m_pano_section);
-	m_box_edit.append(m_views_section);
 
 	// Make the box visible and usable with the scroll bar
 	m_box_edit.show();
@@ -98,8 +89,7 @@ m_weather_section(),
 
 	// Link the signals to function
 	m_boat_list.signal_row_activated().connect(sigc::mem_fun(*this, &MainWindow::boat_callback));
-	m_button_save.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::on_save_clicked));
-	m_button_new.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::on_new_clicked));
+	m_button_save.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::update));
 	m_button_reset.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::reset));
 
 	// Put an icon in the buttons
@@ -138,8 +128,7 @@ m_weather_section(),
 	m_paned.set_margin(10);
 	m_paned.set_start_child(m_box_left_side);
 	m_paned.set_end_child(m_scroll_edit);
-
-	m_paned.set_position(180); // Pour la taille du paneau
+	m_paned.set_position(180);
 
 	
 	// Add the box in this window:
@@ -162,22 +151,16 @@ void MainWindow::boat_callback(Gtk::ListBoxRow *boat_row) {
  * @param b The reference of a boat
  */
 void MainWindow::loadBoat(Boat *b) {
-    if (!b) return;
-	// remember current boat for save
-	m_current_boat = b;
-	// Call each section's loadBoat directly so derived implementations run
-	m_compass_section.loadBoat(b);
-	m_general_section.loadBoat(b);
-	m_propertie_section.loadBoat(b);
-	m_radar_screen_section.loadBoat(b);
-	m_rudder_section.loadBoat(b);
-	m_weather_section.loadBoat(b);
-	m_wheel_section.loadBoat(b);
-	m_sails_section.loadBoat(b);
-	m_pano_section.loadBoat(b);
-	m_views_section.loadBoat(b);
+	if (b == nullptr) return;
+	
+	for (int i = 0; i < WINDOWS_SECTION_COUNT; i++) {
+		section_list[i]->loadBoat(b);
+	}
 }
 
+/**
+ * Update all the field of all the sections (see InputArea::update())
+ */
 void MainWindow::update() {
 	for (int i = 0; i < WINDOWS_SECTION_COUNT; i++) {
 		section_list[i]->update();
