@@ -1,0 +1,120 @@
+{
+  "FileName": "boat.X",
+  "ScaleFactor": 1.0,
+  "YCorrection": -4.3,
+  "AngleCorrection": 0,
+  "Depth": 4.3,
+  "HasGPS": true,
+  "HasDepthSounder": true,
+  "MaxDepth": 50,
+  "MakeTransparent": true,
+  "View": [
+    [
+      0.0,
+      10.25,
+      3.62,
+      false
+    ],
+    [
+      -1.8,
+      10.2,
+      3.2,
+      false
+    ],
+    [
+      1.8,
+      10.2,
+      3.2,
+      false
+    ],
+    [
+      -4.27,
+      6.91,
+      -2.58,
+      false
+    ],
+    [
+      4.27,
+      6.91,
+      -2.58,
+      false
+    ],
+    [
+      0.0,
+      350.0,
+      0.0,
+      true
+    ]
+  ],
+  "RadarScreen": {
+    "vector": [
+      -0.25,
+      9.385,
+      4.845
+    ],
+    "size": 0.23,
+    "tilt": 45
+  },
+  "PortThrottle": [
+    -0.47,
+    9.645,
+    4.28
+  ],
+  "StbdThrottle": [
+    0.47,
+    9.645,
+    4.28
+  ],
+  "MaxSpeedAhead": 6.0,
+  "Max_propulsion_force": 334500.0,
+  "Dynamics": {
+    "speed": [
+      10402.622,
+      24082.07
+    ],
+    "turnDrag": [
+      90000000,
+      6000000
+    ],
+    "lateralDrag": [
+      0.0,
+      0.0
+    ]
+  },
+  "AsternEfficiency": 1.0,
+  "BlockCoefficient": 0.87,
+  "Mass": 650000,
+  "Inertia": 65000000,
+  "MaxRevs": 1600,
+  "Prop": {
+    "space": 6.0,
+    "walkAhead": 0.0,
+    "walkAstern": 0.0,
+    "walkDriftEffect": 0.0
+  },
+  "AzimuthDrive": {
+    "azimuthDrive": true,
+    "astern": false,
+    "aziToLengthRatio": 0.3,
+    "engineIdleRPM": 700,
+    "clutchEngageRPM": 1000,
+    "clutchDisengageRPM": 950,
+    "engineMaxChangePerSecond": 0.25,
+    "maxDegPerSecond": 30,
+    "schottelMaxDegPerSec": 60,
+    "thrustLeverMaxChangePerSecond": 0.4,
+    "sameDirectionAsSchottel": 1.0
+  },
+  "Rudder": {
+    "A": 0.0,
+    "B": 0.0,
+    "BAstern": 0.0
+  },
+  "centrifugalDriftEffect": 0.03,
+  "Buffet": 3.0,
+  "Swell": 0.5,
+  "Windage": 0.05,
+  "WindageTurnEffect": 1.3,
+  "DeviationMaximum": 5,
+  "DeviationMaximumHeading": 10
+}
