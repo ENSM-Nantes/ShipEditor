@@ -30,6 +30,8 @@ m_propertie_section(),
 m_propulsion_section(),
 m_radar_screen_section(),
 m_rudder_section(),
+m_sails_section(),
+m_views_section(),
 m_weather_section(),
 m_wheel_section()
 {
@@ -56,6 +58,8 @@ m_wheel_section()
 	m_propulsion_section.show();
 	m_radar_screen_section.show();
 	m_rudder_section.show();
+	m_sails_section.show();
+	m_views_section.show();
 	m_weather_section.show();
 	m_wheel_section.show();
 	
@@ -69,6 +73,8 @@ m_wheel_section()
 	m_box_edit.append(m_pano_section);
 	m_box_edit.append(m_azimuth_section);
 	m_box_edit.append(m_rudder_section);
+	m_box_edit.append(m_sails_section);
+	m_box_edit.append(m_views_section);
 	m_box_edit.append(m_weather_section);
 	m_box_edit.append(m_wheel_section);
 

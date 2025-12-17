@@ -48,6 +48,8 @@ add_executable(ShipEditor
     section/propulsion_section.cpp
     section/radar_screen_section.cpp
     section/rudder_section.cpp
+    section/sails_section.cpp
+    section/views_section.cpp
     section/weather_section.cpp
     section/wheel_section.cpp
 )
