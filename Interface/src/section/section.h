@@ -20,18 +20,20 @@ public:
 	~SectionSuperClass() {}
 
 	// Boat change
-	void loadBoat(Boat *b);
+	virtual void loadBoat(Boat *b);
 
 	// For the entries
-	void update();
-	void reset();
+	virtual void update();
+	virtual void reset();
+	virtual bool hasFormatError();
+	virtual bool hasChanged();
 
 protected:
 	Boat *boat_ref = nullptr;
 	Boat boat_local;
 
 	int input_count = 0;
-	InputArea **input_list;
+	InputArea **input_list = nullptr;
 	
 };
 

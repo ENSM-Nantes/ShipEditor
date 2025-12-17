@@ -19,11 +19,17 @@ m_button_new("New"),
 m_button_delete("Delete"),
 
 // Edit area
+m_azimuth_section(),
 m_compass_section(),
+m_dynamics_section(),
 m_general_section(),
+m_pano_section(),
 m_propertie_section(),
+m_propulsion_section(),
 m_radar_screen_section(),
 m_rudder_section(),
+m_sails_section(),
+m_views_section(),
 m_weather_section(),
 	m_wheel_section(),
 	m_sails_section(),
@@ -44,11 +50,17 @@ m_weather_section(),
 	/* ***** Edit Area ***** */
 	/* ********************* */
 	// Show every section
+	m_azimuth_section.show();
 	m_compass_section.show();
+	m_dynamics_section.show();
 	m_general_section.show();
+	m_pano_section.show();
 	m_propertie_section.show();
+	m_propulsion_section.show();
 	m_radar_screen_section.show();
 	m_rudder_section.show();
+	m_sails_section.show();
+	m_views_section.show();
 	m_weather_section.show();
 	m_wheel_section.show();
 	// Show newly added sections
@@ -60,8 +72,14 @@ m_weather_section(),
 	m_box_edit.append(m_compass_section);
 	m_box_edit.append(m_general_section);
 	m_box_edit.append(m_propertie_section);
+	m_box_edit.append(m_propulsion_section);
+	m_box_edit.append(m_dynamics_section);
 	m_box_edit.append(m_radar_screen_section);
+	m_box_edit.append(m_pano_section);
+	m_box_edit.append(m_azimuth_section);
 	m_box_edit.append(m_rudder_section);
+	m_box_edit.append(m_sails_section);
+	m_box_edit.append(m_views_section);
 	m_box_edit.append(m_weather_section);
 	m_box_edit.append(m_wheel_section);
 	// Append new sections to the edit box
@@ -111,7 +129,8 @@ m_weather_section(),
 
 	
 	
-	
+	// Select the first boat by default
+	loadBoat(&(((BoatRow*)m_boat_list.get_row_at_index(0))->boat));
 	
 
 
@@ -130,23 +149,18 @@ m_weather_section(),
 
 
 void MainWindow::boat_callback(Gtk::ListBoxRow *boat_row) {
-	if (!boat_row) {
-		std::cout << "Unselected a boat" << std::endl;
-		return;
+	if (!hasChanged()) {
+		loadBoat(&(((BoatRow*)boat_row)->boat));
+	} else {
+		infoBubble("Unsaved data", "You have unsaved data in some fields.\nPress \"Save\" to save or \"Reset\" to reset");
 	}
-
-	// Try a safe cast to BoatRow and load the associated Boat
-	BoatRow* br = dynamic_cast<BoatRow*>(boat_row);
-	if (!br) {
-		std::cerr << "Warning: selected row is not a BoatRow" << std::endl;
-		return;
-	}
-
-	std::cout << "Selected a boat" << std::endl;
-	loadBoat(&br->boat);
 }
 
 
+/**
+ * Load a boat to edit its properties
+ * @param b The reference of a boat
+ */
 void MainWindow::loadBoat(Boat *b) {
     if (!b) return;
 	// remember current boat for save
@@ -165,90 +179,66 @@ void MainWindow::loadBoat(Boat *b) {
 }
 
 void MainWindow::update() {
-	m_compass_section.update();
-	m_general_section.update();
-	m_propertie_section.update();
-	m_radar_screen_section.update();
-	m_rudder_section.update();
-	m_weather_section.update();
-	m_wheel_section.update();
-	m_sails_section.update();
-	m_pano_section.update();
-	m_views_section.update();
+	for (int i = 0; i < WINDOWS_SECTION_COUNT; i++) {
+		section_list[i]->update();
+	}
+
+	if (hasFormatError()) {
+		infoBubble("Input format error", "Correct the fields in red then press \"Save\"");
+	}
 }
 
+/**
+ * Reset all the field of all the sections (see InputArea::reset())
+ */
 void MainWindow::reset() {
-	m_compass_section.reset();
-	m_general_section.reset();
-	m_propertie_section.reset();
-	m_radar_screen_section.reset();
-	m_rudder_section.reset();
-	m_weather_section.reset();
-	m_wheel_section.reset();
-	m_sails_section.reset();
-	m_pano_section.reset();
-	m_views_section.reset();
+	for (int i = 0; i < WINDOWS_SECTION_COUNT; i++) {
+		section_list[i]->reset();
+	}
 }
 
-
-void MainWindow::on_save_clicked() {
-    // First, apply UI -> Boat
-    update();
-
-    if (!m_current_boat) {
-        std::cerr << "No boat selected to save." << std::endl;
-        return;
-    }
-
-    BoatManager mgr;
-    // Use the same base folder as the loader expects
-    std::string base = "../../FileConverter/transformation";
-    if (mgr.saveBoat(base, *m_current_boat)) {
-        std::cout << "Boat saved successfully." << std::endl;
-    } else {
-        std::cerr << "Failed to save boat." << std::endl;
-    }
+/**
+ * Retreive error from all the field (see InputArea::hasFormatError())
+ */
+bool MainWindow::hasFormatError() {
+	bool flag = false;
+	for (int i = 0; i < WINDOWS_SECTION_COUNT; i++) {
+		if (section_list[i]->hasFormatError()) {
+			flag = true;
+			break;
+		}
+	}
+	return flag;
 }
 
-void MainWindow::on_new_clicked() {
-    // Create a new empty Boat with default values
-    Boat* new_boat = new Boat();
-    new_boat->displayName = "NewBoat";
-    new_boat->fileName = "boat.json";
-    new_boat->filePath = "";  // Empty path indicates it's a new boat
-    
-    // Initialize with default values
-    new_boat->scaleFactor = 1.0f;
-    new_boat->yCorrection = 0.0f;
-    new_boat->angleCorrection = 0;
-    new_boat->depth = 0.0f;
-    new_boat->hasGPS = false;
-    new_boat->hasDepthSounder = false;
-    new_boat->maxDepth = 0.0f;
-    new_boat->makeTransparent = false;
-    new_boat->maxPropulsionForce = 0.0f;
-    new_boat->asternEfficiency = 0.0f;
-    new_boat->blockCoefficient = 0.0f;
-    new_boat->mass = 0.0f;
-    new_boat->inertia = 0.0f;
-    new_boat->buffet = 0.0f;
-    new_boat->swell = 0.0f;
-    new_boat->windage = 0.0f;
-    new_boat->windageTurnEffect = 0.0f;
-    new_boat->deviationMaximum = 0.0f;
-    new_boat->deviationMaximumHeading = 0.0f;
-    new_boat->rollPeriod = 0.0f;
-    new_boat->pitchPeriod = 0.0f;
-    new_boat->maxRevs = 0;
-    new_boat->maxSpeedAhead = 0.0f;
-    new_boat->centrifugalDriftEffect = 0.0f;
-    new_boat->hasRateOfTurnIndicator = false;
+/**
+ * Retreive a change from all the field (see InputArea::hasChanged())
+ */
+bool MainWindow::hasChanged() {
+	bool flag = false;
+	for (int i = 0; i < WINDOWS_SECTION_COUNT; i++) {
+		if (section_list[i]->hasChanged()) {
+			flag = true;
+			break;
+		}
+	}
+	return flag;
+}
 
-    m_current_boat = new_boat;
-    
-    // Reset UI and load the new boat
-    reset();
-    loadBoat(new_boat);
-    
-    std::cout << "Created new boat 'NewBoat'. Fill in the details and click Save." << std::endl;
+void MainWindow::infoBubble(const Glib::ustring &message, const Glib::ustring &detail) {
+	if (!m_dialog) {
+		m_dialog = Gtk::AlertDialog::create();
+	}
+	
+	// Reset values that may have been set by on_button_question_clicked().
+	//m_pDialog->set_buttons({});
+	m_dialog->set_default_button(-1);
+	m_dialog->set_cancel_button(-1);
+
+	m_dialog->set_modal(); // Block the window until the dialog closes
+
+
+	m_dialog->set_message(message);
+	m_dialog->set_detail(detail);
+	m_dialog->show(*this);
 }

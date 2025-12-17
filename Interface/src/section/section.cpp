@@ -6,7 +6,10 @@
  * @param the name of the section
  */
 SectionSuperClass::SectionSuperClass(const Glib::ustring &label): Frame(label) {
-	// Nothing to do
+	this->set_margin_top(5);
+	this->set_margin_bottom(5);
+	this->set_margin_start(10);
+	this->set_margin_end(10);
 }
 
 /**
@@ -32,9 +35,12 @@ void SectionSuperClass::loadBoat(Boat *b) {
  * Update all the field (see InputArea::update())
  */
 void SectionSuperClass::update() {
+	// Load the last version of the boat
+	boat_local = *boat_ref;
 	for (int i = 0; i < input_count; i++) {
 		input_list[i]->update();
 	}
+	// Save the modifications
 	*boat_ref = boat_local;
 }
 
@@ -46,4 +52,32 @@ void SectionSuperClass::reset() {
 	for (int i = 0; i < input_count; i++) {
 		input_list[i]->reset();
 	}
+}
+
+/**
+ * Retreive error from all the field (see InputArea::hasFormatError())
+ */
+bool SectionSuperClass::hasFormatError() {
+	bool flag = false;
+	for (int i = 0; i < input_count; i++) {
+		if (input_list[i]->hasFormatError()) {
+			flag = true;
+			break;
+		}
+	}
+	return flag;
+}
+
+/**
+ * Retreive a change from all the field (see InputArea::hasChanged())
+ */
+bool SectionSuperClass::hasChanged() {
+	bool flag = false;
+	for (int i = 0; i < input_count; i++) {
+		if (input_list[i]->hasChanged()) {
+			flag = true;
+			break;
+		}
+	}
+	return flag;
 }

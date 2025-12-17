@@ -26,7 +26,7 @@ public:
 
 	Boat boat;
 
-private:
+protected:
 	// Conteneur horizontal principal
 	Box box;
 
