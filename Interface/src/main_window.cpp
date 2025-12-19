@@ -31,6 +31,7 @@ m_azimuth_section(),
 m_compass_section(),
 m_dynamics_section(),
 m_general_section(),
+m_name_section(),
 m_pano_section(),
 m_propertie_section(),
 m_propulsion_section(),
@@ -59,6 +60,7 @@ m_wheel_section()
 	m_compass_section.show();
 	m_dynamics_section.show();
 	m_general_section.show();
+	m_name_section.show();
 	m_pano_section.show();
 	m_propertie_section.show();
 	m_propulsion_section.show();
@@ -70,6 +72,7 @@ m_wheel_section()
 	m_wheel_section.show();
 	
 	// Pack all elements in the box:
+	m_box_edit.append(m_name_section);
 	m_box_edit.append(m_compass_section);
 	m_box_edit.append(m_general_section);
 	m_box_edit.append(m_propertie_section);
