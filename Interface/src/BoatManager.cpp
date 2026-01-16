@@ -9,7 +9,7 @@ namespace fs = std::filesystem;
 // Implémentation des parseurs
 
 void ViewList::fromJson(const Json::Value& json) {
-	for (const auto& item : json) {
+	for (const Json::Value& item : json) {
 		if (item.size() >= 3) {
 			View v;
 			v.vector[0] = item[0].asFloat(); // x

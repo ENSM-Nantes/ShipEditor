@@ -22,7 +22,6 @@ public:
 	 * @param boat Instance de Boat contenant les données à afficher
 	 */
 	BoatRow(Boat boat_in);
-	~BoatRow() {}
 
 	Boat boat;
 
@@ -39,8 +38,13 @@ protected:
 
 class BoatList: public ListBox {
 public:
-	BoatList();
-	~BoatList() {}	
+  BoatList();
+  ~BoatList();
+
+
+private:
+
+  std::vector<Boat> mBoats;
 };
 
 

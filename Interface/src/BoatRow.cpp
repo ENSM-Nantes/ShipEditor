@@ -44,11 +44,19 @@ BoatList::BoatList(): ListBox() {
 
 	// Charger les bateaux depuis les JSON via BoatManager
 	BoatManager manager;
-	std::vector<Boat> boats = manager.loadBoats("../../FileConverter/transformation");
+	mBoats = manager.loadBoats("../../FileConverter/transformation");
 
 	// Remplir la ListBox avec des BoatRow
-	for (Boat b : boats) {
+	for (Boat b : mBoats) {
 		BoatRow* row = Gtk::manage(new BoatRow(b));
 		this->append(*row);
 	}
+}
+
+BoatList::~BoatList()
+{
+  for(unsigned char i=0;i<mBoats.size();i++)
+    { 
+      delete get_row_at_index(i);
+    }
 }

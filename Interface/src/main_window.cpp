@@ -1,6 +1,10 @@
 #include <iostream>
 #include "main_window.h"
 
+MainWindow::~MainWindow()
+{
+  
+}
 
 MainWindow::MainWindow():
   // Main window

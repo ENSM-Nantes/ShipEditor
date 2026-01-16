@@ -28,7 +28,7 @@ using namespace std;
 class MainWindow : public Gtk::Window {
 public:
   MainWindow();
-  virtual ~MainWindow() = default;
+  ~MainWindow();
 	
 private:
   Gtk::Label m_label_edit;

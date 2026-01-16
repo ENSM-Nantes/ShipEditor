@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.16)
 
 # Project name and current version
-project(rascam VERSION 0.1 LANGUAGES CXX)
+project(ShipEditor VERSION 0.1 LANGUAGES CXX)
 
 # Enable general warnings
 # See http://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html
@@ -35,24 +35,12 @@ include_directories(${GTKMM_INCLUDE_DIRS})
 link_directories(${JSONCPP_LIBRARY_DIRS})
 
 # Compile files:
-add_executable(ShipEditor
-    main.cpp
-    main_window.cpp
-    BoatManager.cpp
-    BoatRow.cpp
-    input_area.cpp
-    section/section.cpp
-    section/azimuth_section.cpp
-    section/compass_section.cpp
-    section/dynamics_section.cpp
-    section/general_section.cpp
-    section/propertie_section.cpp
-    section/propulsion_section.cpp
-    section/radar_screen_section.cpp
-    section/rudder_section.cpp
-    section/weather_section.cpp
-    section/wheel_section.cpp
+
+file(GLOB SRC_FILES
+    "*.cpp"
+    "section/*.cpp"
 )
+add_executable(ShipEditor ${SRC_FILES})
 
 # Add folder with all headers:
 target_include_directories(ShipEditor PRIVATE hpp)

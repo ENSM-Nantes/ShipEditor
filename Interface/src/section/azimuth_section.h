@@ -19,9 +19,9 @@ public:
   virtual void update(void);
   virtual void reset(void);
   
-protected:
+private:
+  
   Grid m_grid;
-
   InputArea m_azimuth, m_astern, m_azimuth_lenth2ratio, m_engine_idle, m_max_deg_sec, m_clutch_engaged, m_clutch_disengage, m_thrust_lever, m_same_dir, m_engine_max_change;
 
   InputArea *mInputList[AZIMUTH_INPUT_COUNT] = {
