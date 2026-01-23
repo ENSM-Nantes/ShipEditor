@@ -24,13 +24,18 @@ InputArea::~InputArea()
   
 }
 
-void InputArea::set(const Glib::ustring &str, std::string *ref_var) 
-{
+void InputArea::set(std::string *ref_var) 
+{  
   // Save the pointer to the target variable
   type = TYPE_STRING;
   var_str = ref_var;
   if (ref_var == nullptr) type = TYPE_NULL;
+}
 
+void InputArea::init(const Glib::ustring &str, std::string *ref_var) 
+{  
+  set(ref_var);
+  
   // Set the label name
   m_label.set_text(str);
 
@@ -53,18 +58,18 @@ void InputArea::set(const Glib::ustring &str, std::string *ref_var)
   mBox.append(m_entry);
 }
 
-/**
- * Constructor for the input of a integer
- * @param str The label od the input
- * @param ref_var The variable to update from
- */
-void InputArea::set(const Glib::ustring &str, int *ref_var) 
-{
+void InputArea::set(int *ref_var) 
+{   
   // Save the pointer to the target variable
   type = TYPE_INTEGER;
   var_int = ref_var;
   if (ref_var == nullptr) type = TYPE_NULL;
+}
 
+void InputArea::init(const Glib::ustring &str, int *ref_var) 
+{
+  set(ref_var);
+  
   // Set the label name
   m_label.set_text(str);
 
@@ -85,25 +90,27 @@ void InputArea::set(const Glib::ustring &str, int *ref_var)
   // Create the box
   mBox.append(m_label);
   mBox.append(m_entry);
+ 
 }
 
-/**
- * Constructor for the input of a float
- * @param str The label od the input
- * @param ref_var The variable to update from
- */
-void InputArea::set(const Glib::ustring &str, float *ref_var)
+void InputArea::set(float *ref_var)
 {
   // Save the pointer to the target variable
   type = TYPE_FLOAT;
   var_float = ref_var;
   if (ref_var == nullptr) type = TYPE_NULL;
+}
 
+void InputArea::init(const Glib::ustring &str, float *ref_var)
+{
+  set(ref_var);
+  
   // Set the label name
   m_label.set_text(str);
 
   // Show the variable type in the placeholder (when it's empty)
   m_entry.set_placeholder_text("float");
+
 
   // Layout
   mBox.set_margin_top(2);
@@ -121,24 +128,23 @@ void InputArea::set(const Glib::ustring &str, float *ref_var)
   mBox.append(m_entry);
 }
 
-/**
- * Constructor for the input of a double
- * @param str The label od the input
- * @param ref_var The variable to update from
- */
-void InputArea::set(const Glib::ustring &str, double *ref_var)
-{
+void InputArea::set(double *ref_var)
+{   
   // Save the pointer to the target variable
   type = TYPE_DOUBLE;
   var_double = ref_var;
   if (ref_var == nullptr) type = TYPE_NULL;
+}
 
+void InputArea::init(const Glib::ustring &str, double *ref_var)
+{
+  set(ref_var);
+    
   // Set the label name
   m_label.set_text(str);
 
   // Show the variable type in the placeholder (when it's empty)
   m_entry.set_placeholder_text("float");
-
   // Layout
   mBox.set_margin_top(2);
   mBox.set_margin_bottom(2);
@@ -155,19 +161,10 @@ void InputArea::set(const Glib::ustring &str, double *ref_var)
   mBox.append(m_entry);
 }
 
-/**
- * Constructor for the input of a vector of three float
- * @param str The label od the input
- * @param ref_var The variable to update from
- * @param vector Force the constructor of a vector (useless)
- */
-void InputArea::set(const Glib::ustring &str, float *ref_var, bool vector) 
+void InputArea::init(const Glib::ustring &str, float *ref_var, bool vector) 
 {
-  // Save the pointer to the target variable
-  type = TYPE_VECTOR;
-  var_vector = ref_var;
-  if (ref_var == nullptr) type = TYPE_NULL;
-
+  set(ref_var);
+    
   // Set the label name
   m_label.set_text(str);
 
@@ -175,6 +172,7 @@ void InputArea::set(const Glib::ustring &str, float *ref_var, bool vector)
   m_entry_x.set_placeholder_text("x");
   m_entry_y.set_placeholder_text("y");
   m_entry_z.set_placeholder_text("z");
+
 
   // Layout
   mBox.set_margin_top(2);
@@ -196,18 +194,18 @@ void InputArea::set(const Glib::ustring &str, float *ref_var, bool vector)
   mBox.append(m_entry_z);
 }
 
-/**
- * Constructor for the input of a boolean
- * @param str The label od the input
- * @param ref_var The variable to update from
- */
-void InputArea::set(const Glib::ustring &str, bool *ref_var)
+void InputArea::set(bool *ref_var)
 {
   // Save the pointer to the target variable
   type = TYPE_BOOL;
   var_bool = ref_var;
   if (ref_var == nullptr) type = TYPE_NULL;
+}
 
+void InputArea::init(const Glib::ustring &str, bool *ref_var)
+{
+  set(ref_var);
+  
   // Set the label name
   m_label.set_text(str);
 
@@ -273,9 +271,9 @@ void InputArea::update()
 }
 
 /**
- * Reset the value from the right pointer into the entry
+ * Refresh the value from the right pointer into the entry
  */
-void InputArea::reset()
+void InputArea::refresh()
 {
   if (type == TYPE_BOOL) {
     m_checkbutton.set_active(*var_bool);

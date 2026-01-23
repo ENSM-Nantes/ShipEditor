@@ -14,11 +14,12 @@ public:
 
   void load(Boat *b);
   virtual void update(void) = 0;
-  virtual void reset(void) = 0;
-
+  virtual void refresh(void) = 0;
+  virtual void set(void) = 0;
+  
 protected:
 
-  Boat mBoat;  
+  Boat *mBoat;  
 	
 };
 

@@ -3,11 +3,6 @@
 RadarScreenSection::RadarScreenSection():
   m_box(Orientation::VERTICAL)
 {
-  m_size.set("Size", &mBoat.radarScreen.size);
-  m_tilt.set("Tilt", &mBoat.radarScreen.tilt);
-  m_vector.set("Vector", (float*)&mBoat.radarScreen.vector, true);
-  m_port_throttle.set("Port throttle", (float*)&mBoat.portThrottle, true);
-  m_stbd_throttle.set("Stbd throttle", (float*)&mBoat.stbdThrottle, true);
      
   // Show every field
   m_size.getBox().show();
@@ -28,6 +23,23 @@ RadarScreenSection::RadarScreenSection():
   set_child(m_box);
 }
 
+void RadarScreenSection::set()
+{
+  m_size.set(&mBoat->radarScreen.size);
+  m_tilt.set(&mBoat->radarScreen.tilt);
+  m_vector.set((float*)&mBoat->radarScreen.vector);
+  m_port_throttle.set((float*)&mBoat->portThrottle);
+  m_stbd_throttle.set((float*)&mBoat->stbdThrottle);
+}
+
+void RadarScreenSection::init()
+{
+  m_size.init("Size", &mBoat->radarScreen.size);
+  m_tilt.init("Tilt", &mBoat->radarScreen.tilt);
+  m_vector.init("Vector", (float*)&mBoat->radarScreen.vector, true);
+  m_port_throttle.init("Port throttle", (float*)&mBoat->portThrottle, true);
+  m_stbd_throttle.init("Stbd throttle", (float*)&mBoat->stbdThrottle, true);
+}
 
 void RadarScreenSection::update(void)
 {
@@ -37,10 +49,10 @@ void RadarScreenSection::update(void)
     }
 }
 
-void RadarScreenSection::reset(void)
+void RadarScreenSection::refresh(void)
 {
   for(unsigned char i=0;i<RADAR_SCREEN_INPUT_COUNT;i++)
     {
-      mInputList[i]->reset();
+      mInputList[i]->refresh();
     }
 }

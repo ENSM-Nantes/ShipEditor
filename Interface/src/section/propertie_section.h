@@ -15,8 +15,10 @@ public:
   PropertieSection();
   ~PropertieSection() {}
 
+  virtual void init(void);
+  virtual void set(void);
   virtual void update(void);
-  virtual void reset(void);
+  virtual void refresh(void);
   
 protected:
   Grid m_grid;

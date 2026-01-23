@@ -17,7 +17,7 @@ MainWindow::MainWindow():
 
   // Boat area
   m_boat_list(),
-  m_button_reset("Reset"),
+  m_button_refresh("Refresh"),
   m_button_save("Save"),
   m_button_new("New"),
   m_button_delete("Delete"),
@@ -83,9 +83,9 @@ MainWindow::MainWindow():
   /* ********************* */
 
   // Link the signals to function
-  m_boat_list.signal_row_activated().connect(sigc::mem_fun(*this, &MainWindow::boat_callback));
+  m_boat_list.signal_row_activated().connect(sigc::mem_fun(*this, &MainWindow::boat_line));
   m_button_save.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::update));
-  m_button_reset.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::reset));
+  m_button_refresh.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::refresh));
 
   // Put an icon in the buttons
   // TODO
@@ -94,13 +94,13 @@ MainWindow::MainWindow():
   m_button_new.show();
   m_button_delete.show();
   m_button_save.show();
-  m_button_reset.show();
+  m_button_refresh.show();
 
   // Pack the button in the box
   m_box_action_button.append(m_button_new);
   m_box_action_button.append(m_button_delete);
   m_box_action_button.append(m_button_save);
-  m_box_action_button.append(m_button_reset);
+  m_box_action_button.append(m_button_refresh);
 
   // Make the list usable with the scroll bar
   m_scroll_boat.set_child(m_boat_list);
@@ -118,22 +118,34 @@ MainWindow::MainWindow():
   m_paned.set_end_child(m_scroll_edit);
 
   //Show first boat
-  boat_callback((BoatRow*)m_boat_list.get_row_at_index(0));  
-  reset();
+  boat_line((BoatRow*)m_boat_list.get_row_at_index(0));
   
   // Add the box in this window:
   set_child(m_paned);	
 }
 
 
-void MainWindow::boat_callback(Gtk::ListBoxRow *boat_row)
+void MainWindow::boat_line(Gtk::ListBoxRow *boat_row)
 {
-  std::string name = ((BoatRow*)boat_row)->boat.displayName;
+  static bool bInit = false;
+  Boat *pBoat = &(((BoatRow*)boat_row)->boat);
+  std::string name = pBoat->displayName;
+
   m_label_edit.set_text(name);
   m_label_edit.show();
 
-  loadBoat(&(((BoatRow*)boat_row)->boat));
-  reset();
+  mCurrentRowIndex = ((BoatRow*)boat_row)->get_index();
+  loadBoat(pBoat);
+
+  if(!bInit)
+    {
+      init();
+      bInit = true;
+    }
+  else
+    set();
+  
+  refresh();
 }
 
 
@@ -144,7 +156,6 @@ void MainWindow::boat_callback(Gtk::ListBoxRow *boat_row)
 void MainWindow::loadBoat(Boat *b)
 {
   if (b == nullptr) return;
-
   m_azimuth_section.load(b);
   m_compass_section.load(b);
   m_dynamics_section.load(b);
@@ -157,11 +168,39 @@ void MainWindow::loadBoat(Boat *b)
   m_wheel_section.load(b);
 }
 
-/**
- * Update all the field of all the sections (see InputArea::update())
- */
+void MainWindow::set(void)
+{
+  m_azimuth_section.set();
+  m_compass_section.set();
+  m_dynamics_section.set();
+  m_general_section.set();
+  m_propertie_section.set();
+  m_propulsion_section.set();
+  m_radar_screen_section.set();
+  m_rudder_section.set();
+  m_weather_section.set();
+  m_wheel_section.set();
+}
+
+void MainWindow::init(void)
+{
+  m_azimuth_section.init();
+  m_compass_section.init();
+  m_dynamics_section.init();
+  m_general_section.init();
+  m_propertie_section.init();
+  m_propulsion_section.init();
+  m_radar_screen_section.init();
+  m_rudder_section.init();
+  m_weather_section.init();
+  m_wheel_section.init();
+}
+
 void MainWindow::update()
 {
+  BoatManager manager;
+  Gtk::ListBoxRow *currentBoatRow;
+  
   m_azimuth_section.update();
   m_compass_section.update();
   m_dynamics_section.update();
@@ -172,21 +211,21 @@ void MainWindow::update()
   m_rudder_section.update();
   m_weather_section.update();
   m_wheel_section.update();
+  
+  currentBoatRow = m_boat_list.get_row_at_index(mCurrentRowIndex);
+  manager.saveBoat(((BoatRow*)currentBoatRow)->boat);
 }
 
-/**
- * Reset all the field of all the sections (see InputArea::reset())
- */
-void MainWindow::reset()
+void MainWindow::refresh()
 {
-  m_azimuth_section.reset();
-  m_compass_section.reset();
-  m_dynamics_section.reset();
-  m_general_section.reset();
-  m_propertie_section.reset();
-  m_propulsion_section.reset();
-  m_radar_screen_section.reset();
-  m_rudder_section.reset();
-  m_weather_section.reset();
-  m_wheel_section.reset();
+  m_azimuth_section.refresh();
+  m_compass_section.refresh();
+  m_dynamics_section.refresh();
+  m_general_section.refresh();
+  m_propertie_section.refresh();
+  m_propulsion_section.refresh();
+  m_radar_screen_section.refresh();
+  m_rudder_section.refresh();
+  m_weather_section.refresh();
+  m_wheel_section.refresh();
 }

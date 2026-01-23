@@ -15,8 +15,10 @@ public:
   PropulsionSection();
   ~PropulsionSection() {}
 
+  virtual void init(void);
+  virtual void set(void);
   virtual void update(void);
-  virtual void reset(void);
+  virtual void refresh(void);
 
 protected:
   Box m_box, m_box_first_line, m_box_second_line, m_box_frame, m_box_bow, m_box_stern;

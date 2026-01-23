@@ -2,14 +2,8 @@
 
 DynamicsSection::DynamicsSection():
   m_grid()
+
 {
-  m_speed.set("Speed", &mBoat.dynamics.speed[1]);
-  m_speed_sq.set("Speed (squared)", &mBoat.dynamics.speed[0]);
-  m_turndrag.set("Turn drag", &mBoat.dynamics.turnDrag[1]);
-  m_turndrag_sq.set("Turn drag (squared)", &mBoat.dynamics.turnDrag[0]);
-  m_lateraldrag.set("Lateral drag", &mBoat.dynamics.lateralDrag[1]);
-  m_lateraldrag_sq.set("Lateral drag (squared)", &mBoat.dynamics.lateralDrag[0]);
-  
   // Show every field
   m_speed.getBox().show();
   m_speed_sq.getBox().show();
@@ -29,8 +23,28 @@ DynamicsSection::DynamicsSection():
   // Show and set the grid as the child
   m_grid.show();
   set_child(m_grid);
-
 }
+
+void DynamicsSection::set()
+{
+  m_speed.set(&mBoat->dynamics.speed[1]);
+  m_speed_sq.set(&mBoat->dynamics.speed[0]);
+  m_turndrag.set(&mBoat->dynamics.turnDrag[1]);
+  m_turndrag_sq.set(&mBoat->dynamics.turnDrag[0]);
+  m_lateraldrag.set(&mBoat->dynamics.lateralDrag[1]);
+  m_lateraldrag_sq.set(&mBoat->dynamics.lateralDrag[0]);
+}
+
+void DynamicsSection::init()
+{
+  m_speed.init("Speed", &mBoat->dynamics.speed[1]);
+  m_speed_sq.init("Speed (squared)", &mBoat->dynamics.speed[0]);
+  m_turndrag.init("Turn drag", &mBoat->dynamics.turnDrag[1]);
+  m_turndrag_sq.init("Turn drag (squared)", &mBoat->dynamics.turnDrag[0]);
+  m_lateraldrag.init("Lateral drag", &mBoat->dynamics.lateralDrag[1]);
+  m_lateraldrag_sq.init("Lateral drag (squared)", &mBoat->dynamics.lateralDrag[0]);
+}
+
 
 void DynamicsSection::update(void)
 {
@@ -40,10 +54,10 @@ void DynamicsSection::update(void)
     }
 }
 
-void DynamicsSection::reset(void)
+void DynamicsSection::refresh(void)
 {
   for(unsigned char i=0;i<DYNAMICS_INPUT_COUNT;i++)
     {
-      mInputList[i]->reset();
+      mInputList[i]->refresh();
     }
 }

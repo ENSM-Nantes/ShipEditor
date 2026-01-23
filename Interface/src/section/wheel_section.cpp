@@ -1,10 +1,8 @@
 #include "wheel_section.h"
 
 WheelSection::WheelSection():
-  m_box(Orientation::VERTICAL) 
+  m_box(Orientation::VERTICAL)
 {
-  m_vector.set("Vector", (float*)&mBoat.wheel.vector, true);
-  m_scale.set("Scale", &mBoat.wheel.scale);
   // Show every field
   m_vector.getBox().show();
   m_scale.getBox().show();
@@ -18,6 +16,18 @@ WheelSection::WheelSection():
   set_child(m_box);
 }
 
+void WheelSection::set()
+{
+  m_vector.set((float*)&mBoat->wheel.vector);
+  m_scale.set(&mBoat->wheel.scale);
+}
+
+void WheelSection::init()
+{
+  m_vector.init("Vector", (float*)&mBoat->wheel.vector, true);
+  m_scale.init("Scale", &mBoat->wheel.scale);
+}
+
 void WheelSection::update(void)
 {
   for(unsigned char i=0;i<WHEEL_INPUT_COUNT;i++)
@@ -27,10 +37,10 @@ void WheelSection::update(void)
 }
 
 
-void WheelSection::reset(void)
+void WheelSection::refresh(void)
 {
   for(unsigned char i=0;i<WHEEL_INPUT_COUNT;i++)
     {
-      mInputList[i]->reset();
+      mInputList[i]->refresh();
     }
 }

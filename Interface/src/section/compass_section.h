@@ -15,8 +15,10 @@ public:
   CompassSection();
   ~CompassSection() {}
 
+  virtual void init(void);
+  virtual void set(void);
   virtual void update(void);
-  virtual void reset(void);
+  virtual void refresh(void);
   
 protected:
 

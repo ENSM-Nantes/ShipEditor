@@ -36,12 +36,16 @@ private:
   Gtk::ScrolledWindow m_scroll_edit, m_scroll_boat;
   Gtk::Box m_box_left_side, m_box_action_button, m_box_edit;
   BoatList m_boat_list;
-  Gtk::Button m_button_reset, m_button_save, m_button_new, m_button_delete;
+  Gtk::Button m_button_refresh, m_button_save, m_button_new, m_button_delete;
 
+  int mCurrentRowIndex;
+  
   void loadBoat(Boat *b);
   void update();
-  void reset();
-  void boat_callback(Gtk::ListBoxRow *boat_row);
+  void refresh();
+  void set();
+  void init();
+  void boat_line(Gtk::ListBoxRow *boat_row);
 
   AzimuthSection m_azimuth_section;
   CompassSection m_compass_section;

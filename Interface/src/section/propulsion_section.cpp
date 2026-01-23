@@ -10,15 +10,6 @@ PropulsionSection::PropulsionSection():
   m_frame_bow_thruster("Bow"),
   m_frame_stern_thruster("Stern")
 {
-  m_max_propulsion_force.set("Max propulsion force", &mBoat.maxPropulsionForce);
-  m_max_rpm.set("Max RPM", &mBoat.maxRevs);
-  m_max_speed.set("Max speed", &mBoat.maxSpeedAhead);
-  m_astern_efficiency.set("Astern efficiency", &mBoat.asternEfficiency);
-  m_block_coeff.set("Block coefficient", &mBoat.blockCoefficient);
-  m_bow_force.set("Force", &mBoat.bowThruster.Force);
-  m_bow_distance.set("Distance", &mBoat.bowThruster.Distance);
-  m_stern_force.set("Force", &mBoat.sternThruster.Force);
-  m_stern_distance.set("Distance", &mBoat.sternThruster.Distance);
       
   // Show every field
   m_max_propulsion_force.getBox().show();
@@ -79,10 +70,33 @@ PropulsionSection::PropulsionSection():
   m_frame_stern_thruster.set_margin_bottom(5);
   m_frame_stern_thruster.set_margin_start(10);
   m_frame_stern_thruster.set_margin_end(10);
-
 }
 
+void PropulsionSection::set()
+{
+  m_max_propulsion_force.set(&mBoat->maxPropulsionForce);
+  m_max_rpm.set(&mBoat->maxRevs);
+  m_max_speed.set(&mBoat->maxSpeedAhead);
+  m_astern_efficiency.set(&mBoat->asternEfficiency);
+  m_block_coeff.set(&mBoat->blockCoefficient);
+  m_bow_force.set(&mBoat->bowThruster.Force);
+  m_bow_distance.set(&mBoat->bowThruster.Distance);
+  m_stern_force.set(&mBoat->sternThruster.Force);
+  m_stern_distance.set(&mBoat->sternThruster.Distance);
+}
 
+void PropulsionSection::init()
+{
+  m_max_propulsion_force.init("Max propulsion force", &mBoat->maxPropulsionForce);
+  m_max_rpm.init("Max RPM", &mBoat->maxRevs);
+  m_max_speed.init("Max speed", &mBoat->maxSpeedAhead);
+  m_astern_efficiency.init("Astern efficiency", &mBoat->asternEfficiency);
+  m_block_coeff.init("Block coefficient", &mBoat->blockCoefficient);
+  m_bow_force.init("Force", &mBoat->bowThruster.Force);
+  m_bow_distance.init("Distance", &mBoat->bowThruster.Distance);
+  m_stern_force.init("Force", &mBoat->sternThruster.Force);
+  m_stern_distance.init("Distance", &mBoat->sternThruster.Distance);
+}
 
 void PropulsionSection::update(void)
 {
@@ -93,10 +107,10 @@ void PropulsionSection::update(void)
 }
 
 
-void PropulsionSection::reset(void)
+void PropulsionSection::refresh(void)
 {
   for(unsigned char i=0;i<PROPULSION_INPUT_COUNT;i++)
     {
-      mInputList[i]->reset();
+      mInputList[i]->refresh();
     }
 }

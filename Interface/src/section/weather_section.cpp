@@ -3,11 +3,6 @@
 WeatherSection::WeatherSection():
   m_grid()
 {
-  m_buffet.set("Buffet", &mBoat.buffet);
-  m_swell.set("Swell", &mBoat.swell);
-  m_windage.set("Windage", &mBoat.windage);
-  m_windage_turn_effect.set("Windage turn effect", &mBoat.windageTurnEffect);
-      
   // Show every field
   m_buffet.getBox().show();
   m_swell.getBox().show();
@@ -25,6 +20,23 @@ WeatherSection::WeatherSection():
   set_child(m_grid);
 }
 
+void WeatherSection::set()
+{
+  m_buffet.set(&mBoat->buffet);
+  m_swell.set(&mBoat->swell);
+  m_windage.set(&mBoat->windage);
+  m_windage_turn_effect.set(&mBoat->windageTurnEffect);
+}
+
+void WeatherSection::init()
+{
+  m_buffet.init("Buffet", &mBoat->buffet);
+  m_swell.init("Swell", &mBoat->swell);
+  m_windage.init("Windage", &mBoat->windage);
+  m_windage_turn_effect.init("Windage turn effect", &mBoat->windageTurnEffect);
+}
+
+
 void WeatherSection::update(void)
 {
   for(unsigned char i=0;i<WEATHER_INPUT_COUNT;i++)
@@ -33,10 +45,10 @@ void WeatherSection::update(void)
     }
 }
 
-void WeatherSection::reset(void)
+void WeatherSection::refresh(void)
 {
   for(unsigned char i=0;i<WEATHER_INPUT_COUNT;i++)
     {
-      mInputList[i]->reset();
+      mInputList[i]->refresh();
     }
 }

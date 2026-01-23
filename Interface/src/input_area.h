@@ -20,16 +20,24 @@ public:
 
   InputArea();
   ~InputArea();
-  void set(const Glib::ustring &str, std::string *ref_var);
-  void set(const Glib::ustring &str, int *ref_var);
-  void set(const Glib::ustring &str, float *ref_var);
-  void set(const Glib::ustring &str, double *ref_var);
-  void set(const Glib::ustring &str, float *ref_var, bool vector);
-  void set(const Glib::ustring &str, bool *ref_var);
   
+  void init(const Glib::ustring &str, std::string *ref_var);
+  void init(const Glib::ustring &str, int *ref_var);
+  void init(const Glib::ustring &str, float *ref_var);
+  void init(const Glib::ustring &str, double *ref_var);
+  void init(const Glib::ustring &str, float *ref_var, bool vector);
+  void init(const Glib::ustring &str, bool *ref_var);
+
+  void set(std::string *ref_var);
+  void set(int *ref_var);
+  void set(float *ref_var);
+  void set(double *ref_var);
+  void set(float *ref_var, bool vector);
+  void set(bool *ref_var);
+
   Box& getBox(void); 
   void update();
-  void reset();
+  void refresh();
 
 protected:
 

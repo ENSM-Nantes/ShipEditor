@@ -3,15 +3,6 @@
 GeneralSection::GeneralSection():
   m_grid()
 {
-  m_filename.set("File name", &mBoat.fileName);
-  m_ycorrection.set("Y correction", &mBoat.yCorrection);
-  m_gps.set("GPS", &mBoat.hasGPS);
-  m_scale_factor.set("Scale factor", &mBoat.scaleFactor);
-  m_depth.set("Depth", &mBoat.depth);
-  m_depth_sounder.set("Depth sounder", &mBoat.hasDepthSounder);
-  m_max_depth.set("Max depth", &mBoat.maxDepth);
-  m_make_transparent.set("Make transparent", &mBoat.makeTransparent);
-  
   // Show every field
   m_filename.getBox().show();
   m_ycorrection.getBox().show();
@@ -35,9 +26,32 @@ GeneralSection::GeneralSection():
   // Show and set the grid as the child
   m_grid.show();
   set_child(m_grid);
-
-
 }
+
+void GeneralSection::set()
+{
+  m_filename.set(&mBoat->fileName);
+  m_ycorrection.set(&mBoat->yCorrection);
+  m_gps.set(&mBoat->hasGPS);
+  m_scale_factor.set(&mBoat->scaleFactor);
+  m_depth.set(&mBoat->depth);
+  m_depth_sounder.set(&mBoat->hasDepthSounder);
+  m_max_depth.set(&mBoat->maxDepth);
+  m_make_transparent.set(&mBoat->makeTransparent);
+}
+
+void GeneralSection::init()
+{
+  m_filename.init("File name", &mBoat->fileName);
+  m_ycorrection.init("Y correction", &mBoat->yCorrection);
+  m_gps.init("GPS", &mBoat->hasGPS);
+  m_scale_factor.init("Scale factor", &mBoat->scaleFactor);
+  m_depth.init("Depth", &mBoat->depth);
+  m_depth_sounder.init("Depth sounder", &mBoat->hasDepthSounder);
+  m_max_depth.init("Max depth", &mBoat->maxDepth);
+  m_make_transparent.init("Make transparent", &mBoat->makeTransparent);
+}
+
 
 void GeneralSection::update(void)
 {
@@ -47,10 +61,10 @@ void GeneralSection::update(void)
     }
 }
 
-void GeneralSection::reset(void)
+void GeneralSection::refresh(void)
 {
   for(unsigned char i=0;i<GENERAL_INPUT_COUNT;i++)
     {
-      mInputList[i]->reset();
+      mInputList[i]->refresh();
     }
 }

@@ -3,17 +3,6 @@
 PropertieSection::PropertieSection():
   m_grid()
 {
-  m_mass.set("Mass", &mBoat.mass);
-  m_inertia.set("Inertia", &mBoat.inertia);
-  m_space.set("Space", &mBoat.prop.space);
-  m_walk_ahead.set("Walk ahead", &mBoat.prop.walkAhead);
-  m_walk_astern.set("Walk Astern", &mBoat.prop.walkAstern);
-  m_walk_drift_effect.set("Walk drift effect", &mBoat.prop.walkDriftEffect);
-  m_roll_period.set("Roll period", &mBoat.rollPeriod);
-  m_pitch_period.set("Pitch period", &mBoat.pitchPeriod);
-  m_centrifugal_drift_effect.set("Centrifugal drift effect", &mBoat.centrifugalDriftEffect);
-  m_turn_indicator_rate.set("Rate of turn indicator", &mBoat.hasRateOfTurnIndicator);
-      
   // Show every field
   m_mass.getBox().show();
   m_inertia.getBox().show();
@@ -43,6 +32,33 @@ PropertieSection::PropertieSection():
   set_child(m_grid);
 }
 
+void PropertieSection::set()
+{
+  m_mass.set(&mBoat->mass);
+  m_inertia.set(&mBoat->inertia);
+  m_space.set(&mBoat->prop.space);
+  m_walk_ahead.set(&mBoat->prop.walkAhead);
+  m_walk_astern.set(&mBoat->prop.walkAstern);
+  m_walk_drift_effect.set(&mBoat->prop.walkDriftEffect);
+  m_roll_period.set(&mBoat->rollPeriod);
+  m_pitch_period.set(&mBoat->pitchPeriod);
+  m_centrifugal_drift_effect.set(&mBoat->centrifugalDriftEffect);
+  m_turn_indicator_rate.set(&mBoat->hasRateOfTurnIndicator);
+}
+
+void PropertieSection::init()
+{
+  m_mass.init("Mass", &mBoat->mass);
+  m_inertia.init("Inertia", &mBoat->inertia);
+  m_space.init("Space", &mBoat->prop.space);
+  m_walk_ahead.init("Walk ahead", &mBoat->prop.walkAhead);
+  m_walk_astern.init("Walk Astern", &mBoat->prop.walkAstern);
+  m_walk_drift_effect.init("Walk drift effect", &mBoat->prop.walkDriftEffect);
+  m_roll_period.init("Roll period", &mBoat->rollPeriod);
+  m_pitch_period.init("Pitch period", &mBoat->pitchPeriod);
+  m_centrifugal_drift_effect.init("Centrifugal drift effect", &mBoat->centrifugalDriftEffect);
+  m_turn_indicator_rate.init("Rate of turn indicator", &mBoat->hasRateOfTurnIndicator);
+}
 
 void PropertieSection::update(void)
 {
@@ -52,10 +68,10 @@ void PropertieSection::update(void)
     }
 }
 
-void PropertieSection::reset(void)
+void PropertieSection::refresh(void)
 {
   for(unsigned char i=0;i<PROPERTIE_INPUT_COUNT;i++)
     {
-      mInputList[i]->reset();
+      mInputList[i]->refresh();
     }
 }

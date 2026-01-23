@@ -3,9 +3,6 @@
 CompassSection::CompassSection():
   m_box(Orientation::HORIZONTAL)
 {
-  m_max_deviation.set("Maximum deviation", &mBoat.deviationMaximum);
-  m_heading_max.set("Heading maximum", &mBoat.deviationMaximumHeading);
-
   // Show every field
   m_max_deviation.getBox().show();
   m_heading_max.getBox().show();
@@ -17,9 +14,19 @@ CompassSection::CompassSection():
   // Show and set the grid as the child
   m_box.show();
   set_child(m_box);
-
 }
 
+void CompassSection::init()
+{
+  m_max_deviation.init("Maximum deviation", &mBoat->deviationMaximum);
+  m_heading_max.init("Heading maximum", &mBoat->deviationMaximumHeading);
+}
+
+void CompassSection::set()
+{
+  m_max_deviation.set(&mBoat->deviationMaximum);
+  m_heading_max.set(&mBoat->deviationMaximumHeading);
+}
 
 void CompassSection::update(void)
 {
@@ -29,10 +36,10 @@ void CompassSection::update(void)
     }
 }
 
-void CompassSection::reset(void)
+void CompassSection::refresh(void)
 {
   for(unsigned char i=0;i<COMPASS_INPUT_COUNT;i++)
     {
-      mInputList[i]->reset();
+      mInputList[i]->refresh();
     }
 }

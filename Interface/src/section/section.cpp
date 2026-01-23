@@ -33,5 +33,5 @@ Section::~Section()
 
 void Section::load(Boat *aBoat)
 {
-  mBoat = *aBoat;
+  mBoat = aBoat;
 }
