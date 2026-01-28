@@ -6,6 +6,8 @@
 
 using namespace Gtk;
 
+#define MAX_ENTRY_VECTOR 10
+
 class InputArea {
 public:
   enum variable_type {
@@ -20,19 +22,20 @@ public:
 
   InputArea();
   ~InputArea();
+
+  void initLayout(void) ;
   
-  void init(const Glib::ustring &str, std::string *ref_var);
-  void init(const Glib::ustring &str, int *ref_var);
-  void init(const Glib::ustring &str, float *ref_var);
-  void init(const Glib::ustring &str, double *ref_var);
-  void init(const Glib::ustring &str, float *ref_var, bool vector);
-  void init(const Glib::ustring &str, bool *ref_var);
+  void init(std::string str, std::string *ref_var);
+  void init(std::string str, int *ref_var);
+  void init(std::string str, float *ref_var);
+  void init(std::string str, double *ref_var);
+  void init(std::string str, float *ref_var, int size);
+  void init(std::string str, bool *ref_var);
 
   void set(std::string *ref_var);
   void set(int *ref_var);
-  void set(float *ref_var);
   void set(double *ref_var);
-  void set(float *ref_var, bool vector);
+  void set(float *ref_var, bool aIsVector=false);
   void set(bool *ref_var);
 
   Box& getBox(void); 
@@ -42,7 +45,8 @@ public:
 protected:
 
   Box mBox;
-  int type;
+  int mSizeVector;
+  int mType;
   std::string *var_str;
   int *var_int;
   float *var_float;
@@ -50,12 +54,10 @@ protected:
   float *var_vector;
   bool *var_bool;
 
-  Label m_label;
-  Entry m_entry;
-  Entry m_entry_x;
-  Entry m_entry_y;
-  Entry m_entry_z;
-  Entry *vector_entry[3];
+  Label mLabel;
+  Entry mOneEntry;
+  Entry mVectorEntry[MAX_ENTRY_VECTOR];
+
   CheckButton  m_checkbutton;
 }; 
 

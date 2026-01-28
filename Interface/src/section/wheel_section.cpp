@@ -18,13 +18,13 @@ WheelSection::WheelSection():
 
 void WheelSection::set()
 {
-  m_vector.set((float*)&mBoat->wheel.vector);
+  m_vector.set((float*)&mBoat->wheel.vector, true);
   m_scale.set(&mBoat->wheel.scale);
 }
 
 void WheelSection::init()
 {
-  m_vector.init("Vector", (float*)&mBoat->wheel.vector, true);
+  m_vector.init("Vector", (float*)&mBoat->wheel.vector, 3);
   m_scale.init("Scale", &mBoat->wheel.scale);
 }
 

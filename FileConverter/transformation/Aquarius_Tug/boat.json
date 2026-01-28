@@ -1,90 +1,114 @@
 {
-  "FileName": "boat.X",
-  "ScaleFactor": 1.0,
-  "YCorrection": -4.5,
-  "AngleCorrection": 0,
-  "Depth": 4.0,
-  "View": [
-    [
-      0.0,
-      11.15,
-      0.4,
-      false
-    ],
-    [
-      3.0,
-      11.0,
-      -0.75,
-      false
-    ],
-    [
-      -3.0,
-      11.0,
-      -0.75,
-      false
-    ],
-    [
-      0.0,
-      150.0,
-      -30.0,
-      true
-    ],
-    [
-      -50.0,
-      11.0,
-      0.0,
-      false
-    ]
-  ],
-  "MakeTransparent": true,
-  "HasDepthSounder": true,
-  "MaxDepth": 50,
-  "HasGPS": true,
-  "Mass": 1607828,
-  "Inertia": 148237264,
-  "Dynamics": {
-    "speed": [
-      60464.9,
-      0.0
-    ],
-    "turnDrag": [
-      87714536,
-      0
-    ],
-    "lateralDrag": [
-      0.0,
-      0.0
-    ]
-  },
-  "Rudder": {
-    "A": 3000.0,
-    "B": 0.2,
-    "BAstern": 0.0
-  },
-  "Buffet": 0.2,
-  "Swell": 0.1,
-  "RollPeriod": 8,
-  "PitchPeriod": 10,
-  "Max_propulsion_force": 1024140.0,
-  "AsternEfficiency": 0.667,
-  "MaxRevs": 1000,
-  "Prop": {
-    "space": 5.0,
-    "walkAhead": 1000.0,
-    "walkAstern": 3000.0,
-    "walkDriftEffect": 7e-06
-  },
-  "Windage": 0.02,
-  "WindageTurnEffect": 1.3,
-  "centrifugalDriftEffect": 0.03,
-  "DeviationMaximum": 5,
-  "DeviationMaximumHeading": 10,
-  "RadarScreen": {
-    "vector": [
-      -3.0,
-      14.5,
-      -0.5
-    ],
-    "size": 1.0
-  }
+    "initialSpeed": [ 0, 0, 0 ],
+    "geoParams": {
+	"length": 320, 
+	"breadth": 58,
+	"draugth": 20.8,
+	"subwaterVolume": 312622,
+	"longGravityCenter": 11.1,
+	"blockCoef": 0.81 
+    },
+    "hull": {
+	"xp0": 0.022,
+	"xpVV": -0.04,
+	"xpVR": 0.002,
+	"xpRR": 0.011,
+	"xpVVVV": 0.771,
+	"ypV": -0.315,
+	"ypR": 0.083,
+	"ypVVV": -1.607,
+	"ypVVR": 0.379,
+	"ypVRR": -0.391,
+	"ypRRR": 0.008,
+	"npV": -0.137,
+	"npR": -0.049,
+	"npVVV": -0.03,
+	"npVVR": -0.294,
+	"npVRR": 0.055,
+	"npRRR": -0.013 
+    },
+    "addedMass": {
+	"pX": 0.022, 
+	"pY": 0.223,
+	"pZ": 0.011 
+    },
+    "propeller": {
+	"number": 1,
+	"diameter": 9.86,
+	"thrustFactor": 0.22, 
+	"longPosition": -0.48,
+	"nominalWake": 0.35,
+	"k0": 0.293,
+	"k1": -0.275,
+	"k2": -0.139,
+	"forwardRotDir": "right",
+	"backwardEff": 0.67 
+    },
+    "rudder": {
+	"spanLength": 15.8, 
+	"areaMobPart": 112.5,
+	"longCoordinateRatio": -0.5,
+	"forceIncreaseFactor": 0.312,
+	"steeringResistanceFactor": 0.387,
+	"longLateralForce": -0.464,
+	"wakeFractionRatio": 1.09,
+	"expConstUr": 0.5,
+	"longCoordinatePos": -0.71,
+	"aspectRatio": 1.827,
+	"flowCoef": [ 0.395 , 0.64 ],
+	"maxSpeed": 0.0407,
+	"maxAngle": 0.61 
+    },
+    "engine": {
+	"number": 1, 
+	"brand": "Caterpillar", 
+	"type": "9M32C",
+	"power": 4500,
+	"rpmMax": 170,
+	"fuelCons": 177 
+    },
+    "sail": {
+	"number": 1, 
+	"type": "Rotor", 
+	"size": "30x5",
+	"pos":
+	[
+	    [ 0.5, 26.5, 3 ],
+	    [ 0, 0, 0 ],
+	    [ 0, 0, 0 ],
+	    [ 0, 0, 0 ]
+	]
+    },
+    "depthSounder": {
+	"number": 1, 
+	"maxDepth": 200 
+    },
+    "gps": {
+	"number": 1 
+    },
+    "rotIndicator": {
+	"number": 1 
+    },
+    "radar": {
+	"number": 1,
+	"pos": [ 0, -10, 0 ],
+	"size": 1,
+	"tilt": 0
+    },
+    "mesh": {
+	"name": "CopenhagenFerry.obj",
+	"makeTransparent" : 0, 
+	"scaleFactor": 1,
+	"yCorrection": -5.8,
+	"angleCorrection": 0,
+	"numberOfViews": 5,
+	"views":
+	[
+	    [ 0, 25, 70, 0 ],
+	    [ 50, 40, 0, 0 ],
+	    [ -50, 40, 0, 0 ],
+	    [ 0, 50, -50, 0 ],
+	    [ 0, 200, 0, 1 ]
+	]
+    }
 }

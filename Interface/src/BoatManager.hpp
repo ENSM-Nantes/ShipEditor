@@ -138,7 +138,7 @@ struct Boat {
   bool hasDepthSounder;
   float maxDepth;
   bool makeTransparent;
-
+  int nbrViews;
   ViewList viewList;
   RadarScreen radarScreen;
   float portThrottle[3];

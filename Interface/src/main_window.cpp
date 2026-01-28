@@ -26,7 +26,9 @@ MainWindow::MainWindow():
   m_azimuth_section(),
   m_compass_section(),
   m_dynamics_section(),
-  m_general_section(),
+  mMeshSection(),
+  mGpsSection(),
+  mDepthSection(),
   m_propertie_section(),
   m_propulsion_section(),
   m_radar_screen_section(),
@@ -52,7 +54,9 @@ MainWindow::MainWindow():
   m_azimuth_section.show();
   m_compass_section.show();
   m_dynamics_section.show();
-  m_general_section.show();
+  mMeshSection.show();
+  mGpsSection.show();
+  mDepthSection.show();
   m_propertie_section.show();
   m_propulsion_section.show();
   m_radar_screen_section.show();
@@ -62,8 +66,10 @@ MainWindow::MainWindow():
 	
   // Pack all elements in the box:
   m_box_edit.append(m_label_edit);
+  m_box_edit.append(mMeshSection);
+  m_box_edit.append(mGpsSection);
+  m_box_edit.append(mDepthSection);
   m_box_edit.append(m_compass_section);
-  m_box_edit.append(m_general_section);
   m_box_edit.append(m_propertie_section);
   m_box_edit.append(m_propulsion_section);
   m_box_edit.append(m_dynamics_section);
@@ -131,8 +137,7 @@ void MainWindow::boat_line(Gtk::ListBoxRow *boat_row)
   Boat *pBoat = &(((BoatRow*)boat_row)->boat);
   std::string name = pBoat->displayName;
 
-  m_label_edit.set_text(name);
-  m_label_edit.show();
+  m_label_edit.set_markup("<b>" + Glib::Markup::escape_text(name) + "</b>");
 
   mCurrentRowIndex = ((BoatRow*)boat_row)->get_index();
   loadBoat(pBoat);
@@ -159,7 +164,9 @@ void MainWindow::loadBoat(Boat *b)
   m_azimuth_section.load(b);
   m_compass_section.load(b);
   m_dynamics_section.load(b);
-  m_general_section.load(b);
+  mMeshSection.load(b);
+  mGpsSection.load(b);
+  mDepthSection.load(b);
   m_propertie_section.load(b);
   m_propulsion_section.load(b);
   m_radar_screen_section.load(b);
@@ -173,7 +180,9 @@ void MainWindow::set(void)
   m_azimuth_section.set();
   m_compass_section.set();
   m_dynamics_section.set();
-  m_general_section.set();
+  mMeshSection.set();
+  mGpsSection.set();
+  mDepthSection.set();
   m_propertie_section.set();
   m_propulsion_section.set();
   m_radar_screen_section.set();
@@ -187,7 +196,9 @@ void MainWindow::init(void)
   m_azimuth_section.init();
   m_compass_section.init();
   m_dynamics_section.init();
-  m_general_section.init();
+  mMeshSection.init();
+  mGpsSection.init();
+  mDepthSection.init();
   m_propertie_section.init();
   m_propulsion_section.init();
   m_radar_screen_section.init();
@@ -204,7 +215,9 @@ void MainWindow::update()
   m_azimuth_section.update();
   m_compass_section.update();
   m_dynamics_section.update();
-  m_general_section.update();
+  mMeshSection.update();
+  mGpsSection.update();
+  mDepthSection.update();
   m_propertie_section.update();
   m_propulsion_section.update();
   m_radar_screen_section.update();
@@ -221,7 +234,9 @@ void MainWindow::refresh()
   m_azimuth_section.refresh();
   m_compass_section.refresh();
   m_dynamics_section.refresh();
-  m_general_section.refresh();
+  mMeshSection.refresh();
+  mGpsSection.refresh();
+  mDepthSection.refresh();
   m_propertie_section.refresh();
   m_propulsion_section.refresh();
   m_radar_screen_section.refresh();

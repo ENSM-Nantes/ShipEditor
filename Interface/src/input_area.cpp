@@ -5,18 +5,9 @@
  * Constructor for the input of a string
  * 
  */
-InputArea::InputArea():
-  mBox(Orientation::HORIZONTAL),
-  m_label(),
-  m_entry(),
-  m_entry_x(),
-  m_entry_y(),
-  m_entry_z(),
-  m_checkbutton()
+InputArea::InputArea(): mBox(Orientation::HORIZONTAL)
 {
-  vector_entry[0] = &m_entry_x;
-  vector_entry[1] = &m_entry_y;
-  vector_entry[2] = &m_entry_z;
+  mType = TYPE_NULL;
 }
 
 InputArea::~InputArea()
@@ -24,190 +15,167 @@ InputArea::~InputArea()
   
 }
 
-void InputArea::set(std::string *ref_var) 
-{  
-  // Save the pointer to the target variable
-  type = TYPE_STRING;
-  var_str = ref_var;
-  if (ref_var == nullptr) type = TYPE_NULL;
-}
-
-void InputArea::init(const Glib::ustring &str, std::string *ref_var) 
-{  
-  set(ref_var);
-  
-  // Set the label name
-  m_label.set_text(str);
-
-  // Show the variable type in the placeholder (when it's empty)
-  m_entry.set_placeholder_text("string");
-
+void InputArea::initLayout(void) 
+{
   // Layout
   mBox.set_margin_top(2);
   mBox.set_margin_bottom(2);
   mBox.set_margin_start(2);
   mBox.set_margin_end(2);
-  m_entry.set_margin_start(5);
+
+  mOneEntry.set_margin_start(5);
 
   // Display the content
-  m_label.show();
-  m_entry.show();
+  mLabel.show();
+  mOneEntry.show();
 
   // Create the box
-  mBox.append(m_label);
-  mBox.append(m_entry);
+  mBox.append(mLabel);
+  mBox.append(mOneEntry);
+}
+
+void InputArea::set(std::string *ref_var) 
+{  
+  // Save the pointer to the target variable
+  mType = TYPE_STRING;
+  var_str = ref_var;
+  if (ref_var == nullptr) mType = TYPE_NULL;
+}
+
+void InputArea::init(std::string str, std::string *ref_var) 
+{  
+  set(ref_var);
+  
+  // Set the label name
+  mLabel.set_text(str);
+
+  // Show the variable mType in the placeholder (when it's empty)
+  mOneEntry.set_placeholder_text("string");
+
+  initLayout();
 }
 
 void InputArea::set(int *ref_var) 
 {   
   // Save the pointer to the target variable
-  type = TYPE_INTEGER;
+  mType = TYPE_INTEGER;
   var_int = ref_var;
-  if (ref_var == nullptr) type = TYPE_NULL;
+  if (ref_var == nullptr) mType = TYPE_NULL;
 }
 
-void InputArea::init(const Glib::ustring &str, int *ref_var) 
+void InputArea::init(std::string str, int *ref_var) 
 {
   set(ref_var);
   
   // Set the label name
-  m_label.set_text(str);
+  mLabel.set_text(str);
 
-  // Show the variable type in the placeholder (when it's empty)
-  m_entry.set_placeholder_text("integer");
+  // Show the variable mType in the placeholder (when it's empty)
+  mOneEntry.set_placeholder_text("integer");
 
-  // Layout
-  mBox.set_margin_top(2);
-  mBox.set_margin_bottom(2);
-  mBox.set_margin_start(2);
-  mBox.set_margin_end(2);
-  m_entry.set_margin_start(5);
-
-  // Display the content
-  m_label.show();
-  m_entry.show();
-
-  // Create the box
-  mBox.append(m_label);
-  mBox.append(m_entry);
- 
+  initLayout();
 }
 
-void InputArea::set(float *ref_var)
+void InputArea::set(float *ref_var, bool aIsVector)
 {
   // Save the pointer to the target variable
-  type = TYPE_FLOAT;
-  var_float = ref_var;
-  if (ref_var == nullptr) type = TYPE_NULL;
+
+  if(!aIsVector)
+    {
+      mType = TYPE_FLOAT;
+      var_float = ref_var;
+    }
+  else
+    {
+      mType = TYPE_VECTOR;
+      var_vector = ref_var;
+    }
+  
+  if (ref_var == nullptr) mType = TYPE_NULL;
 }
 
-void InputArea::init(const Glib::ustring &str, float *ref_var)
+void InputArea::init(std::string str, float *ref_var)
 {
   set(ref_var);
   
   // Set the label name
-  m_label.set_text(str);
+  mLabel.set_text(str);
 
-  // Show the variable type in the placeholder (when it's empty)
-  m_entry.set_placeholder_text("float");
+  // Show the variable mType in the placeholder (when it's empty)
+  mOneEntry.set_placeholder_text("float");
 
-
-  // Layout
-  mBox.set_margin_top(2);
-  mBox.set_margin_bottom(2);
-  mBox.set_margin_start(2);
-  mBox.set_margin_end(2);
-  m_entry.set_margin_start(5);
-
-  // Display the content
-  m_label.show();
-  m_entry.show();
-
-  // Create the box
-  mBox.append(m_label);
-  mBox.append(m_entry);
+  initLayout();
 }
 
 void InputArea::set(double *ref_var)
 {   
   // Save the pointer to the target variable
-  type = TYPE_DOUBLE;
+  mType = TYPE_DOUBLE;
   var_double = ref_var;
-  if (ref_var == nullptr) type = TYPE_NULL;
+  if (ref_var == nullptr) mType = TYPE_NULL;
 }
 
-void InputArea::init(const Glib::ustring &str, double *ref_var)
+void InputArea::init(std::string str, double *ref_var)
 {
   set(ref_var);
     
   // Set the label name
-  m_label.set_text(str);
+  mLabel.set_text(str);
 
-  // Show the variable type in the placeholder (when it's empty)
-  m_entry.set_placeholder_text("float");
-  // Layout
-  mBox.set_margin_top(2);
-  mBox.set_margin_bottom(2);
-  mBox.set_margin_start(2);
-  mBox.set_margin_end(2);
-  m_entry.set_margin_start(5);
+  // Show the variable mType in the placeholder (when it's empty)
+  mOneEntry.set_placeholder_text("float");
 
-  // Display the content
-  m_label.show();
-  m_entry.show();
-
-  // Create the box
-  mBox.append(m_label);
-  mBox.append(m_entry);
+  initLayout();
 }
 
-void InputArea::init(const Glib::ustring &str, float *ref_var, bool vector) 
+
+void InputArea::init(std::string str, float *ref_var, int aSize) 
 {
-  set(ref_var);
+  set(ref_var, true);
+
+  mSizeVector = aSize;
     
   // Set the label name
-  m_label.set_text(str);
+  mLabel.set_text(str);
 
-  // Show the variable type in the placeholder (when it's empty)
-  m_entry_x.set_placeholder_text("x");
-  m_entry_y.set_placeholder_text("y");
-  m_entry_z.set_placeholder_text("z");
-
-
-  // Layout
+  mVectorEntry[0].set_margin_start(5);
+  
+  for(int i=0; i<mSizeVector;i++)
+    {
+      mVectorEntry[i].set_placeholder_text("Entry n° " + std::to_string(i));
+      mVectorEntry[i].show();
+    }
+   // Layout
   mBox.set_margin_top(2);
   mBox.set_margin_bottom(2);
   mBox.set_margin_start(2);
   mBox.set_margin_end(2);
-  m_entry_x.set_margin_start(5);
 
   // Display the content
-  m_label.show();
-  m_entry_x.show();
-  m_entry_y.show();
-  m_entry_z.show();
+  mLabel.show();
 
   // Create the box
-  mBox.append(m_label);
-  mBox.append(m_entry_x);
-  mBox.append(m_entry_y);
-  mBox.append(m_entry_z);
+  mBox.append(mLabel);
+  for(int i=0; i<mSizeVector;i++)
+    {
+      mBox.append(mVectorEntry[i]);
+    }
 }
 
 void InputArea::set(bool *ref_var)
 {
   // Save the pointer to the target variable
-  type = TYPE_BOOL;
+  mType = TYPE_BOOL;
   var_bool = ref_var;
-  if (ref_var == nullptr) type = TYPE_NULL;
+  if (ref_var == nullptr) mType = TYPE_NULL;
 }
 
-void InputArea::init(const Glib::ustring &str, bool *ref_var)
+void InputArea::init(std::string str, bool *ref_var)
 {
   set(ref_var);
   
   // Set the label name
-  m_label.set_text(str);
+  mLabel.set_text(str);
 
   // Layout
   mBox.set_margin_top(2);
@@ -217,11 +185,11 @@ void InputArea::init(const Glib::ustring &str, bool *ref_var)
   m_checkbutton.set_margin_start(5);
 	
   // Display the content
-  m_label.show();
+  mLabel.show();
   m_checkbutton.show();
 
   // Create the box
-  mBox.append(m_label);
+  mBox.append(mLabel);
   mBox.append(m_checkbutton);
 }
 
@@ -231,21 +199,21 @@ void InputArea::init(const Glib::ustring &str, bool *ref_var)
  */
 void InputArea::update()
 {
-  if (type == TYPE_BOOL) {
+  if (mType == TYPE_BOOL) {
     // Copy the value
     *var_bool = m_checkbutton.get_active();
-  } else if (type == TYPE_VECTOR) {
+  } else if (mType == TYPE_VECTOR) {
     std::string raw_text;
-    for (int i = 0; i < 3; i++) {
-      raw_text = vector_entry[i]->get_buffer()->get_text();
+    for (int i = 0; i < mSizeVector; i++) {
+      raw_text = mVectorEntry[i].get_buffer()->get_text();
       var_vector[i] = std::stof(raw_text);
     }
-  } else if (type != TYPE_NULL) {
+  } else if (mType != TYPE_NULL) {
     // Convert the EntryBuffer into a string
-    std::string raw_text = m_entry.get_buffer()->get_text();
+    std::string raw_text = mOneEntry.get_buffer()->get_text();
     if(!raw_text.empty())
       {
-	switch(type) {
+	switch(mType) {
 	case TYPE_STRING:
 	  // Copy the value
 	  *var_str = raw_text;
@@ -275,17 +243,18 @@ void InputArea::update()
  */
 void InputArea::refresh()
 {
-  if (type == TYPE_BOOL) {
+  std::string raw_text;
+  
+  if (mType == TYPE_BOOL) {
     m_checkbutton.set_active(*var_bool);
-  } else if (type == TYPE_VECTOR) {
-    std::string raw_text;
-    for (int i = 0; i < 3; i++) {
+  } else if (mType == TYPE_VECTOR) {  
+    for (int i = 0; i < mSizeVector; i++) {
       raw_text = std::to_string(var_vector[i]);
-      vector_entry[i]->get_buffer()->set_text(raw_text);
+      mVectorEntry[i].get_buffer()->set_text(raw_text);
     }
-  } else if (type != TYPE_NULL) {
+  } else if (mType != TYPE_NULL) {
     std::string raw_text;
-    switch(type) {
+    switch(mType) {
     case TYPE_STRING:
       raw_text = *var_str;
       break;
@@ -303,7 +272,7 @@ void InputArea::refresh()
     }
 
     if (raw_text.length()) {
-      m_entry.get_buffer()->set_text(raw_text);
+      mOneEntry.get_buffer()->set_text(raw_text);
     }
   }
 }

@@ -19,8 +19,9 @@ public:
   
 protected:
 
-  Boat *mBoat;  
-	
+  Boat *mBoat;
+  Box mBox;
+  Label mLabelSection;
 };
 
 

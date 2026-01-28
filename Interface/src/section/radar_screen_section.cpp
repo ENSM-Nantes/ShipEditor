@@ -27,18 +27,18 @@ void RadarScreenSection::set()
 {
   m_size.set(&mBoat->radarScreen.size);
   m_tilt.set(&mBoat->radarScreen.tilt);
-  m_vector.set((float*)&mBoat->radarScreen.vector);
-  m_port_throttle.set((float*)&mBoat->portThrottle);
-  m_stbd_throttle.set((float*)&mBoat->stbdThrottle);
+  m_vector.set((float*)&mBoat->radarScreen.vector, true);
+  m_port_throttle.set((float*)&mBoat->portThrottle, true);
+  m_stbd_throttle.set((float*)&mBoat->stbdThrottle, true);
 }
 
 void RadarScreenSection::init()
 {
   m_size.init("Size", &mBoat->radarScreen.size);
   m_tilt.init("Tilt", &mBoat->radarScreen.tilt);
-  m_vector.init("Vector", (float*)&mBoat->radarScreen.vector, true);
-  m_port_throttle.init("Port throttle", (float*)&mBoat->portThrottle, true);
-  m_stbd_throttle.init("Stbd throttle", (float*)&mBoat->stbdThrottle, true);
+  m_vector.init("Vector", (float*)&mBoat->radarScreen.vector, 3);
+  m_port_throttle.init("Port throttle", (float*)&mBoat->portThrottle, 3);
+  m_stbd_throttle.init("Stbd throttle", (float*)&mBoat->stbdThrottle, 3);
 }
 
 void RadarScreenSection::update(void)

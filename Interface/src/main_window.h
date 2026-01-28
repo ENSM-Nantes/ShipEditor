@@ -11,7 +11,9 @@
 #include "section/azimuth_section.h"
 #include "section/compass_section.h"
 #include "section/dynamics_section.h"
-#include "section/general_section.h"
+#include "section/mesh_section.h"
+#include "section/gps_section.h"
+#include "section/depth_section.h"
 #include "section/propertie_section.h"
 #include "section/propulsion_section.h"
 #include "section/radar_screen_section.h"
@@ -20,7 +22,7 @@
 #include "section/wheel_section.h"
 
 
-#define WINDOWS_SECTION_COUNT 10
+#define WINDOWS_SECTION_COUNT 12
 
 using namespace std;
 
@@ -50,7 +52,9 @@ private:
   AzimuthSection m_azimuth_section;
   CompassSection m_compass_section;
   DynamicsSection m_dynamics_section;
-  GeneralSection m_general_section;
+  MeshSection mMeshSection;
+  GpsSection mGpsSection;
+  DepthSection mDepthSection;
   PropertieSection m_propertie_section;
   PropulsionSection m_propulsion_section;
   RadarScreenSection m_radar_screen_section;
