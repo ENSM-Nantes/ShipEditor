@@ -15,7 +15,7 @@
  */
 struct View {
   float vector[3];
-  bool elevated;
+  bool isTop;
 };
 
 /**
@@ -23,7 +23,6 @@ struct View {
  */
 struct ViewList {
   std::vector<View> views;
-  void fromJson(const Json::Value& json);
 };
 
 /**
@@ -40,7 +39,6 @@ struct SailList {
   std::vector<Sail> sails;
   std::string type;
   std::string size;
-  void fromJson(const Json::Value& json);
 };
 
 /**
@@ -49,7 +47,6 @@ struct SailList {
 struct PanoList {
   std::vector<std::string> file;
   std::vector<float> yaw, pitch, roll;
-  void fromJson(const Json::Value& json);
 };
 
 // Structures simples
@@ -136,6 +133,7 @@ struct Boat {
   float depth;
   bool hasGPS;
   bool hasDepthSounder;
+  bool hasRadar;
   float maxDepth;
   bool makeTransparent;
   int nbrViews;

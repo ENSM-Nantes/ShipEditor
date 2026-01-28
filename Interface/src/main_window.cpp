@@ -31,7 +31,7 @@ MainWindow::MainWindow():
   mDepthSection(),
   m_propertie_section(),
   m_propulsion_section(),
-  m_radar_screen_section(),
+  mRadarSection(),
   m_rudder_section(),
   m_weather_section(),
   m_wheel_section()
@@ -57,9 +57,9 @@ MainWindow::MainWindow():
   mMeshSection.show();
   mGpsSection.show();
   mDepthSection.show();
+  mRadarSection.show();
   m_propertie_section.show();
   m_propulsion_section.show();
-  m_radar_screen_section.show();
   m_rudder_section.show();
   m_weather_section.show();
   m_wheel_section.show();
@@ -69,11 +69,11 @@ MainWindow::MainWindow():
   m_box_edit.append(mMeshSection);
   m_box_edit.append(mGpsSection);
   m_box_edit.append(mDepthSection);
+  m_box_edit.append(mRadarSection);
   m_box_edit.append(m_compass_section);
   m_box_edit.append(m_propertie_section);
   m_box_edit.append(m_propulsion_section);
   m_box_edit.append(m_dynamics_section);
-  m_box_edit.append(m_radar_screen_section);
   m_box_edit.append(m_azimuth_section);
   m_box_edit.append(m_rudder_section);
   m_box_edit.append(m_weather_section);
@@ -169,7 +169,7 @@ void MainWindow::loadBoat(Boat *b)
   mDepthSection.load(b);
   m_propertie_section.load(b);
   m_propulsion_section.load(b);
-  m_radar_screen_section.load(b);
+  mRadarSection.load(b);
   m_rudder_section.load(b);
   m_weather_section.load(b);
   m_wheel_section.load(b);
@@ -185,7 +185,7 @@ void MainWindow::set(void)
   mDepthSection.set();
   m_propertie_section.set();
   m_propulsion_section.set();
-  m_radar_screen_section.set();
+  mRadarSection.set();
   m_rudder_section.set();
   m_weather_section.set();
   m_wheel_section.set();
@@ -201,7 +201,7 @@ void MainWindow::init(void)
   mDepthSection.init();
   m_propertie_section.init();
   m_propulsion_section.init();
-  m_radar_screen_section.init();
+  mRadarSection.init();
   m_rudder_section.init();
   m_weather_section.init();
   m_wheel_section.init();
@@ -220,7 +220,7 @@ void MainWindow::update()
   mDepthSection.update();
   m_propertie_section.update();
   m_propulsion_section.update();
-  m_radar_screen_section.update();
+  mRadarSection.update();
   m_rudder_section.update();
   m_weather_section.update();
   m_wheel_section.update();
@@ -239,7 +239,7 @@ void MainWindow::refresh()
   mDepthSection.refresh();
   m_propertie_section.refresh();
   m_propulsion_section.refresh();
-  m_radar_screen_section.refresh();
+  mRadarSection.refresh();
   m_rudder_section.refresh();
   m_weather_section.refresh();
   m_wheel_section.refresh();

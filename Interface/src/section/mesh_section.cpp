@@ -1,5 +1,5 @@
 #include "mesh_section.h"
-
+ 
 MeshSection::MeshSection():
   mGrid()
 {
@@ -52,13 +52,13 @@ void MeshSection::set()
       mViews.push_back(new InputArea());
       mIsViewTop.push_back(new InputArea());
       mViews.back()->init("View n°" + std::to_string(mViews.size()), mBoat->viewList.views.back().vector, 3);
-      mIsViewTop.back()->init("Top view : ", &mBoat->viewList.views.back().elevated);
+      mIsViewTop.back()->init("Top view : ", &mBoat->viewList.views.back().isTop);
     }
   
   for(unsigned char i=0; i<mBoat->nbrViews; i++)
     {
       mViews[i]->set(mBoat->viewList.views[i].vector, true);
-      mIsViewTop[i]->set(&mBoat->viewList.views[i].elevated);
+      mIsViewTop[i]->set(&mBoat->viewList.views[i].isTop);
     }
 }
 
@@ -76,7 +76,7 @@ void MeshSection::init()
       mIsViewTop.push_back(new InputArea());
       
       mViews[i]->init("View n° "+ std::to_string(i+1), mBoat->viewList.views[i].vector, 3);
-      mIsViewTop[i]->init("Top view : ", &mBoat->viewList.views[i].elevated);
+      mIsViewTop[i]->init("Top view : ", &mBoat->viewList.views[i].isTop);
 
       mViews[i]->getBox().show();
       mIsViewTop[i]->getBox().show();

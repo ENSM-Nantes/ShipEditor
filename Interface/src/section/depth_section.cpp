@@ -14,8 +14,8 @@ DepthSection::DepthSection():
   // Fill the grid
   mGrid.attach(mBox, 0, 0);
 
-  mGrid.attach(mDepthSounder.getBox(), 0, 2);
-  mGrid.attach(mMaxDepth.getBox(), 2, 2);
+  mGrid.attach(mDepthSounder.getBox(), 0, 1);
+  mGrid.attach(mMaxDepth.getBox(), 0, 2);
 
   // Show and set the grid as the child
   mGrid.show();

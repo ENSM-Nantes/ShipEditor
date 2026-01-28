@@ -6,53 +6,6 @@
 using namespace std;
 namespace fs = std::filesystem;
 
-void ViewList::fromJson(const Json::Value& json)
-{
-  for (const Json::Value& item : json)
-    {
-    if (item.size() >= 3) {
-      View v;
-      v.vector[0] = item[0].asFloat(); // x
-      v.vector[1] = item[1].asFloat(); // y
-      v.vector[2] = item[2].asFloat(); // z
-      v.elevated = (item.size() > 3) ? item[3].asBool() : false;
-      views.push_back(v);
-    }
-  }
-}
-
-void SailList::fromJson(const Json::Value& json)
-{
-  const auto& list = json["list"];
-  for (const auto& item : list) {
-    if (item.size() >= 3) {
-      Sail s;
-      s.vector[0] = item[0].asFloat(); //x
-      s.vector[1] = item[1].asFloat(); //y
-      s.vector[2] = item[2].asFloat(); //z
-      sails.push_back(s);
-    }
-  }
-  type = json.get("type", "").asString();
-  size = json.get("size", "").asString();
-}
-
-void PanoList::fromJson(const Json::Value& json)
-{
-  const auto& files = json["file"];
-  const auto& yaws = json["yaw"];
-  const auto& pitches = json["pitch"];
-  const auto& rolls = json["roll"];
-
-  int count = std::min(std::min(files.size(), yaws.size()), std::min(pitches.size(), rolls.size()));
-  for (int i = 0; i < count; ++i) {
-    file.push_back(files[i].asString());
-    yaw.push_back(yaws[i].asFloat());
-    pitch.push_back(pitches[i].asFloat());
-    roll.push_back(rolls[i].asFloat());
-  }
-}
-
 // Lecture des bateaux
 vector<Boat> BoatManager::loadBoats(const string& folderPath)
 {
@@ -79,6 +32,8 @@ vector<Boat> BoatManager::loadBoats(const string& folderPath)
 
     b.filePath = boatFile.string();
     b.displayName = dirEntry.path().filename().string();
+
+    //Mesh
     b.fileName = root["mesh"]["name"].asString();
     b.makeTransparent = root["mesh"]["makeTransparent"].asInt() == 1 ? true : false;    
     b.scaleFactor = root["mesh"]["scaleFactor"].asFloat();
@@ -93,9 +48,24 @@ vector<Boat> BoatManager::loadBoats(const string& folderPath)
         b.viewList.views[i].vector[0] = root["mesh"]["views"][i][0].asFloat();
 	b.viewList.views[i].vector[1] = root["mesh"]["views"][i][1].asFloat();
         b.viewList.views[i].vector[2] = root["mesh"]["views"][i][2].asFloat();
-	b.viewList.views[i].elevated = root["mesh"]["views"][i][3].asInt() == 1 ? true : false;
+	b.viewList.views[i].isTop = root["mesh"]["views"][i][3].asInt() == 1 ? true : false;
       }
-  
+
+     //DepthSounder
+    b.hasDepthSounder = root["depthSounder"]["number"].asInt() == 1 ? true : false;
+    b.maxDepth = root["depthSounder"]["maxDepth"].asFloat();
+    //GPS
+    b.hasGPS = root["gps"]["number"].asInt() == 1 ? true : false;
+    //RoT
+    b.hasRateOfTurnIndicator = root["rotIndicator"]["number"].asInt() == 1 ? true : false;
+    // Radar
+    b.hasRadar = root["radar"]["number"].asInt() == 1 ? true : false;
+    b.radarScreen.vector[0] = root["radar"]["pos"][0].asFloat();
+    b.radarScreen.vector[1] = root["radar"]["pos"][1].asFloat();
+    b.radarScreen.vector[2] = root["radar"]["pos"][2].asFloat();
+    b.radarScreen.size = root["radar"]["size"].asFloat();
+    b.radarScreen.tilt = root["radar"]["tilt"].asFloat();
+    
     boats.push_back(b);
   }
 
@@ -151,7 +121,7 @@ bool BoatManager::saveBoat(Boat& b) {
       item.append(v.vector[0]);
       item.append(v.vector[1]);
       item.append(v.vector[2]);
-      item.append(v.elevated);
+      item.append(v.isTop);
       viewArr.append(item);
     }
     root["View"] = viewArr;
