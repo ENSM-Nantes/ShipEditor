@@ -41,42 +41,42 @@ MeshSection::~MeshSection()
 
 void MeshSection::set()
 {
-  mFilename.set(&mBoat->fileName);
-  mYcorrection.set(&mBoat->yCorrection);
-  mAngleCorrection.set(&mBoat->angleCorrection);
-  mScaleFactor.set(&mBoat->scaleFactor);
-  mMakeTransparent.set(&mBoat->makeTransparent);
+  mFilename.set(&mBoat->mesh.fileName);
+  mYcorrection.set(&mBoat->mesh.yCorrection);
+  mAngleCorrection.set(&mBoat->mesh.angleCorrection);
+  mScaleFactor.set(&mBoat->mesh.scaleFactor);
+  mMakeTransparent.set(&mBoat->mesh.makeTransparent);
 
-  while(mViews.size() < mBoat->nbrViews)
+  while(mViews.size() < mBoat->mesh.nbrViews)
     {
       mViews.push_back(new InputArea());
       mIsViewTop.push_back(new InputArea());
-      mViews.back()->init("View n°" + std::to_string(mViews.size()), mBoat->viewList.views.back().vector, 3);
-      mIsViewTop.back()->init("Top view : ", &mBoat->viewList.views.back().isTop);
+      mViews.back()->init("View n°" + std::to_string(mViews.size()), mBoat->mesh.viewList.views.back().vector, 3);
+      mIsViewTop.back()->init("Top view : ", &mBoat->mesh.viewList.views.back().isTop);
     }
   
-  for(unsigned char i=0; i<mBoat->nbrViews; i++)
+  for(unsigned char i=0; i<mBoat->mesh.nbrViews; i++)
     {
-      mViews[i]->set(mBoat->viewList.views[i].vector, true);
-      mIsViewTop[i]->set(&mBoat->viewList.views[i].isTop);
+      mViews[i]->set(mBoat->mesh.viewList.views[i].vector, true);
+      mIsViewTop[i]->set(&mBoat->mesh.viewList.views[i].isTop);
     }
 }
 
 void MeshSection::init()
 {
-  mFilename.init("File name", &mBoat->fileName);
-  mYcorrection.init("Y correction", &mBoat->yCorrection);
-  mAngleCorrection.init("Angle correction", &mBoat->angleCorrection);
-  mScaleFactor.init("Scale factor", &mBoat->scaleFactor);
-  mMakeTransparent.init("Make transparent", &mBoat->makeTransparent);
+  mFilename.init("File name", &mBoat->mesh.fileName);
+  mYcorrection.init("Y correction", &mBoat->mesh.yCorrection);
+  mAngleCorrection.init("Angle correction", &mBoat->mesh.angleCorrection);
+  mScaleFactor.init("Scale factor", &mBoat->mesh.scaleFactor);
+  mMakeTransparent.init("Make transparent", &mBoat->mesh.makeTransparent);
   
-  for(unsigned char i=0; i<mBoat->nbrViews; i++)
+  for(unsigned char i=0; i<mBoat->mesh.nbrViews; i++)
     {
       mViews.push_back(new InputArea());
       mIsViewTop.push_back(new InputArea());
       
-      mViews[i]->init("View n° "+ std::to_string(i+1), mBoat->viewList.views[i].vector, 3);
-      mIsViewTop[i]->init("Top view : ", &mBoat->viewList.views[i].isTop);
+      mViews[i]->init("View n° "+ std::to_string(i+1), mBoat->mesh.viewList.views[i].vector, 3);
+      mIsViewTop[i]->init("Top view : ", &mBoat->mesh.viewList.views[i].isTop);
 
       mViews[i]->getBox().show();
       mIsViewTop[i]->getBox().show();
@@ -94,7 +94,7 @@ void MeshSection::update(void)
       mInputList[i]->update();
     }
 
-  for(unsigned char i=0;i<mBoat->nbrViews;i++)
+  for(unsigned char i=0;i<mBoat->mesh.nbrViews;i++)
     {
       mViews[i]->update();
     }
@@ -107,15 +107,15 @@ void MeshSection::refresh(void)
       mInputList[i]->refresh();
     }
 
-   for(unsigned char i=0;i<mBoat->nbrViews;i++)
+   for(unsigned char i=0;i<mBoat->mesh.nbrViews;i++)
     {
       mViews[i]->refresh();
       mIsViewTop[i]->refresh();
     }
   
-  if(mViewsAttachedCounter > mBoat->nbrViews)
+  if(mViewsAttachedCounter > mBoat->mesh.nbrViews)
     {
-      for(int j=0; j<(mViewsAttachedCounter - mBoat->nbrViews); j++)
+      for(int j=0; j<(mViewsAttachedCounter - mBoat->mesh.nbrViews); j++)
 	{
 	  mGrid.remove(mViews[mViews.size()-1-j]->getBox());
 	  mGrid.remove(mIsViewTop[mViews.size()-1-j]->getBox());
@@ -123,9 +123,9 @@ void MeshSection::refresh(void)
 	}
     }
 
-  if(mViewsAttachedCounter < mBoat->nbrViews)
+  if(mViewsAttachedCounter < mBoat->mesh.nbrViews)
     {
-       for(int j=0; j<(mBoat->nbrViews - mViewsAttachedCounter); j++)
+       for(int j=0; j<(mBoat->mesh.nbrViews - mViewsAttachedCounter); j++)
 	{
 	  mGrid.attach(mViews[mViewsAttachedCounter+j]->getBox(), 0, 3+mViewsAttachedCounter+j);
 	  mGrid.attach(mIsViewTop[mViewsAttachedCounter+j]->getBox(), 1, 3+mViewsAttachedCounter+j);

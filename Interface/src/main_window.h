@@ -2,67 +2,63 @@
 #define MAIN_WINDOW_H
 
 #include <iostream>
-
 #include <gtkmm.h>
-
 #include "BoatRow.hpp"
-
-// Sections import
-#include "section/azimuth_section.h"
-#include "section/compass_section.h"
-#include "section/dynamics_section.h"
 #include "section/mesh_section.h"
 #include "section/gps_section.h"
 #include "section/depth_section.h"
-#include "section/propertie_section.h"
-#include "section/propulsion_section.h"
+#include "section/rot_section.h"
 #include "section/radar_section.h"
 #include "section/rudder_section.h"
-#include "section/weather_section.h"
-#include "section/wheel_section.h"
+#include "section/physical_section.h"
+#include "section/propeller_section.h"
+#include "section/engine_section.h"
+#include "section/sail_section.h"
 
-
-#define WINDOWS_SECTION_COUNT 12
-
-using namespace std;
-
+#define WINDOWS_SECTION_COUNT 9
 
 class MainWindow : public Gtk::Window {
 public:
+
   MainWindow();
   ~MainWindow();
 	
 private:
-  Gtk::Label m_label_edit;
-  Gtk::Paned m_paned;
-  Gtk::ScrolledWindow m_scroll_edit, m_scroll_boat;
-  Gtk::Box m_box_left_side, m_box_action_button, m_box_edit;
-  BoatList m_boat_list;
-  Gtk::Button m_button_refresh, m_button_save, m_button_new, m_button_delete;
+
+  void LoadBoat(Boat *aBoat);
+  void Update();
+  void Refresh();
+  void Set();
+  void Init();
+  void BoatLineCbk(Gtk::ListBoxRow *aBoatRow);
+
+  Gtk::Label mBoatName;
+  Gtk::Paned mPanes;
+  Gtk::ScrolledWindow mScrollEdit;
+  Gtk::ScrolledWindow mScrollBoat;
+  Gtk::Box mLeftSideBox;
+  Gtk::Box mButtonsBox;
+  Gtk::Box mConfBoatBox;
+  BoatList mBoatList;
+  Gtk::Button mRefreshButton;
+  Gtk::Button mSaveButton;
+  Gtk::Button mNewButton;
+  Gtk::Button mDeleteButton;
 
   int mCurrentRowIndex;
   
-  void loadBoat(Boat *b);
-  void update();
-  void refresh();
-  void set();
-  void init();
-  void boat_line(Gtk::ListBoxRow *boat_row);
-
-  AzimuthSection m_azimuth_section;
-  CompassSection m_compass_section;
-  DynamicsSection m_dynamics_section;
   MeshSection mMeshSection;
+  PhysicalSection mPhysicalSection;
   GpsSection mGpsSection;
+  RotSection mRotSection;
   DepthSection mDepthSection;
-  PropertieSection m_propertie_section;
-  PropulsionSection m_propulsion_section;
   RadarSection mRadarSection;
-  RudderSection m_rudder_section;
-  WeatherSection m_weather_section;
-  WheelSection m_wheel_section;
-
-        
+  RudderSection mRudderSection;
+  PropellerSection mPropellerSection;
+  EngineSection mEngineSection;
+  SailSection mSailSection;
+  
+  
 };
 
 #endif

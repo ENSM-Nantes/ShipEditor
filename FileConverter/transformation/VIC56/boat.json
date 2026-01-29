@@ -1,75 +1,98 @@
 {
-  "FileName": "Model.3ds",
-  "ScaleFactor": 0.3,
-  "YCorrection": -8.0,
-  "AngleCorrection": 0,
-  "Depth": 9.0,
-  "HasGPS": true,
-  "HasDepthSounder": true,
-  "MaxDepth": 50,
-  "View": [
-    [
-      3.7,
-      24.05,
-      -9.8,
-      false
-    ],
-    [
-      -3.7,
-      24.05,
-      -9.8,
-      false
-    ],
-    [
-      0.0,
-      350.0,
-      -9.8,
-      true
-    ]
-  ],
-  "Max_propulsion_force": 14500.0,
-  "AsternEfficiency": 0.667,
-  "Mass": 145000,
-  "MaxRevs": 140,
-  "Dynamics": {
-    "speed": [
-      542.59,
-      2900.0
-    ],
-    "turnDrag": [
-      12000000,
-      800000
-    ],
-    "lateralDrag": [
-      0.0,
-      0.0
-    ]
-  },
-  "Prop": {
-    "space": 0.0,
-    "walkAhead": 6666.66666666667,
-    "walkAstern": 20000.0,
-    "walkDriftEffect": 7e-06
-  },
-  "Inertia": 8000000,
-  "Rudder": {
-    "A": 333.333333333333,
-    "B": 0.114942528735632,
-    "BAstern": 0.0
-  },
-  "centrifugalDriftEffect": 0.03,
-  "Buffet": 3.0,
-  "Swell": 0.5,
-  "Windage": 0.05,
-  "WindageTurnEffect": 1.3,
-  "DeviationMaximum": 5,
-  "DeviationMaximumHeading": 10,
-  "RadarScreen": {
-    "vector": [
-      0.0,
-      50.0,
-      0.0
-    ],
-    "size": 1.0
-  }
+	"AngleCorrection" : 0,
+	"AsternEfficiency" : 0.0,
+	"AzimuthDrive" : 
+	{
+		"astern" : true,
+		"aziToLengthRatio" : 3.2609616563302818e-41,
+		"azimuthDrive" : true,
+		"clutchDisengageRPM" : 0,
+		"clutchEngageRPM" : 0,
+		"engineIdleRPM" : 1,
+		"engineMaxChangePerSecond" : 4.5916346780531281e-41,
+		"maxDegPerSecond" : 0.0,
+		"sameDirectionAsSchottel" : 3.363116314379561e-44,
+		"thrustLeverMaxChangePerSecond" : 0.0
+	},
+	"BlockCoefficient" : 2.3531042875402358e-27,
+	"BowThruster" : 
+	{
+		"Distance" : -2799037.0,
+		"Force" : 4.5916346780531281e-41
+	},
+	"Depth" : 3.2609616563302818e-41,
+	"Dynamics" : 
+	{
+		"lateralDrag" : 
+		[
+			1.4012984643248171e-45,
+			0.0
+		],
+		"speed" : 
+		[
+			1.4714331086906896e-08,
+			3.2609616563302818e-41
+		],
+		"turnDrag" : 
+		[
+			1.4713592122461705e-08,
+			3.2609616563302818e-41
+		]
+	},
+	"FileName" : "CopenhagenFerry.obj",
+	"HasDepthSounder" : false,
+	"HasGPS" : false,
+	"Inertia" : -7338120.0,
+	"MakeTransparent" : false,
+	"Mass" : 4.5916346780531281e-41,
+	"MaxDepth" : 0.0,
+	"Max_propulsion_force" : 2.4256476417462583e-42,
+	"Pano" : 
+	{
+		"file" : [],
+		"pitch" : [],
+		"roll" : [],
+		"yaw" : []
+	},
+	"PortThrottle" : 
+	[
+		1.4714331086906896e-08,
+		3.2609616563302818e-41,
+		1.4714338192334253e-08
+	],
+	"RadarScreen" : 
+	{
+		"size" : 0.0,
+		"tilt" : 0.0,
+		"vector" : 
+		[
+			0.0,
+			0.0,
+			0.0
+		]
+	},
+	"ScaleFactor" : 0.0,
+	"StbdThrottle" : 
+	[
+		3.2609616563302818e-41,
+		1.2661960206820691e+31,
+		-5.68822651028744e-25
+	],
+	"SternThruster" : 
+	{
+		"Distance" : 2.353141265395168e-27,
+		"Force" : 4.1355120279154001e-41
+	},
+	"View" : [],
+	"Wheel" : 
+	{
+		"scale" : 0.0,
+		"vector" : 
+		[
+			4.5916346780531281e-41,
+			-7202685.5,
+			4.1355120279154001e-41
+		]
+	},
+	"YCorrection" : 0.0
 }

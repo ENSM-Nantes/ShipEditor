@@ -1,19 +1,19 @@
-#ifndef WHEEL_FRAME_H
-#define WHEEL_FRAME_H
+#ifndef ROT_SECTION_H
+#define ROT_SECTION_H
 
 #include <gtkmm.h>
 #include "../input_area.h"
 #include "../BoatManager.hpp"
 #include "section.h"
 
-#define WHEEL_INPUT_COUNT 2
+#define ROT_INPUT_COUNT 1
 
 using namespace Gtk;
 
-class WheelSection: public Section {
+class RotSection: public Section {
 public:
-  WheelSection();
-  ~WheelSection() {}
+  RotSection();
+  ~RotSection() {}
 
   virtual void init(void);
   virtual void set(void);
@@ -21,13 +21,9 @@ public:
   virtual void refresh(void);
   
 protected:
-  Box m_box;
-
-  InputArea m_vector, m_scale;
-
-  InputArea *mInputList[WHEEL_INPUT_COUNT] = {
-    &m_vector, &m_scale
-  };
+  Grid mGrid;
+  InputArea mRot;
+  InputArea *mInputList[ROT_INPUT_COUNT] = {&mRot};
 
 };
 

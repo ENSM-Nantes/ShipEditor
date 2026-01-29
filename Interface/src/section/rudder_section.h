@@ -1,12 +1,12 @@
-#ifndef RUDDER_FRAME_H
-#define RUDDER_FRAME_H
+#ifndef RUDDER_SECTION_H
+#define RUDDER_SECTION_H
 
 #include <gtkmm.h>
 #include "../input_area.h"
 #include "../BoatManager.hpp"
 #include "section.h"
 
-#define RUDDER_INPUT_COUNT 3
+#define RUDDER_INPUT_COUNT 4
 
 using namespace Gtk;
 
@@ -21,13 +21,11 @@ public:
   virtual void refresh(void);
   
 protected:
-  Box m_box;
+  Grid mGrid;
 
-  InputArea m_a, m_b, m_bastern;
+  InputArea mSpanLenght, mAreaMobile, mAspectRatio, mMaxSpeed;
 
-  InputArea *mInputList[RUDDER_INPUT_COUNT] = {
-    &m_a, &m_b, &m_bastern
-  };
+  InputArea *mInputList[RUDDER_INPUT_COUNT] = {&mSpanLenght, &mAreaMobile, &mAspectRatio, &mMaxSpeed};
 
 };
 

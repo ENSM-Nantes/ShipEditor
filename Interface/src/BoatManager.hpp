@@ -5,164 +5,104 @@
 #include <string>
 #include <vector>
 #include <memory>
-
 #include <json/json.h>
 
-// Structures dynamiques
-
-/**
- * @brief permet de définir les vues
- */
-struct View {
+struct View
+{
   float vector[3];
   bool isTop;
 };
 
-/**
- * @brief permet de définir les listes des vues
- */
-struct ViewList {
+struct ViewList
+{
   std::vector<View> views;
 };
 
-/**
- * @brief permet de définir Sail
- */
-struct Sail {
-  float vector[3];
+struct Sail
+{
+  float pos[3];
 };
 
-/**
- * @brief permet de définir les listes de Sail
- */
-struct SailList {
-  std::vector<Sail> sails;
+struct SailList
+{
+  int number;
+  std::vector<Sail> sail;
   std::string type;
   std::string size;
 };
 
-/**
- * @brief permet de définir les listes Pano
- */
-struct PanoList {
-  std::vector<std::string> file;
-  std::vector<float> yaw, pitch, roll;
-};
-
-// Structures simples
-
-/**
- * @brief permet de définir RadarScreen
- */
-struct RadarScreen {
+struct RadarScreen
+{
   float vector[3];
   float size;
   float tilt;
 };
 
-/**
- * @brief permet de définir Dynamics
- */
-struct Dynamics {
-  float speed[2];
-  float turnDrag[2];
-  float lateralDrag[2];
+struct Prop
+{
+  int number;
+  float diameter;
+  std::string forwardRotDir;
+  float backwardEff;
 };
 
-/**
- * @brief permet de définir Prop
- */
-struct Prop {
-  float space;
-  float walkAhead;
-  float walkAstern;
-  float walkDriftEffect;
+struct Engine {
+  int number;
+  std::string brand;
+  std::string type;
+  float power;
+  float rpmMax;
+  float fuelCons;
 };
 
-/**
- * @brief permet de définir AzimuthDrive
- */
-struct AzimuthDrive {
-  bool azimuthDrive;
-  bool astern;
-  float aziToLengthRatio;
-  int engineIdleRPM;
-  int clutchEngageRPM;
-  int clutchDisengageRPM;
-  float engineMaxChangePerSecond;
-  float maxDegPerSecond;
-  float thrustLeverMaxChangePerSecond;
-  float sameDirectionAsSchottel;
+struct Rudder
+{
+  float hR;
+  float aR;
+  float lambdaR;
+  float rrMax;
 };
 
-/**
- * @brief permet de définir Rudder
- */
-struct Rudder {
-  float A, B, BAstern;
+struct Physical
+{
+  float lPP;
+  float b;
+  float d;
+  float volume;
+  float xG;
+  float cB;
 };
 
-/**
- * @brief permet de définir Thruster
- */
-struct Thruster {
-  float Force, Distance;
-};
-
-/**
- * @brief permet de définir Wheel
- */
-struct Wheel {
-  float vector[3];
-  float scale;
-};
-
-// Classe principale
-
-/**
- * @brief permet de définir la classe des bateaux
- * 
- * Cette dernière contient toutes les clés présentent dans les fichiers json et un nom pour l'affichage
- */
-struct Boat {
-  std::string displayName;
+struct Mesh
+{
   std::string fileName;
   float scaleFactor;
   float yCorrection;
   int angleCorrection;
-  float depth;
+  int nbrViews;
+  ViewList viewList;
+  bool makeTransparent;
+  
+};
+
+struct Boat
+{
+  std::string filePath;
+  std::string displayName;
   bool hasGPS;
   bool hasDepthSounder;
   bool hasRadar;
-  float maxDepth;
-  bool makeTransparent;
-  int nbrViews;
-  ViewList viewList;
-  RadarScreen radarScreen;
-  float portThrottle[3];
-  float stbdThrottle[3];
-  Dynamics dynamics;
-  float maxPropulsionForce;
-  float asternEfficiency;
-  float blockCoefficient;
-  float mass;
-  float inertia;
-  Prop prop;
-  AzimuthDrive azimuthDrive;
-  Rudder rudder;
-  float buffet, swell, windage, windageTurnEffect;
-  float deviationMaximum, deviationMaximumHeading;
-  float rollPeriod, pitchPeriod;
-  int maxRevs;
-  float maxSpeedAhead;
-  float centrifugalDriftEffect;
   bool hasRateOfTurnIndicator;
-  Thruster bowThruster;
-  Thruster sternThruster;
-  Wheel wheel;
+  float maxDepth;
+  float rho;
+  Mesh mesh;
+  Physical physicalCharac;
+  RadarScreen radarScreen;
+  Engine engine;
+  Prop prop;
+  Rudder rudder;
   SailList sails;
-  PanoList pano;
-  std::string filePath;
+  
 };
 
 // Manager

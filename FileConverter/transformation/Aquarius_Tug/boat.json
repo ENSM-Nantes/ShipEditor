@@ -1,6 +1,7 @@
 {
     "initialSpeed": [ 0, 0, 0 ],
     "geoParams": {
+	"rho": 1024,
 	"length": 320, 
 	"breadth": 58,
 	"draugth": 20.8,

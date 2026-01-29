@@ -34,30 +34,33 @@ vector<Boat> BoatManager::loadBoats(const string& folderPath)
     b.displayName = dirEntry.path().filename().string();
 
     //Mesh
-    b.fileName = root["mesh"]["name"].asString();
-    b.makeTransparent = root["mesh"]["makeTransparent"].asInt() == 1 ? true : false;    
-    b.scaleFactor = root["mesh"]["scaleFactor"].asFloat();
-    b.yCorrection = root["mesh"]["yCorrection"].asFloat();
-    b.angleCorrection = root["mesh"]["angleCorrection"].asInt();
-    b.nbrViews = root["mesh"]["numberOfViews"].asInt();
+    b.mesh.fileName = root["mesh"]["name"].asString();
+    b.mesh.makeTransparent = root["mesh"]["makeTransparent"].asInt() == 1 ? true : false;    
+    b.mesh.scaleFactor = root["mesh"]["scaleFactor"].asFloat();
+    b.mesh.yCorrection = root["mesh"]["yCorrection"].asFloat();
+    b.mesh.angleCorrection = root["mesh"]["angleCorrection"].asInt();
+    b.mesh.nbrViews = root["mesh"]["numberOfViews"].asInt();
 
-    b.viewList.views.resize(b.nbrViews);
+    b.mesh.viewList.views.resize(b.mesh.nbrViews);
     
-    for (unsigned char i=0; i<b.nbrViews; i++)
+    for (unsigned char i=0; i<b.mesh.nbrViews; i++)
       {
-        b.viewList.views[i].vector[0] = root["mesh"]["views"][i][0].asFloat();
-	b.viewList.views[i].vector[1] = root["mesh"]["views"][i][1].asFloat();
-        b.viewList.views[i].vector[2] = root["mesh"]["views"][i][2].asFloat();
-	b.viewList.views[i].isTop = root["mesh"]["views"][i][3].asInt() == 1 ? true : false;
+        b.mesh.viewList.views[i].vector[0] = root["mesh"]["views"][i][0].asFloat();
+	b.mesh.viewList.views[i].vector[1] = root["mesh"]["views"][i][1].asFloat();
+        b.mesh.viewList.views[i].vector[2] = root["mesh"]["views"][i][2].asFloat();
+	b.mesh.viewList.views[i].isTop = root["mesh"]["views"][i][3].asInt() == 1 ? true : false;
       }
 
-     //DepthSounder
+    //DepthSounder
     b.hasDepthSounder = root["depthSounder"]["number"].asInt() == 1 ? true : false;
     b.maxDepth = root["depthSounder"]["maxDepth"].asFloat();
+
     //GPS
     b.hasGPS = root["gps"]["number"].asInt() == 1 ? true : false;
+
     //RoT
     b.hasRateOfTurnIndicator = root["rotIndicator"]["number"].asInt() == 1 ? true : false;
+
     // Radar
     b.hasRadar = root["radar"]["number"].asInt() == 1 ? true : false;
     b.radarScreen.vector[0] = root["radar"]["pos"][0].asFloat();
@@ -65,6 +68,50 @@ vector<Boat> BoatManager::loadBoats(const string& folderPath)
     b.radarScreen.vector[2] = root["radar"]["pos"][2].asFloat();
     b.radarScreen.size = root["radar"]["size"].asFloat();
     b.radarScreen.tilt = root["radar"]["tilt"].asFloat();
+
+    //Physical
+    b.rho = root["geoParams"]["rho"].asFloat();
+    b.physicalCharac.lPP = root["geoParams"]["length"].asFloat();
+    b.physicalCharac.b = root["geoParams"]["breadth"].asFloat();
+    b.physicalCharac.d = root["geoParams"]["draugth"].asFloat();
+    b.physicalCharac.volume = root["geoParams"]["subwaterVolume"].asFloat();
+    b.physicalCharac.xG = root["geoParams"]["longGravityCenter"].asFloat();
+    b.physicalCharac.cB = root["geoParams"]["blockCoef"].asFloat();
+
+    //Rudder
+    b.rudder.hR = root["rudder"]["spanLength"].asFloat();
+    b.rudder.aR = root["rudder"]["areaMobPart"].asFloat();                  
+    b.rudder.lambdaR = root["rudder"]["aspectRatio"].asFloat();            
+    b.rudder.rrMax = root["rudder"]["maxSpeed"].asFloat();
+
+    //Propeller
+    b.prop.number = root["propeller"]["number"].asInt();
+    b.prop.diameter = root["propeller"]["diameter"].asFloat();                  
+    b.prop.forwardRotDir = root["propeller"]["forwardRotDir"].asString();            
+    b.prop.backwardEff = root["propeller"]["backwardEff"].asFloat();
+
+    //Engine
+    b.engine.number = root["engine"]["number"].asInt();
+    b.engine.brand = root["engine"]["brand"].asString();
+    b.engine.type = root["engine"]["type"].asString();
+    b.engine.power = root["engine"]["power"].asFloat();
+    b.engine.rpmMax = root["engine"]["rpmMax"].asFloat();
+    b.engine.fuelCons = root["engine"]["fuelCons"].asFloat();
+
+    //Sails
+    b.sails.number = root["sail"]["number"].asInt();
+    b.sails.type  = root["sail"]["type"].asString();
+    b.sails.size = root["sail"]["size"].asString();
+
+    b.sails.sail.resize(4);
+    
+    for (unsigned char i=0; i<4; i++)
+      {
+        b.sails.sail[i].pos[0] = root["sail"]["pos"][i][0].asFloat();
+	b.sails.sail[i].pos[1] = root["sail"]["pos"][i][1].asFloat();
+        b.sails.sail[i].pos[2] = root["sail"]["pos"][i][2].asFloat();
+      }
+    
     
     boats.push_back(b);
   }
@@ -72,20 +119,21 @@ vector<Boat> BoatManager::loadBoats(const string& folderPath)
   return boats;
 }
 
-bool BoatManager::saveBoat(Boat& b) {
+bool BoatManager::saveBoat(Boat& aBoat)
+{
   try {
     namespace fs = std::filesystem;
 
     fs::path out;
 
     // Cas 1 : fichier existant → écrasement
-    if (!b.filePath.empty()) {
-      out = b.filePath;
+    if (!aBoat.filePath.empty()) {
+      out = aBoat.filePath;
       std::cout << "out : " << out  << std::endl;
     }
     // Cas 2 : nouveau bateau
     else {
-      std::string name = b.displayName.empty() ? "NewBoat" : b.displayName;
+      std::string name = aBoat.displayName.empty() ? "NewBoat" : aBoat.displayName;
       for (auto &c : name)
 	if (c == ' ') c = '_';
 
@@ -96,7 +144,7 @@ bool BoatManager::saveBoat(Boat& b) {
       out = dest / "boat.json";
 
       // On met à jour filePath pour les futurs Save
-      b.filePath = out.string();
+      aBoat.filePath = out.string();
     }
 
     // ----------------------------
@@ -104,19 +152,19 @@ bool BoatManager::saveBoat(Boat& b) {
     // ----------------------------
 
     Json::Value root;
-    root["FileName"] = b.fileName;
-    root["ScaleFactor"] = b.scaleFactor;
-    root["YCorrection"] = b.yCorrection;
-    root["AngleCorrection"] = b.angleCorrection;
-    root["Depth"] = b.depth;
-    root["HasGPS"] = b.hasGPS;
-    root["HasDepthSounder"] = b.hasDepthSounder;
-    root["MaxDepth"] = b.maxDepth;
-    root["MakeTransparent"] = b.makeTransparent;
+    root["FileName"] = aBoat.mesh.fileName;
+    root["ScaleFactor"] = aBoat.mesh.scaleFactor;
+    root["YCorrection"] = aBoat.mesh.yCorrection;
+    root["AngleCorrection"] = aBoat.mesh.angleCorrection;
+    
+    root["HasGPS"] = aBoat.hasGPS;
+    root["HasDepthSounder"] = aBoat.hasDepthSounder;
+    root["MaxDepth"] = aBoat.maxDepth;
+    root["MakeTransparent"] = aBoat.mesh.makeTransparent;
 
     // View
     Json::Value viewArr(Json::arrayValue);
-    for (const auto &v : b.viewList.views) {
+    for (const auto &v : aBoat.mesh.viewList.views) {
       Json::Value item(Json::arrayValue);
       item.append(v.vector[0]);
       item.append(v.vector[1]);
@@ -129,95 +177,33 @@ bool BoatManager::saveBoat(Boat& b) {
     // RadarScreen
     Json::Value rs;
     Json::Value rsvec(Json::arrayValue);
-    rsvec.append(b.radarScreen.vector[0]);
-    rsvec.append(b.radarScreen.vector[1]);
-    rsvec.append(b.radarScreen.vector[2]);
+    rsvec.append(aBoat.radarScreen.vector[0]);
+    rsvec.append(aBoat.radarScreen.vector[1]);
+    rsvec.append(aBoat.radarScreen.vector[2]);
     rs["vector"] = rsvec;
-    rs["size"] = b.radarScreen.size;
-    rs["tilt"] = b.radarScreen.tilt;
+    rs["size"] = aBoat.radarScreen.size;
+    rs["tilt"] = aBoat.radarScreen.tilt;
     root["RadarScreen"] = rs;
-
-    // Port / Stbd Throttles
-    Json::Value pt(Json::arrayValue), st(Json::arrayValue);
-    for (int i = 0; i < 3; ++i) {
-      pt.append(b.portThrottle[i]);
-      st.append(b.stbdThrottle[i]);
-    }
-    root["PortThrottle"] = pt;
-    root["StbdThrottle"] = st;
-
-    // Dynamics
-    Json::Value dyn;
-    Json::Value speed(Json::arrayValue), turn(Json::arrayValue), lat(Json::arrayValue);
-    for (int i = 0; i < 2; ++i) {
-      speed.append(b.dynamics.speed[i]);
-      turn.append(b.dynamics.turnDrag[i]);
-      lat.append(b.dynamics.lateralDrag[i]);
-    }
-
-    dyn["speed"] = speed;
-    dyn["turnDrag"] = turn;
-    dyn["lateralDrag"] = lat;
-    root["Dynamics"] = dyn;
-
-    root["Max_propulsion_force"] = b.maxPropulsionForce;
-    root["AsternEfficiency"] = b.asternEfficiency;
-    root["BlockCoefficient"] = b.blockCoefficient;
-    root["Mass"] = b.mass;
-    root["Inertia"] = b.inertia;
 
     // Prop
     Json::Value prop;
-    prop["space"] = b.prop.space;
-    prop["walkAhead"] = b.prop.walkAhead;
-    prop["walkAstern"] = b.prop.walkAstern;
-    prop["walkDriftEffect"] = b.prop.walkDriftEffect;
-    root["Prop"] = prop;
-
-    // AzimuthDrive
-    Json::Value ad;
-    ad["azimuthDrive"] = b.azimuthDrive.azimuthDrive;
-    ad["astern"] = b.azimuthDrive.astern;
-    ad["aziToLengthRatio"] = b.azimuthDrive.aziToLengthRatio;
-    ad["engineIdleRPM"] = b.azimuthDrive.engineIdleRPM;
-    ad["clutchEngageRPM"] = b.azimuthDrive.clutchEngageRPM;
-    ad["clutchDisengageRPM"] = b.azimuthDrive.clutchDisengageRPM;
-    ad["engineMaxChangePerSecond"] = b.azimuthDrive.engineMaxChangePerSecond;
-    ad["maxDegPerSecond"] = b.azimuthDrive.maxDegPerSecond;
-    ad["thrustLeverMaxChangePerSecond"] = b.azimuthDrive.thrustLeverMaxChangePerSecond;
-    ad["sameDirectionAsSchottel"] = b.azimuthDrive.sameDirectionAsSchottel;
-    root["AzimuthDrive"] = ad;
+    /*prop["space"] = aBoat.prop.space;
+    prop["walkAhead"] = aBoat.prop.walkAhead;
+    prop["walkAstern"] = aBoat.prop.walkAstern;
+    prop["walkDriftEffect"] = aBoat.prop.walkDriftEffect;
+    root["Prop"] = prop;*/
 
     // Rudder
-    Json::Value rud;
-    rud["A"] = b.rudder.A;
-    rud["B"] = b.rudder.B;
-    rud["BAstern"] = b.rudder.BAstern;
-    root["Rudder"] = rud;
-
-    // Thrusters
-    Json::Value bow, stern;
-    bow["Force"] = b.bowThruster.Force;
-    bow["Distance"] = b.bowThruster.Distance;
-    stern["Force"] = b.sternThruster.Force;
-    stern["Distance"] = b.sternThruster.Distance;
-    root["BowThruster"] = bow;
-    root["SternThruster"] = stern;
-
-    // Wheel
-    Json::Value wheel;
-    Json::Value wvec(Json::arrayValue);
-    wvec.append(b.wheel.vector[0]);
-    wvec.append(b.wheel.vector[1]);
-    wvec.append(b.wheel.vector[2]);
-    wheel["vector"] = wvec;
-    wheel["scale"] = b.wheel.scale;
-    root["Wheel"] = wheel;
+    /*Json::Value rud;
+    rud["A"] = aBoat.rudder.aR;
+    rud["B"] = aBoat.rudder.B;
+    rud["BAstern"] = aBoat.rudder.BAstern;
+    root["Rudder"] = rud;*/
 
     // Sails
-    Json::Value sailsJson;
+    /*    Json::Value sailsJson;
     Json::Value list(Json::arrayValue);
-    for (const auto& s : b.sails.sails) {
+    for (const auto& s : aBoat.sails.sails) {
       Json::Value item(Json::arrayValue);
       item.append(s.vector[0]);
       item.append(s.vector[1]);
@@ -225,24 +211,10 @@ bool BoatManager::saveBoat(Boat& b) {
       list.append(item);
     }
     sailsJson["list"] = list;
-    sailsJson["type"] = b.sails.type;
-    sailsJson["size"] = b.sails.size;
-    root["Sails"] = sailsJson;
+    sailsJson["type"] = aBoat.sails.type;
+    sailsJson["size"] = aBoat.sails.size;
+    root["Sails"] = sailsJson;*/
 
-    // Pano
-    Json::Value panoJson;
-    Json::Value files(Json::arrayValue), yaws(Json::arrayValue),
-      pitches(Json::arrayValue), rolls(Json::arrayValue);
-    for (const auto& f : b.pano.file) files.append(f);
-    for (const auto& v : b.pano.yaw) yaws.append(v);
-    for (const auto& v : b.pano.pitch) pitches.append(v);
-    for (const auto& v : b.pano.roll) rolls.append(v);
-
-    panoJson["file"] = files;
-    panoJson["yaw"] = yaws;
-    panoJson["pitch"] = pitches;
-    panoJson["roll"] = rolls;
-    root["Pano"] = panoJson;
 
     // Écriture finale
     std::ofstream ofs(out);

@@ -8,80 +8,75 @@ MainWindow::~MainWindow()
 
 MainWindow::MainWindow():
   // Main window
-  m_paned(Gtk::Orientation::HORIZONTAL),
-  m_scroll_edit(),
-  m_scroll_boat(),
-  m_box_left_side(Gtk::Orientation::VERTICAL),
-  m_box_action_button(Gtk::Orientation::HORIZONTAL),
-  m_box_edit(Gtk::Orientation::VERTICAL),
+  mPanes(Gtk::Orientation::HORIZONTAL),
+  mScrollEdit(),
+  mScrollBoat(),
+  mLeftSideBox(Gtk::Orientation::VERTICAL),
+  mButtonsBox(Gtk::Orientation::HORIZONTAL),
+  mConfBoatBox(Gtk::Orientation::VERTICAL),
 
   // Boat area
-  m_boat_list(),
-  m_button_refresh("Refresh"),
-  m_button_save("Save"),
-  m_button_new("New"),
-  m_button_delete("Delete"),
+  mBoatList(),
+  mRefreshButton("Refresh"),
+  mSaveButton("Save"),
+  mNewButton("New"),
+  mDeleteButton("Delete"),
 
   // Edit area
-  m_azimuth_section(),
-  m_compass_section(),
-  m_dynamics_section(),
   mMeshSection(),
+  mPhysicalSection(),
   mGpsSection(),
+  mRotSection(),
   mDepthSection(),
-  m_propertie_section(),
-  m_propulsion_section(),
   mRadarSection(),
-  m_rudder_section(),
-  m_weather_section(),
-  m_wheel_section()
+  mRudderSection(),
+  mPropellerSection(),
+  mEngineSection(),
+  mSailSection()
 {
   // Configure this window:
   set_default_size(1920, 1024);
-  m_paned.set_position(500);
+  mPanes.set_position(500);
 	
   // Configure the scrooled window
-  m_scroll_boat.set_policy(Gtk::PolicyType::AUTOMATIC, Gtk::PolicyType::ALWAYS);
-  m_scroll_boat.set_expand();
-  m_scroll_edit.set_policy(Gtk::PolicyType::AUTOMATIC, Gtk::PolicyType::ALWAYS);
-  m_scroll_edit.set_expand();
+  mScrollBoat.set_policy(Gtk::PolicyType::AUTOMATIC, Gtk::PolicyType::ALWAYS);
+  mScrollBoat.set_expand();
+  mScrollEdit.set_policy(Gtk::PolicyType::AUTOMATIC, Gtk::PolicyType::ALWAYS);
+  mScrollEdit.set_expand();
 
 	
   /* ********************* */
   /* ***** Edit Area ***** */
   /* ********************* */
   // Show every section  
-  m_azimuth_section.show();
-  m_compass_section.show();
-  m_dynamics_section.show();
   mMeshSection.show();
+  mPhysicalSection.show();
   mGpsSection.show();
+  mRotSection.show();
   mDepthSection.show();
   mRadarSection.show();
-  m_propertie_section.show();
-  m_propulsion_section.show();
-  m_rudder_section.show();
-  m_weather_section.show();
-  m_wheel_section.show();
+  mRudderSection.show();
+  mPropellerSection.show();
+  mEngineSection.show();
+  mSailSection.show();
 	
   // Pack all elements in the box:
-  m_box_edit.append(m_label_edit);
-  m_box_edit.append(mMeshSection);
-  m_box_edit.append(mGpsSection);
-  m_box_edit.append(mDepthSection);
-  m_box_edit.append(mRadarSection);
-  m_box_edit.append(m_compass_section);
-  m_box_edit.append(m_propertie_section);
-  m_box_edit.append(m_propulsion_section);
-  m_box_edit.append(m_dynamics_section);
-  m_box_edit.append(m_azimuth_section);
-  m_box_edit.append(m_rudder_section);
-  m_box_edit.append(m_weather_section);
-  m_box_edit.append(m_wheel_section);
+  mConfBoatBox.append(mBoatName);
+  mConfBoatBox.append(mMeshSection);
+  mConfBoatBox.append(mPhysicalSection);
+  mConfBoatBox.append(mRudderSection);
+  mConfBoatBox.append(mPropellerSection);
+  mConfBoatBox.append(mEngineSection);
+  mConfBoatBox.append(mSailSection);
+  mConfBoatBox.append(mGpsSection);
+  mConfBoatBox.append(mDepthSection);
+  mConfBoatBox.append(mRadarSection);
+  mConfBoatBox.append(mRotSection);
+
 
   // Make the box visible and usable with the scroll bar
-  m_box_edit.show();
-  m_scroll_edit.set_child(m_box_edit);
+  mConfBoatBox.show();
+  mScrollEdit.set_child(mConfBoatBox);
 
 
   /* ********************* */
@@ -89,158 +84,144 @@ MainWindow::MainWindow():
   /* ********************* */
 
   // Link the signals to function
-  m_boat_list.signal_row_activated().connect(sigc::mem_fun(*this, &MainWindow::boat_line));
-  m_button_save.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::update));
-  m_button_refresh.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::refresh));
+  mBoatList.signal_row_activated().connect(sigc::mem_fun(*this, &MainWindow::BoatLineCbk));
+  mSaveButton.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::Update));
+  mRefreshButton.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::Refresh));
 
   // Put an icon in the buttons
   // TODO
 
   // Show the buttons
-  m_button_new.show();
-  m_button_delete.show();
-  m_button_save.show();
-  m_button_refresh.show();
+  mNewButton.show();
+  mDeleteButton.show();
+  mSaveButton.show();
+  mRefreshButton.show();
 
   // Pack the button in the box
-  m_box_action_button.append(m_button_new);
-  m_box_action_button.append(m_button_delete);
-  m_box_action_button.append(m_button_save);
-  m_box_action_button.append(m_button_refresh);
+  mButtonsBox.append(mNewButton);
+  mButtonsBox.append(mDeleteButton);
+  mButtonsBox.append(mSaveButton);
+  mButtonsBox.append(mRefreshButton);
 
   // Make the list usable with the scroll bar
-  m_scroll_boat.set_child(m_boat_list);
+  mScrollBoat.set_child(mBoatList);
 
   // Pack the list and the buttons in the box
-  m_box_left_side.append(m_scroll_boat);
-  m_box_left_side.append(m_box_action_button);
+  mLeftSideBox.append(mScrollBoat);
+  mLeftSideBox.append(mButtonsBox);
 
-  m_box_action_button.show();
-  m_box_left_side.show();
+  mButtonsBox.show();
+  mLeftSideBox.show();
 
   // Configure the paned
-  m_paned.set_margin(10);
-  m_paned.set_start_child(m_box_left_side);
-  m_paned.set_end_child(m_scroll_edit);
+  mPanes.set_margin(10);
+  mPanes.set_start_child(mLeftSideBox);
+  mPanes.set_end_child(mScrollEdit);
 
   //Show first boat
-  boat_line((BoatRow*)m_boat_list.get_row_at_index(0));
+  BoatLineCbk((BoatRow*)mBoatList.get_row_at_index(0));
   
   // Add the box in this window:
-  set_child(m_paned);	
+  set_child(mPanes);	
 }
 
 
-void MainWindow::boat_line(Gtk::ListBoxRow *boat_row)
+void MainWindow::BoatLineCbk(Gtk::ListBoxRow *aBoatRow)
 {
   static bool bInit = false;
-  Boat *pBoat = &(((BoatRow*)boat_row)->boat);
+  Boat *pBoat = &(((BoatRow*)aBoatRow)->boat);
   std::string name = pBoat->displayName;
 
-  m_label_edit.set_markup("<b>" + Glib::Markup::escape_text(name) + "</b>");
+  mBoatName.set_markup("<b>" + Glib::Markup::escape_text(name) + "</b>");
 
-  mCurrentRowIndex = ((BoatRow*)boat_row)->get_index();
-  loadBoat(pBoat);
+  mCurrentRowIndex = ((BoatRow*)aBoatRow)->get_index();
+  LoadBoat(pBoat);
 
   if(!bInit)
     {
-      init();
+      Init();
       bInit = true;
     }
   else
-    set();
+    Set();
   
-  refresh();
+  Refresh();
 }
 
 
-/**
- * Load a boat to edit its properties
- * @param b The reference of a boat
- */
-void MainWindow::loadBoat(Boat *b)
+void MainWindow::LoadBoat(Boat *aBoat)
 {
-  if (b == nullptr) return;
-  m_azimuth_section.load(b);
-  m_compass_section.load(b);
-  m_dynamics_section.load(b);
-  mMeshSection.load(b);
-  mGpsSection.load(b);
-  mDepthSection.load(b);
-  m_propertie_section.load(b);
-  m_propulsion_section.load(b);
-  mRadarSection.load(b);
-  m_rudder_section.load(b);
-  m_weather_section.load(b);
-  m_wheel_section.load(b);
+  if (aBoat == nullptr) return;
+  mMeshSection.load(aBoat);
+  mPhysicalSection.load(aBoat);
+  mGpsSection.load(aBoat);
+  mDepthSection.load(aBoat);
+  mRotSection.load(aBoat);
+  mRadarSection.load(aBoat);
+  mRudderSection.load(aBoat);
+  mPropellerSection.load(aBoat);
+  mEngineSection.load(aBoat);
+  mSailSection.load(aBoat);
 }
 
-void MainWindow::set(void)
+void MainWindow::Set(void)
 {
-  m_azimuth_section.set();
-  m_compass_section.set();
-  m_dynamics_section.set();
   mMeshSection.set();
+  mPhysicalSection.set();
   mGpsSection.set();
+  mRotSection.set();
   mDepthSection.set();
-  m_propertie_section.set();
-  m_propulsion_section.set();
   mRadarSection.set();
-  m_rudder_section.set();
-  m_weather_section.set();
-  m_wheel_section.set();
+  mRudderSection.set();
+  mPropellerSection.set();
+  mEngineSection.set();
+  mSailSection.set();
 }
 
-void MainWindow::init(void)
+void MainWindow::Init(void)
 {
-  m_azimuth_section.init();
-  m_compass_section.init();
-  m_dynamics_section.init();
   mMeshSection.init();
+  mPhysicalSection.init();
   mGpsSection.init();
+  mRotSection.init();
   mDepthSection.init();
-  m_propertie_section.init();
-  m_propulsion_section.init();
   mRadarSection.init();
-  m_rudder_section.init();
-  m_weather_section.init();
-  m_wheel_section.init();
+  mRudderSection.init();
+  mPropellerSection.init();
+  mEngineSection.init();
+  mSailSection.init();
 }
 
-void MainWindow::update()
+void MainWindow::Update()
 {
   BoatManager manager;
   Gtk::ListBoxRow *currentBoatRow;
   
-  m_azimuth_section.update();
-  m_compass_section.update();
-  m_dynamics_section.update();
   mMeshSection.update();
+  mPhysicalSection.update();
+  mRudderSection.update();
   mGpsSection.update();
+  mRotSection.update();
   mDepthSection.update();
-  m_propertie_section.update();
-  m_propulsion_section.update();
   mRadarSection.update();
-  m_rudder_section.update();
-  m_weather_section.update();
-  m_wheel_section.update();
-  
-  currentBoatRow = m_boat_list.get_row_at_index(mCurrentRowIndex);
+  mPropellerSection.update();
+  mEngineSection.update();
+  mSailSection.update();
+    
+  currentBoatRow = mBoatList.get_row_at_index(mCurrentRowIndex);
   manager.saveBoat(((BoatRow*)currentBoatRow)->boat);
 }
 
-void MainWindow::refresh()
+void MainWindow::Refresh()
 {
-  m_azimuth_section.refresh();
-  m_compass_section.refresh();
-  m_dynamics_section.refresh();
   mMeshSection.refresh();
+  mPhysicalSection.refresh();
+  mRudderSection.refresh();
   mGpsSection.refresh();
+  mRotSection.refresh();
   mDepthSection.refresh();
-  m_propertie_section.refresh();
-  m_propulsion_section.refresh();
   mRadarSection.refresh();
-  m_rudder_section.refresh();
-  m_weather_section.refresh();
-  m_wheel_section.refresh();
+  mPropellerSection.refresh();
+  mEngineSection.refresh();
+  mSailSection.refresh();
 }

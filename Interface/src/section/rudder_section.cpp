@@ -1,35 +1,45 @@
 #include "rudder_section.h"
 
 RudderSection::RudderSection():
-  m_box(Orientation::VERTICAL)
+  mGrid()
 {
+  mLabelSection.set_markup("<b>Rudder</b>");
+  mLabelSection.show();
+  mBox.append(mLabelSection);
+  
   // Show every field
-  m_a.getBox().show();
-  m_b.getBox().show();
-  m_bastern.getBox().show();
-
+  mSpanLenght.getBox().show();
+  mAreaMobile.getBox().show();
+  mAspectRatio.getBox().show();
+  mMaxSpeed.getBox().show();
+  
   // Fill the grid
-  m_box.append(m_a.getBox());
-  m_box.append(m_b.getBox());
-  m_box.append(m_bastern.getBox());
+  mGrid.attach(mBox, 0, 0);
+
+  mGrid.attach(mSpanLenght.getBox(), 0, 1);
+  mGrid.attach(mAreaMobile.getBox(), 0, 2);
+  mGrid.attach(mAspectRatio.getBox(), 0, 3);
+  mGrid.attach(mMaxSpeed.getBox(), 0, 4);
 
   // Show and set the grid as the child
-  m_box.show();
-  set_child(m_box);
+  mGrid.show();
+  set_child(mGrid);
 }
 
 void RudderSection::set()
 {
-  m_a.set(&mBoat->rudder.A);
-  m_b.set(&mBoat->rudder.B);
-  m_bastern.set(&mBoat->rudder.BAstern);
+  mSpanLenght.set(&mBoat->rudder.hR);
+  mAreaMobile.set(&mBoat->rudder.aR);
+  mAspectRatio.set(&mBoat->rudder.lambdaR);
+  mMaxSpeed.set(&mBoat->rudder.rrMax);
 }
 
 void RudderSection::init()
 {
-  m_a.init("A", &mBoat->rudder.A);
-  m_b.init("B", &mBoat->rudder.B);
-  m_bastern.init("BAstern", &mBoat->rudder.BAstern);
+  mSpanLenght.init("Span Lenght", &mBoat->rudder.hR);
+  mAreaMobile.init("Area mobile part", &mBoat->rudder.aR);
+  mAspectRatio.init("Aspect ratio", &mBoat->rudder.lambdaR);
+  mMaxSpeed.init("Max speed", &mBoat->rudder.rrMax);
 }
 
 
