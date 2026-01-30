@@ -3,235 +3,293 @@
 #include <filesystem>
 #include <json/json.h>
 
-using namespace std;
 namespace fs = std::filesystem;
 
-// Lecture des bateaux
-vector<Boat> BoatManager::loadBoats(const string& folderPath)
+void BoatManager::ParseMesh(Boat& aBoat, Json::Value& aJsonRoot)
 {
-  vector<Boat> boats;
+  aBoat.mesh.fileName = aJsonRoot["mesh"]["name"].asString();
+  aBoat.mesh.makeTransparent = aJsonRoot["mesh"]["makeTransparent"].asBool();    
+  aBoat.mesh.scaleFactor = aJsonRoot["mesh"]["scaleFactor"].asFloat();
+  aBoat.mesh.yCorrection = aJsonRoot["mesh"]["yCorrection"].asFloat();
+  aBoat.mesh.angleCorrection = aJsonRoot["mesh"]["angleCorrection"].asInt();
+  aBoat.mesh.nbrViews = aJsonRoot["mesh"]["numberOfViews"].asInt();
 
-  for (const auto& dirEntry : fs::directory_iterator(folderPath)) {
-    if (!dirEntry.is_directory()) continue;
-
-    fs::path boatFile = dirEntry.path() / "boat.json";
-    if (!fs::exists(boatFile)) continue;
-
-    ifstream file(boatFile);
-    if (!file.is_open()) continue;
-
-    Json::Value root;
-    file >> root;
-
-    //test Erreur
-    if (root.isNull()) {
-      std::cerr << "Erreur de parsing JSON" << std::endl;
+  aBoat.mesh.viewList.views.resize(aBoat.mesh.nbrViews);
+    
+  for (unsigned char i=0; i<aBoat.mesh.nbrViews; i++)
+    {
+      aBoat.mesh.viewList.views[i].vector[0] = aJsonRoot["mesh"]["views"][i][0].asFloat();
+      aBoat.mesh.viewList.views[i].vector[1] = aJsonRoot["mesh"]["views"][i][1].asFloat();
+      aBoat.mesh.viewList.views[i].vector[2] = aJsonRoot["mesh"]["views"][i][2].asFloat();
+      aBoat.mesh.viewList.views[i].isTop = aJsonRoot["mesh"]["views"][i][3].asBool();
     }
+}
 
-    Boat b;
+void BoatManager::SetMesh(Boat& aBoat, Json::Value& aJsonRoot)
+{
+  aJsonRoot["mesh"]["name"] = aBoat.mesh.fileName;
+  aJsonRoot["mesh"]["makeTransparent"] = aBoat.mesh.makeTransparent;    
+  aJsonRoot["mesh"]["scaleFactor"] = aBoat.mesh.scaleFactor;
+  aJsonRoot["mesh"]["yCorrection"] = aBoat.mesh.yCorrection;
+  aJsonRoot["mesh"]["angleCorrection"] = aBoat.mesh.angleCorrection;
+  aJsonRoot["mesh"]["numberOfViews"] = aBoat.mesh.nbrViews;
+  
+  for(unsigned char i=0; i<aBoat.mesh.nbrViews; i++)
+    {
+      aJsonRoot["mesh"]["views"][i][0] = aBoat.mesh.viewList.views[i].vector[0];
+      aJsonRoot["mesh"]["views"][i][1] = aBoat.mesh.viewList.views[i].vector[1];
+      aJsonRoot["mesh"]["views"][i][2] = aBoat.mesh.viewList.views[i].vector[2];
+      aJsonRoot["mesh"]["views"][i][3] = aBoat.mesh.viewList.views[i].isTop;
+    }
+}
 
-    b.filePath = boatFile.string();
-    b.displayName = dirEntry.path().filename().string();
+void BoatManager::ParseDepth(Boat& aBoat, Json::Value& aJsonRoot)
+{
+  aBoat.hasDepthSounder = aJsonRoot["depthSounder"]["number"].asBool();
+  aBoat.maxDepth = aJsonRoot["depthSounder"]["maxDepth"].asFloat();
+}
 
-    //Mesh
-    b.mesh.fileName = root["mesh"]["name"].asString();
-    b.mesh.makeTransparent = root["mesh"]["makeTransparent"].asInt() == 1 ? true : false;    
-    b.mesh.scaleFactor = root["mesh"]["scaleFactor"].asFloat();
-    b.mesh.yCorrection = root["mesh"]["yCorrection"].asFloat();
-    b.mesh.angleCorrection = root["mesh"]["angleCorrection"].asInt();
-    b.mesh.nbrViews = root["mesh"]["numberOfViews"].asInt();
+void BoatManager::SetDepth(Boat& aBoat, Json::Value& aJsonRoot)
+{
+  aJsonRoot["depthSounder"]["number"] = aBoat.hasDepthSounder == true ? 1 : 0;
+  aJsonRoot["depthSounder"]["maxDepth"] = aBoat.maxDepth;
+}
 
-    b.mesh.viewList.views.resize(b.mesh.nbrViews);
+void BoatManager::ParseRadar(Boat& aBoat, Json::Value& aJsonRoot)
+{
+  aBoat.hasRadar = aJsonRoot["radar"]["number"].asBool();
+  aBoat.radarScreen.vector[0] = aJsonRoot["radar"]["pos"][0].asFloat();
+  aBoat.radarScreen.vector[1] = aJsonRoot["radar"]["pos"][1].asFloat();
+  aBoat.radarScreen.vector[2] = aJsonRoot["radar"]["pos"][2].asFloat();
+  aBoat.radarScreen.size = aJsonRoot["radar"]["size"].asFloat();
+  aBoat.radarScreen.tilt = aJsonRoot["radar"]["tilt"].asFloat();
+}
+
+void BoatManager::SetRadar(Boat& aBoat, Json::Value& aJsonRoot)
+{
+  aJsonRoot["radar"]["number"] = aBoat.hasRadar == true ? 1 : 0;
+  aJsonRoot["radar"]["pos"][0] = aBoat.radarScreen.vector[0];
+  aJsonRoot["radar"]["pos"][1] = aBoat.radarScreen.vector[1];
+  aJsonRoot["radar"]["pos"][2] = aBoat.radarScreen.vector[2];
+  aJsonRoot["radar"]["size"] = aBoat.radarScreen.size;
+  aJsonRoot["radar"]["tilt"] = aBoat.radarScreen.tilt;
+}
+
+void BoatManager::ParsePhysical(Boat& aBoat, Json::Value& aJsonRoot)
+{
+  aBoat.rho = aJsonRoot["geoParams"]["rho"].asFloat();
+  aBoat.physicalCharac.lPP = aJsonRoot["geoParams"]["length"].asFloat();
+  aBoat.physicalCharac.b = aJsonRoot["geoParams"]["breadth"].asFloat();
+  aBoat.physicalCharac.d = aJsonRoot["geoParams"]["draugth"].asFloat();
+  aBoat.physicalCharac.volume = aJsonRoot["geoParams"]["subwaterVolume"].asFloat();
+  aBoat.physicalCharac.xG = aJsonRoot["geoParams"]["longGravityCenter"].asFloat();
+  aBoat.physicalCharac.cB = aJsonRoot["geoParams"]["blockCoef"].asFloat();
+}
+
+void BoatManager::SetPhysical(Boat& aBoat, Json::Value& aJsonRoot)
+{
+  aJsonRoot["geoParams"]["rho"] = aBoat.rho;
+  aJsonRoot["geoParams"]["length"] = aBoat.physicalCharac.lPP;
+  aJsonRoot["geoParams"]["breadth"] = aBoat.physicalCharac.b;
+  aJsonRoot["geoParams"]["draugth"] = aBoat.physicalCharac.d;
+  aJsonRoot["geoParams"]["subwaterVolume"] = aBoat.physicalCharac.volume;
+  aJsonRoot["geoParams"]["longGravityCenter"] = aBoat.physicalCharac.xG;
+  aJsonRoot["geoParams"]["blockCoef"] = aBoat.physicalCharac.cB;
+}
+
+void BoatManager::ParseRudder(Boat& aBoat, Json::Value& aJsonRoot)
+{
+  aBoat.rudder.hR = aJsonRoot["rudder"]["spanLength"].asFloat();
+  aBoat.rudder.aR = aJsonRoot["rudder"]["areaMobPart"].asFloat();                  
+  aBoat.rudder.lambdaR = aJsonRoot["rudder"]["aspectRatio"].asFloat();            
+  aBoat.rudder.rrMax = aJsonRoot["rudder"]["maxSpeed"].asFloat();
+}
+
+void BoatManager::SetRudder(Boat& aBoat, Json::Value& aJsonRoot)
+{
+  aJsonRoot["rudder"]["spanLength"] = aBoat.rudder.hR;
+  aJsonRoot["rudder"]["areaMobPart"] = aBoat.rudder.aR;                  
+  aJsonRoot["rudder"]["aspectRatio"] = aBoat.rudder.lambdaR;            
+  aJsonRoot["rudder"]["maxSpeed"] = aBoat.rudder.rrMax;
+}
+
+void BoatManager::ParsePropeller(Boat& aBoat, Json::Value& aJsonRoot)
+{
+  aBoat.prop.number = aJsonRoot["propeller"]["number"].asInt();
+  aBoat.prop.diameter = aJsonRoot["propeller"]["diameter"].asFloat();                  
+  aBoat.prop.forwardRotDir = aJsonRoot["propeller"]["forwardRotDir"].asString();            
+  aBoat.prop.backwardEff = aJsonRoot["propeller"]["backwardEff"].asFloat();
+}
+
+void BoatManager::SetPropeller(Boat& aBoat, Json::Value& aJsonRoot)
+{
+  aJsonRoot["propeller"]["number"] = aBoat.prop.number;
+  aJsonRoot["propeller"]["diameter"] = aBoat.prop.diameter;                  
+  aJsonRoot["propeller"]["forwardRotDir"] = aBoat.prop.forwardRotDir;            
+  aJsonRoot["propeller"]["backwardEff"] = aBoat.prop.backwardEff;
+}
+
+void BoatManager::ParseEngine(Boat& aBoat, Json::Value& aJsonRoot)
+{
+  aBoat.engine.number = aJsonRoot["engine"]["number"].asInt();
+  aBoat.engine.brand = aJsonRoot["engine"]["brand"].asString();
+  aBoat.engine.type = aJsonRoot["engine"]["type"].asString();
+  aBoat.engine.power = aJsonRoot["engine"]["power"].asFloat();
+  aBoat.engine.rpmMax = aJsonRoot["engine"]["rpmMax"].asFloat();
+  aBoat.engine.fuelCons = aJsonRoot["engine"]["fuelCons"].asFloat();
+}
+
+void BoatManager::SetEngine(Boat& aBoat, Json::Value& aJsonRoot)
+{
+  aJsonRoot["engine"]["number"] = aBoat.engine.number;
+  aJsonRoot["engine"]["brand"] = aBoat.engine.brand;
+  aJsonRoot["engine"]["type"] = aBoat.engine.type;
+  aJsonRoot["engine"]["power"] = aBoat.engine.power;
+  aJsonRoot["engine"]["rpmMax"] = aBoat.engine.rpmMax;
+  aJsonRoot["engine"]["fuelCons"] = aBoat.engine.fuelCons;
+}
+
+void BoatManager::ParseSail(Boat& aBoat, Json::Value& aJsonRoot)
+{
+  aBoat.sails.number = aJsonRoot["sail"]["number"].asInt();
+  aBoat.sails.type  = aJsonRoot["sail"]["type"].asString();
+  aBoat.sails.size = aJsonRoot["sail"]["size"].asString();
+
+  aBoat.sails.sail.resize(4);
     
-    for (unsigned char i=0; i<b.mesh.nbrViews; i++)
-      {
-        b.mesh.viewList.views[i].vector[0] = root["mesh"]["views"][i][0].asFloat();
-	b.mesh.viewList.views[i].vector[1] = root["mesh"]["views"][i][1].asFloat();
-        b.mesh.viewList.views[i].vector[2] = root["mesh"]["views"][i][2].asFloat();
-	b.mesh.viewList.views[i].isTop = root["mesh"]["views"][i][3].asInt() == 1 ? true : false;
+  for (unsigned char i=0; i<4; i++)
+    {
+      aBoat.sails.sail[i].pos[0] = aJsonRoot["sail"]["pos"][i][0].asFloat();
+      aBoat.sails.sail[i].pos[1] = aJsonRoot["sail"]["pos"][i][1].asFloat();
+      aBoat.sails.sail[i].pos[2] = aJsonRoot["sail"]["pos"][i][2].asFloat();
+    }
+}
+
+void BoatManager::SetSail(Boat& aBoat, Json::Value& aJsonRoot)
+{
+  aJsonRoot["sail"]["number"] = aBoat.sails.number;
+  aJsonRoot["sail"]["type"] = aBoat.sails.type;
+  aJsonRoot["sail"]["size"] = aBoat.sails.size;
+
+  for (unsigned char i=0; i<4; i++)
+    {
+      aJsonRoot["sail"]["pos"][i][0] = aBoat.sails.sail[i].pos[0];
+      aJsonRoot["sail"]["pos"][i][1] = aBoat.sails.sail[i].pos[1];
+      aJsonRoot["sail"]["pos"][i][2] = aBoat.sails.sail[i].pos[2];
+    }
+}
+
+std::vector<Boat> BoatManager::LoadBoats(const std::string& aFolderPath)
+{
+  std::vector<Boat> boats;
+
+  for (const auto& dirEntry : fs::directory_iterator(aFolderPath))
+    {
+      if (!dirEntry.is_directory()) continue;
+      
+      fs::path boatFile = dirEntry.path() / "boat.json";
+      if (!fs::exists(boatFile)) continue;
+
+      std::ifstream file(boatFile);
+      if (!file.is_open()) continue;
+
+      Json::Value root;
+      file >> root;
+
+      if (root.isNull()) {
+	std::cerr << "Erreur de parsing JSON" << std::endl;
       }
 
-    //DepthSounder
-    b.hasDepthSounder = root["depthSounder"]["number"].asInt() == 1 ? true : false;
-    b.maxDepth = root["depthSounder"]["maxDepth"].asFloat();
+      Boat b;
 
-    //GPS
-    b.hasGPS = root["gps"]["number"].asInt() == 1 ? true : false;
+      b.filePath = boatFile.string();
+      b.displayName = dirEntry.path().filename().string();
 
-    //RoT
-    b.hasRateOfTurnIndicator = root["rotIndicator"]["number"].asInt() == 1 ? true : false;
-
-    // Radar
-    b.hasRadar = root["radar"]["number"].asInt() == 1 ? true : false;
-    b.radarScreen.vector[0] = root["radar"]["pos"][0].asFloat();
-    b.radarScreen.vector[1] = root["radar"]["pos"][1].asFloat();
-    b.radarScreen.vector[2] = root["radar"]["pos"][2].asFloat();
-    b.radarScreen.size = root["radar"]["size"].asFloat();
-    b.radarScreen.tilt = root["radar"]["tilt"].asFloat();
-
-    //Physical
-    b.rho = root["geoParams"]["rho"].asFloat();
-    b.physicalCharac.lPP = root["geoParams"]["length"].asFloat();
-    b.physicalCharac.b = root["geoParams"]["breadth"].asFloat();
-    b.physicalCharac.d = root["geoParams"]["draugth"].asFloat();
-    b.physicalCharac.volume = root["geoParams"]["subwaterVolume"].asFloat();
-    b.physicalCharac.xG = root["geoParams"]["longGravityCenter"].asFloat();
-    b.physicalCharac.cB = root["geoParams"]["blockCoef"].asFloat();
-
-    //Rudder
-    b.rudder.hR = root["rudder"]["spanLength"].asFloat();
-    b.rudder.aR = root["rudder"]["areaMobPart"].asFloat();                  
-    b.rudder.lambdaR = root["rudder"]["aspectRatio"].asFloat();            
-    b.rudder.rrMax = root["rudder"]["maxSpeed"].asFloat();
-
-    //Propeller
-    b.prop.number = root["propeller"]["number"].asInt();
-    b.prop.diameter = root["propeller"]["diameter"].asFloat();                  
-    b.prop.forwardRotDir = root["propeller"]["forwardRotDir"].asString();            
-    b.prop.backwardEff = root["propeller"]["backwardEff"].asFloat();
-
-    //Engine
-    b.engine.number = root["engine"]["number"].asInt();
-    b.engine.brand = root["engine"]["brand"].asString();
-    b.engine.type = root["engine"]["type"].asString();
-    b.engine.power = root["engine"]["power"].asFloat();
-    b.engine.rpmMax = root["engine"]["rpmMax"].asFloat();
-    b.engine.fuelCons = root["engine"]["fuelCons"].asFloat();
-
-    //Sails
-    b.sails.number = root["sail"]["number"].asInt();
-    b.sails.type  = root["sail"]["type"].asString();
-    b.sails.size = root["sail"]["size"].asString();
-
-    b.sails.sail.resize(4);
+      //Mesh
+      ParseMesh(b, root);
+      //DepthSounder
+      ParseDepth(b, root);
+      //GPS
+      b.hasGPS = root["gps"]["number"].asBool();
+      //RoT
+      b.hasRateOfTurnIndicator = root["rotIndicator"]["number"].asBool();
+      // Radar
+      ParseRadar(b, root);
+      //Physical
+      ParsePhysical(b, root);
+      //Rudder
+      ParseRudder(b, root);
+      //Propeller
+      ParsePropeller(b, root);
+      //Engine
+      ParseEngine(b, root);
+      //Sails
+      ParseSail(b, root);
     
-    for (unsigned char i=0; i<4; i++)
-      {
-        b.sails.sail[i].pos[0] = root["sail"]["pos"][i][0].asFloat();
-	b.sails.sail[i].pos[1] = root["sail"]["pos"][i][1].asFloat();
-        b.sails.sail[i].pos[2] = root["sail"]["pos"][i][2].asFloat();
-      }
-    
-    
-    boats.push_back(b);
-  }
+      boats.push_back(b);
+    }
 
   return boats;
 }
 
-bool BoatManager::saveBoat(Boat& aBoat)
+bool BoatManager::SaveBoat(Boat& aBoat)
 {
-  try {
-    namespace fs = std::filesystem;
+  Json::Value root;
+  fs::path out;
 
-    fs::path out;
-
-    // Cas 1 : fichier existant → écrasement
-    if (!aBoat.filePath.empty()) {
+  if (!aBoat.filePath.empty())
+    {
       out = aBoat.filePath;
       std::cout << "out : " << out  << std::endl;
     }
-    // Cas 2 : nouveau bateau
-    else {
+  else
+    {
       std::string name = aBoat.displayName.empty() ? "NewBoat" : aBoat.displayName;
+
       for (auto &c : name)
 	if (c == ' ') c = '_';
 
       fs::path dest = fs::path(transformationPath) / name;
       fs::create_directories(dest);
 
-      // Le fichier JSON doit toujours s'appeler "boat.json"
       out = dest / "boat.json";
-
-      // On met à jour filePath pour les futurs Save
       aBoat.filePath = out.string();
     }
 
-    // ----------------------------
-    // Construction du JSON (inchangé)
-    // ----------------------------
+  //Mesh
+  SetMesh(aBoat, root);
+  //Depth
+  SetDepth(aBoat, root);
+  //GPS
+  root["gps"]["number"] = aBoat.hasGPS;
+  //RoT
+  root["rotIndicator"]["number"] = aBoat.hasRateOfTurnIndicator;
+  //Radar
+  SetRadar(aBoat, root);
+  //Physical
+  SetPhysical(aBoat, root);
+  //Rudder
+  SetRudder(aBoat, root);
+  //Propeller
+  SetPropeller(aBoat, root);
+  //Engine
+  SetEngine(aBoat, root);
+  //Sails
+  SetSail(aBoat, root);
+  
+  std::ofstream ofs(out);
 
-    Json::Value root;
-    root["FileName"] = aBoat.mesh.fileName;
-    root["ScaleFactor"] = aBoat.mesh.scaleFactor;
-    root["YCorrection"] = aBoat.mesh.yCorrection;
-    root["AngleCorrection"] = aBoat.mesh.angleCorrection;
-    
-    root["HasGPS"] = aBoat.hasGPS;
-    root["HasDepthSounder"] = aBoat.hasDepthSounder;
-    root["MaxDepth"] = aBoat.maxDepth;
-    root["MakeTransparent"] = aBoat.mesh.makeTransparent;
-
-    // View
-    Json::Value viewArr(Json::arrayValue);
-    for (const auto &v : aBoat.mesh.viewList.views) {
-      Json::Value item(Json::arrayValue);
-      item.append(v.vector[0]);
-      item.append(v.vector[1]);
-      item.append(v.vector[2]);
-      item.append(v.isTop);
-      viewArr.append(item);
-    }
-    root["View"] = viewArr;
-
-    // RadarScreen
-    Json::Value rs;
-    Json::Value rsvec(Json::arrayValue);
-    rsvec.append(aBoat.radarScreen.vector[0]);
-    rsvec.append(aBoat.radarScreen.vector[1]);
-    rsvec.append(aBoat.radarScreen.vector[2]);
-    rs["vector"] = rsvec;
-    rs["size"] = aBoat.radarScreen.size;
-    rs["tilt"] = aBoat.radarScreen.tilt;
-    root["RadarScreen"] = rs;
-
-    // Prop
-    Json::Value prop;
-    /*prop["space"] = aBoat.prop.space;
-    prop["walkAhead"] = aBoat.prop.walkAhead;
-    prop["walkAstern"] = aBoat.prop.walkAstern;
-    prop["walkDriftEffect"] = aBoat.prop.walkDriftEffect;
-    root["Prop"] = prop;*/
-
-    // Rudder
-    /*Json::Value rud;
-    rud["A"] = aBoat.rudder.aR;
-    rud["B"] = aBoat.rudder.B;
-    rud["BAstern"] = aBoat.rudder.BAstern;
-    root["Rudder"] = rud;*/
-
-    // Sails
-    /*    Json::Value sailsJson;
-    Json::Value list(Json::arrayValue);
-    for (const auto& s : aBoat.sails.sails) {
-      Json::Value item(Json::arrayValue);
-      item.append(s.vector[0]);
-      item.append(s.vector[1]);
-      item.append(s.vector[2]);
-      list.append(item);
-    }
-    sailsJson["list"] = list;
-    sailsJson["type"] = aBoat.sails.type;
-    sailsJson["size"] = aBoat.sails.size;
-    root["Sails"] = sailsJson;*/
-
-
-    // Écriture finale
-    std::ofstream ofs(out);
-    if (!ofs.is_open()) {
+  if (!ofs.is_open())
+    {
       std::cerr << "Failed to open output file: " << out << std::endl;
       return false;
     }
 
-    Json::StreamWriterBuilder w;
-    std::unique_ptr<Json::StreamWriter> writer(w.newStreamWriter());
-    writer->write(root, &ofs);
-    ofs << std::endl;
+  Json::StreamWriterBuilder w;
+  std::unique_ptr<Json::StreamWriter> writer(w.newStreamWriter());
+  writer->write(root, &ofs);
+  ofs << std::endl;
 
-    return true;
+  return true;
 
-  } catch (const std::exception& e) {
-    std::cerr << "Exception in saveBoat: " << e.what() << std::endl;
-    return false;
-  }
 }

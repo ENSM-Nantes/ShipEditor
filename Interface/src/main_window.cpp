@@ -129,7 +129,7 @@ MainWindow::MainWindow():
 void MainWindow::BoatLineCbk(Gtk::ListBoxRow *aBoatRow)
 {
   static bool bInit = false;
-  Boat *pBoat = &(((BoatRow*)aBoatRow)->boat);
+  Boat *pBoat = &(((BoatRow*)aBoatRow)->mBoat);
   std::string name = pBoat->displayName;
 
   mBoatName.set_markup("<b>" + Glib::Markup::escape_text(name) + "</b>");
@@ -194,7 +194,6 @@ void MainWindow::Init(void)
 
 void MainWindow::Update()
 {
-  BoatManager manager;
   Gtk::ListBoxRow *currentBoatRow;
   
   mMeshSection.update();
@@ -209,7 +208,7 @@ void MainWindow::Update()
   mSailSection.update();
     
   currentBoatRow = mBoatList.get_row_at_index(mCurrentRowIndex);
-  manager.saveBoat(((BoatRow*)currentBoatRow)->boat);
+  BoatManager::SaveBoat(((BoatRow*)currentBoatRow)->mBoat);
 }
 
 void MainWindow::Refresh()

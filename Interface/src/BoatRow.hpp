@@ -2,41 +2,21 @@
 #define BOAT_ROW_H
 
 #include <gtkmm.h>
-#include "BoatManager.hpp"  // Contient la définition de la classe Boat
+#include "BoatManager.hpp" 
 
-
-using namespace Gtk;
-
-/**
- * @brief Représente une ligne dans le menu déroulant des presets de bateaux.
- * 
- * Chaque ligne contient :
- * - Une image à gauche (par défaut : ressources/default.png)
- * - Le nom du bateau au centre
- * - Un bouton "..." à droite pour des actions contextuelles
- */
-class BoatRow : public ListBoxRow {
+class BoatRow : public Gtk::ListBoxRow {
 public:
-	/**
-	 * @brief Constructeur
-	 * @param boat Instance de Boat contenant les données à afficher
-	 */
-	BoatRow(Boat boat_in);
-
-	Boat boat;
+  BoatRow(Boat aBoatIn);
+  Boat mBoat;
 
 protected:
-	// Conteneur horizontal principal
-	Box box;
 
-	// Image du bateau (icône ou miniature)
-	Image image;
-
-	// Nom du bateau
-	Label nameLabel;
+  Gtk::Box mBox;
+  Gtk::Image mImage;
+  Gtk::Label mNameLabel;
 };
 
-class BoatList: public ListBox {
+class BoatList: public Gtk::ListBox {
 public:
   BoatList();
   ~BoatList();

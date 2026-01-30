@@ -1,56 +1,53 @@
 #include "BoatRow.hpp"
-
 #include <giomm/file.h>
 #include <gtkmm/picture.h>
 
-BoatRow::BoatRow(Boat boat_in) : 
-box(Gtk::Orientation::HORIZONTAL, 10), 
-nameLabel(boat_in.displayName)
+BoatRow::BoatRow(Boat aBoatIn) : 
+  mBox(Gtk::Orientation::HORIZONTAL, 10), 
+  mNameLabel(aBoatIn.displayName)
 {
 
-	boat = boat_in;
+  mBoat = aBoatIn;
 
-	// Charger une image par défaut
-	try {
-		auto file = Gio::File::create_for_path("../ressources/default.png");
-		auto texture = Gdk::Texture::create_from_file(file);
-		image.set(texture);
-	} catch (const Glib::Error& e) {
-		std::cerr << "Erreur chargement image : " << e.what() << std::endl;
-	}
+  try {
+    auto file = Gio::File::create_for_path("../ressources/default.png");
+    auto texture = Gdk::Texture::create_from_file(file);
+    mImage.set(texture);
+  } catch (const Glib::Error& e) {
+    std::cerr << "Erreur chargement image : " << e.what() << std::endl;
+  }
 
-	// Définir une taille fixe pour l'image (optionnel)
-	image.set_pixel_size(24);
+  // Définir une taille fixe pour l'image (optionnel)
+  mImage.set_pixel_size(24);
 
-	// Mise en page
-	box.set_margin_top(5);
-	box.set_margin_bottom(5);
-	box.set_margin_start(10);
-	box.set_margin_end(10);
-	box.set_valign(Gtk::Align::CENTER);
+  // Mise en page
+  mBox.set_margin_top(5);
+  mBox.set_margin_bottom(5);
+  mBox.set_margin_start(10);
+  mBox.set_margin_end(10);
+  mBox.set_valign(Gtk::Align::CENTER);
 
-	// Ajout des widgets dans la ligne
-	box.append(image);        // remplace pack_start
-	box.append(nameLabel);
+  // Ajout des widgets dans la ligne
+  mBox.append(mImage);        // remplace pack_start
+  mBox.append(mNameLabel);
 
-	// Ajouter le conteneur à la ligne
-	set_child(box);           // remplace add()
+  // Ajouter le conteneur à la ligne
+  set_child(mBox);           // remplace add()
 }
 
 
 BoatList::BoatList(): ListBox() {
-	// ListBox qui recevra les BoatRow
-	this->set_selection_mode(Gtk::SelectionMode::NONE);
+  // ListBox qui recevra les BoatRow
+  set_selection_mode(Gtk::SelectionMode::NONE);
+  
+  mBoats = BoatManager::LoadBoats("../../FileConverter/transformation");
 
-	// Charger les bateaux depuis les JSON via BoatManager
-	BoatManager manager;
-	mBoats = manager.loadBoats("../../FileConverter/transformation");
-
-	// Remplir la ListBox avec des BoatRow
-	for (Boat b : mBoats) {
-		BoatRow* row = Gtk::manage(new BoatRow(b));
-		this->append(*row);
-	}
+  // Remplir la ListBox avec des BoatRow
+  for (Boat b : mBoats)
+    {
+      BoatRow* row = Gtk::manage(new BoatRow(b));
+      this->append(*row);
+    }
 }
 
 BoatList::~BoatList()

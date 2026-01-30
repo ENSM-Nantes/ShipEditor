@@ -101,33 +101,38 @@ struct Boat
   Engine engine;
   Prop prop;
   Rudder rudder;
-  SailList sails;
-  
+  SailList sails;  
 };
 
-// Manager
-
-/**
- * @brief permet de charger tous les bateaux dans une liste
- *
- * @param folderPath le chemin d'accès dossier contenant les sous dossiers de tous les fichiers json complet
- */
 class BoatManager {
+
 public:
-  std::vector<Boat> loadBoats(const std::string& folderPath);
-  // Save a Boat into a new subfolder. Returns true on success.
-  bool saveBoat(Boat& b);
-  // Rename a boat folder if the displayName has changed. Returns true on success.
-  bool renameBoat(Boat& b);
-    
-  // Get the transformation path
+
+  static void SetSail(Boat& aBoat, Json::Value& aJsonRoot);
+  static void SetEngine(Boat& aBoat, Json::Value& aJsonRoot);
+  static void SetPropeller(Boat& aBoat, Json::Value& aJsonRoot);
+  static void SetRudder(Boat& aBoat, Json::Value& aJsonRoot);
+  static void SetPhysical(Boat& aBoat, Json::Value& aJsonRoot);
+  static void SetRadar(Boat& aBoat, Json::Value& aJsonRoot);
+  static void SetDepth(Boat& aBoat, Json::Value& aJsonRoot);
+  static void SetMesh(Boat& aBoat, Json::Value& aJsonRoot);
+  static void ParseSail(Boat& aBoat, Json::Value& aJsonRoot);
+  static void ParseEngine(Boat& aBoat, Json::Value& aJsonRoot);
+  static void ParsePropeller(Boat& aBoat, Json::Value& aJsonRoot);
+  static void ParseRudder(Boat& aBoat, Json::Value& aJsonRoot);
+  static void ParsePhysical(Boat& aBoat, Json::Value& aJsonRoot);
+  static void ParseRadar(Boat& aBoat, Json::Value& aJsonRoot);
+  static void ParseDepth(Boat& aBoat, Json::Value& aJsonRoot);
+  static void ParseMesh(Boat& aBoat, Json::Value& aJsonRoot);
+
+  static std::vector<Boat> LoadBoats(const std::string& aFolderPath);
+  static bool SaveBoat(Boat& aBoat);
+  static bool RenameBoat(Boat& aBoat);
   static const char* getTransformationPath() { return transformationPath; }
-    
-  // Set the transformation path
   static void setTransformationPath(const char* path) { transformationPath = path; }
 
 private:
-  // Path to the transformation folder containing all boats
+
   inline static const char* transformationPath = "";
 };
 
