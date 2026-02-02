@@ -6,7 +6,7 @@
 #include "../BoatManager.hpp"
 #include "section.h"
 
-#define RUDDER_INPUT_COUNT 4
+#define RUDDER_INPUT_COUNT 5
 
 using namespace Gtk;
 
@@ -23,9 +23,9 @@ public:
 protected:
   Grid mGrid;
 
-  InputArea mSpanLenght, mAreaMobile, mAspectRatio, mMaxSpeed;
+  InputArea mSpanLenght, mAreaMobile, mAspectRatio, mMaxSpeed, mMaxDelta;
 
-  InputArea *mInputList[RUDDER_INPUT_COUNT] = {&mSpanLenght, &mAreaMobile, &mAspectRatio, &mMaxSpeed};
+  InputArea *mInputList[RUDDER_INPUT_COUNT] = {&mSpanLenght, &mAreaMobile, &mAspectRatio, &mMaxSpeed, &mMaxDelta};
 
 };
 

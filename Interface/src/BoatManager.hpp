@@ -42,6 +42,12 @@ struct Prop
 {
   int number;
   float diameter;
+  float tFactor;
+  float xp; 
+  float w0fraction;
+  float k0; 
+  float k1; 
+  float k2 ;
   std::string forwardRotDir;
   float backwardEff;
 };
@@ -59,8 +65,17 @@ struct Rudder
 {
   float hR;
   float aR;
-  float lambdaR;
+  float xPr;
+  float aH; 
+  float tR; 
+  float xPh;
+  float epsilon;
+  float kappa;
+  float lPr; 
+  float lambdaR; 
+  double gammaR[2];
   float rrMax;
+  float deltaMax;
 };
 
 struct Physical
@@ -73,6 +88,34 @@ struct Physical
   float cB;
 };
 
+struct AddedMass{
+  float mpX;
+  float mpY;
+  float jpZ;
+};
+
+struct Hull
+{
+  float xp0;
+  float xpVV;
+  float xpVR;
+  float xpRR;
+  float xpVVVV;
+  float ypV;
+  float ypR;
+  float ypVVV;
+  float ypVVR;
+  float ypVRR;
+  float ypRRR;
+  float npV;
+  float npR;
+  float npVVV;
+  float npVVR;
+  float npVRR;
+  float npRRR;
+};
+
+
 struct Mesh
 {
   std::string fileName;
@@ -82,7 +125,6 @@ struct Mesh
   int nbrViews;
   ViewList viewList;
   bool makeTransparent;
-  
 };
 
 struct Boat
@@ -97,8 +139,10 @@ struct Boat
   float rho;
   Mesh mesh;
   Physical physicalCharac;
+  AddedMass addedMass;
   RadarScreen radarScreen;
   Engine engine;
+  Hull hull;
   Prop prop;
   Rudder rudder;
   SailList sails;  
@@ -107,7 +151,9 @@ struct Boat
 class BoatManager {
 
 public:
-
+  static void SetInitialSpeed(Boat& aBoat, Json::Value& aJsonRoot);
+  static void SetHull(Boat& aBoat, Json::Value& aJsonRoot);
+  static void SetAddedMass(Boat& aBoat, Json::Value& aJsonRoot);
   static void SetSail(Boat& aBoat, Json::Value& aJsonRoot);
   static void SetEngine(Boat& aBoat, Json::Value& aJsonRoot);
   static void SetPropeller(Boat& aBoat, Json::Value& aJsonRoot);

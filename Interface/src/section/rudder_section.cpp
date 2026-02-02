@@ -17,10 +17,11 @@ RudderSection::RudderSection():
   mGrid.attach(mBox, 0, 0);
 
   mGrid.attach(mSpanLenght.getBox(), 0, 1);
-  mGrid.attach(mAreaMobile.getBox(), 0, 2);
-  mGrid.attach(mAspectRatio.getBox(), 0, 3);
-  mGrid.attach(mMaxSpeed.getBox(), 0, 4);
-
+  mGrid.attach(mAreaMobile.getBox(), 1, 1);
+  mGrid.attach(mAspectRatio.getBox(), 2, 1);
+  mGrid.attach(mMaxSpeed.getBox(), 0, 2);
+  mGrid.attach(mMaxDelta.getBox(), 1, 2);
+  
   // Show and set the grid as the child
   mGrid.show();
   set_child(mGrid);
@@ -32,6 +33,7 @@ void RudderSection::set()
   mAreaMobile.set(&mBoat->rudder.aR);
   mAspectRatio.set(&mBoat->rudder.lambdaR);
   mMaxSpeed.set(&mBoat->rudder.rrMax);
+  mMaxDelta.set(&mBoat->rudder.deltaMax);
 }
 
 void RudderSection::init()
@@ -39,7 +41,8 @@ void RudderSection::init()
   mSpanLenght.init("Span Lenght", &mBoat->rudder.hR);
   mAreaMobile.init("Area mobile part", &mBoat->rudder.aR);
   mAspectRatio.init("Aspect ratio", &mBoat->rudder.lambdaR);
-  mMaxSpeed.init("Max speed", &mBoat->rudder.rrMax);
+  mMaxSpeed.init("Maximum speed", &mBoat->rudder.rrMax);
+  mMaxDelta.init("Maximum angle", &mBoat->rudder.deltaMax);
 }
 
 

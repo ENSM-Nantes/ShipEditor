@@ -132,7 +132,7 @@ void MainWindow::BoatLineCbk(Gtk::ListBoxRow *aBoatRow)
   Boat *pBoat = &(((BoatRow*)aBoatRow)->mBoat);
   std::string name = pBoat->displayName;
 
-  mBoatName.set_markup("<b>" + Glib::Markup::escape_text(name) + "</b>");
+  mBoatName.set_markup("<span size='20000'><b>" + Glib::Markup::escape_text(name) + "\n</b></span>");
 
   mCurrentRowIndex = ((BoatRow*)aBoatRow)->get_index();
   LoadBoat(pBoat);

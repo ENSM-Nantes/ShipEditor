@@ -1,4 +1,5 @@
 #include "BoatManager.hpp"
+#include "empirical_ship.h"
 #include <fstream>
 #include <filesystem>
 #include <json/json.h>
@@ -55,6 +56,13 @@ void BoatManager::SetDepth(Boat& aBoat, Json::Value& aJsonRoot)
   aJsonRoot["depthSounder"]["maxDepth"] = aBoat.maxDepth;
 }
 
+void BoatManager::SetAddedMass(Boat& aBoat, Json::Value& aJsonRoot)
+{
+  aJsonRoot["addedMass"]["pX"] = aBoat.addedMass.mpX;
+  aJsonRoot["addedMass"]["pY"] = aBoat.addedMass.mpY;
+  aJsonRoot["addedMass"]["pZ"] = aBoat.addedMass.jpZ;
+}
+
 void BoatManager::ParseRadar(Boat& aBoat, Json::Value& aJsonRoot)
 {
   aBoat.hasRadar = aJsonRoot["radar"]["number"].asBool();
@@ -103,14 +111,46 @@ void BoatManager::ParseRudder(Boat& aBoat, Json::Value& aJsonRoot)
   aBoat.rudder.aR = aJsonRoot["rudder"]["areaMobPart"].asFloat();                  
   aBoat.rudder.lambdaR = aJsonRoot["rudder"]["aspectRatio"].asFloat();            
   aBoat.rudder.rrMax = aJsonRoot["rudder"]["maxSpeed"].asFloat();
+  aBoat.rudder.deltaMax = aJsonRoot["rudder"]["maxAngle"].asFloat();
+}
+
+void BoatManager::SetHull(Boat& aBoat, Json::Value& aJsonRoot)
+{
+  aJsonRoot["hull"]["xp0"] = aBoat.hull.xp0;
+  aJsonRoot["hull"]["xpVV"] = aBoat.hull.xpVV;
+  aJsonRoot["hull"]["xpVR"] = aBoat.hull.xpVR;
+  aJsonRoot["hull"]["xpRR"] = aBoat.hull.xpRR;
+  aJsonRoot["hull"]["xpVVVV"] = aBoat.hull.xpVVVV;
+  aJsonRoot["hull"]["ypV"] = aBoat.hull.ypV;
+  aJsonRoot["hull"]["ypR"] = aBoat.hull.ypR;
+  aJsonRoot["hull"]["ypVVV"] = aBoat.hull.ypVVV;
+  aJsonRoot["hull"]["ypVVR"] = aBoat.hull.ypVVR;
+  aJsonRoot["hull"]["ypVRR"] = aBoat.hull.ypVRR;
+  aJsonRoot["hull"]["ypRRR"] = aBoat.hull.ypRRR;
+  aJsonRoot["hull"]["npV"] = aBoat.hull.npV;
+  aJsonRoot["hull"]["npR"] = aBoat.hull.npR;
+  aJsonRoot["hull"]["npVVV"] = aBoat.hull.npVVV;
+  aJsonRoot["hull"]["npVVR"] = aBoat.hull.npVVR;
+  aJsonRoot["hull"]["npVRR"] = aBoat.hull.npVRR;
+  aJsonRoot["hull"]["npRRR"] = aBoat.hull.npRRR;
 }
 
 void BoatManager::SetRudder(Boat& aBoat, Json::Value& aJsonRoot)
 {
   aJsonRoot["rudder"]["spanLength"] = aBoat.rudder.hR;
-  aJsonRoot["rudder"]["areaMobPart"] = aBoat.rudder.aR;                  
-  aJsonRoot["rudder"]["aspectRatio"] = aBoat.rudder.lambdaR;            
+  aJsonRoot["rudder"]["areaMobPart"] = aBoat.rudder.aR;
+  aJsonRoot["rudder"]["longCoordinateRatio"] = aBoat.rudder.xPr;
+  aJsonRoot["rudder"]["forceIncreaseFactor"] = aBoat.rudder.aH;
+  aJsonRoot["rudder"]["steeringResistanceFactor"] = aBoat.rudder.tR;
+  aJsonRoot["rudder"]["longLateralForce"] = aBoat.rudder.xPh;
+  aJsonRoot["rudder"]["wakeFractionRatio"] = aBoat.rudder.epsilon;
+  aJsonRoot["rudder"]["expConstUr"] = aBoat.rudder.kappa;
+  aJsonRoot["rudder"]["longCoordinatePos"] = aBoat.rudder.lPr;
+  aJsonRoot["rudder"]["aspectRatio"] = aBoat.rudder.lambdaR;
+  aJsonRoot["rudder"]["flowCoef"][0] = aBoat.rudder.gammaR[0];
+  aJsonRoot["rudder"]["flowCoef"][1] = aBoat.rudder.gammaR[1];
   aJsonRoot["rudder"]["maxSpeed"] = aBoat.rudder.rrMax;
+  aJsonRoot["rudder"]["maxAngle"] = aBoat.rudder.deltaMax;
 }
 
 void BoatManager::ParsePropeller(Boat& aBoat, Json::Value& aJsonRoot)
@@ -124,9 +164,16 @@ void BoatManager::ParsePropeller(Boat& aBoat, Json::Value& aJsonRoot)
 void BoatManager::SetPropeller(Boat& aBoat, Json::Value& aJsonRoot)
 {
   aJsonRoot["propeller"]["number"] = aBoat.prop.number;
-  aJsonRoot["propeller"]["diameter"] = aBoat.prop.diameter;                  
+  aJsonRoot["propeller"]["diameter"] = aBoat.prop.diameter;
+  aJsonRoot["propeller"]["thrustFactor"] = aBoat.prop.tFactor;
+  aJsonRoot["propeller"]["longPosition"] = aBoat.prop.xp;
+  aJsonRoot["propeller"]["nominalWake"] = aBoat.prop.w0fraction;
+  aJsonRoot["propeller"]["k0"] = aBoat.prop.k0;
+  aJsonRoot["propeller"]["k1"] = aBoat.prop.k1;
+  aJsonRoot["propeller"]["k2"] = aBoat.prop.k2;  
   aJsonRoot["propeller"]["forwardRotDir"] = aBoat.prop.forwardRotDir;            
   aJsonRoot["propeller"]["backwardEff"] = aBoat.prop.backwardEff;
+
 }
 
 void BoatManager::ParseEngine(Boat& aBoat, Json::Value& aJsonRoot)
@@ -147,6 +194,13 @@ void BoatManager::SetEngine(Boat& aBoat, Json::Value& aJsonRoot)
   aJsonRoot["engine"]["power"] = aBoat.engine.power;
   aJsonRoot["engine"]["rpmMax"] = aBoat.engine.rpmMax;
   aJsonRoot["engine"]["fuelCons"] = aBoat.engine.fuelCons;
+}
+
+void BoatManager::SetInitialSpeed(Boat& aBoat, Json::Value& aJsonRoot)
+{
+  aJsonRoot["initialSpeed"][0] = 0;
+  aJsonRoot["initialSpeed"][1] = 0;
+  aJsonRoot["initialSpeed"][2] = 0;
 }
 
 void BoatManager::ParseSail(Boat& aBoat, Json::Value& aJsonRoot)
@@ -256,6 +310,26 @@ bool BoatManager::SaveBoat(Boat& aBoat)
       aBoat.filePath = out.string();
     }
 
+  //Probablement pas la bonne manière de faire d'envoyer l'adresse du paramètre -> segfault
+  EmpiricalShip empShip(aBoat);
+  empShip.Process();
+
+  //Initial Speed
+  SetInitialSpeed(aBoat, root);
+  //Physical
+  SetPhysical(aBoat, root);
+  //AddedMAss
+  SetAddedMass(aBoat, root);
+  //Hull
+  SetHull(aBoat, root);
+  //Rudder
+  SetRudder(aBoat, root);
+  //Propeller
+  SetPropeller(aBoat, root);
+  //Engine
+  SetEngine(aBoat, root);
+  //Sails
+  SetSail(aBoat, root);
   //Mesh
   SetMesh(aBoat, root);
   //Depth
@@ -266,16 +340,7 @@ bool BoatManager::SaveBoat(Boat& aBoat)
   root["rotIndicator"]["number"] = aBoat.hasRateOfTurnIndicator;
   //Radar
   SetRadar(aBoat, root);
-  //Physical
-  SetPhysical(aBoat, root);
-  //Rudder
-  SetRudder(aBoat, root);
-  //Propeller
-  SetPropeller(aBoat, root);
-  //Engine
-  SetEngine(aBoat, root);
-  //Sails
-  SetSail(aBoat, root);
+  
   
   std::ofstream ofs(out);
 
