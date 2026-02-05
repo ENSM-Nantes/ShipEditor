@@ -1,0 +1,121 @@
+{
+    "general": {
+		"boatName": "NewBoat", 
+		"imgName": "default.png"		
+    },
+    "initialSpeed": [ 0, 0, 0 ],
+    "geoParams": {
+		"length": 0, 
+		"breadth": 0,
+		"draugth": 0,
+		"subwaterVolume": 0,
+		"longGravityCenter": 0,
+		"blockCoef": 0 
+    },
+    "hull": {
+		"xp0": 0,
+		"xpVV": 0,
+		"xpVR": 0,
+		"xpRR": 0,
+		"xpVVVV": 0,
+		"ypV": 0,
+		"ypR": 0,
+		"ypVVV": 0,
+		"ypVVR": 0,
+		"ypVRR": 0,
+		"ypRRR": 0,
+		"npV": 0,
+		"npR": 0,
+		"npVVV": 0,
+		"npVVR": 0,
+		"npVRR": 0,
+		"npRRR": 0 
+    },
+    "addedMass": {
+		"pX": 0, 
+		"pY": 0,
+		"pZ": 0 
+    },
+    "propeller": {
+		"number": 1,
+		"diameter": 0,
+		"thrustFactor": 0, 
+		"longPosition": 0,
+		"nominalWake": 0,
+		"k0": 0,
+		"k1": 0,
+		"k2": 0,
+		"forwardRotDir": "right",
+		"backwardEff": 0 
+    },
+    "rudder": {
+		"spanLength": 0, 
+		"areaMobPart": 0,
+		"longCoordinateRatio": 0,
+		"forceIncreaseFactor": 0,
+		"steeringResistanceFactor": 0,
+		"longLateralForce": 0,
+		"wakeFractionRatio": 0,
+		"expConstUr": 0,
+		"longCoordinatePos": 0,
+		"aspectRatio": 0,
+		"flowCoef": [ 0 , 0 ],
+		"maxSpeed": 0,
+		"maxAngle": 0 
+    },
+    "engine": {
+		"number": 1, 
+		"brand": "Engine", 
+		"type": "type",
+		"power": 0,
+		"rpmMax": 0,
+		"fuelCons": 0 
+    },
+    "sail": {
+		"number": 1, 
+		"type": "type", 
+		"size": "0x0",
+		"pos":
+		[
+			[ 0, 0, 0 ],
+			[ 0, 0, 0 ],
+			[ 0, 0, 0 ],
+			[ 0, 0, 0 ]
+		]
+    },
+    "depthSounder": {
+		"number": true, 
+		"maxDepth": 0 
+    },
+    "gps": {
+		"number": true 
+    },
+    "rotIndicator": {
+		"number": true
+    },
+    "radar": {
+		"number": true,
+		"pos": [ 0, 0, 0 ],
+		"size": 0,
+		"tilt": 0
+    },
+    "mesh": {
+		"name": "mesh",
+		"makeTransparent" : 0, 
+		"scaleFactor": 0,
+		"yCorrection": 0,
+		"angleCorrection": 0,
+		"numberOfViews": 5,
+		"views":
+		[
+			[ 0, 0, 0, false ],
+			[ 0, 0, 0, false ],
+			[ 0, 0, 0, false ],
+			[ 0, 0, 0, false ],
+			[ 0, 0, 0, false ]
+		]
+    }
+    
+
+    
+}

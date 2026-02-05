@@ -1,0 +1,48 @@
+.backg {
+    background-image: url("wallpaper.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.title-label {
+  font-weight: bold;
+  font-style: normal;
+  font-size: 32px;
+  color: White;
+  font-family: "Inter Black";
+}
+
+.header-label {
+  font-weight: bold;
+  font-style: normal;
+  font-size: 48px;
+  color: White;
+  font-family: "Inter Black";
+}
+
+.section-title-label {
+  font-style: normal;
+  font-size: 20px;
+  color: White;
+  font-family: "Inter Black";
+}
+
+.text-label {
+  font-style: normal;
+  font-size: 14px;
+  color: White;
+  font-family: "Inter Black";
+}
+
+.gray-entry {
+  background-color: #d0d0d0;
+}
+
+.blue-entry {
+  background-color: #006F77;
+}
+
+.no-handle > separator {
+  opacity: 0;
+}
