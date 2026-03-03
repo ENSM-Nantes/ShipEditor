@@ -331,6 +331,8 @@ void MainWindow::Delete(void)
   RemoveList();
   InitList();
 
+  BoatLineCbk((BoatRow*)mBoatList.get_row_at_index(0));
+
   InfoBubble("Delete", "Boat \"" + mName + "\" has been removed successfully.");
 }
 

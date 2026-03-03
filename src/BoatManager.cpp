@@ -307,6 +307,15 @@ bool BoatManager::SaveBoat(Boat& aBoat)
   
   if (!aBoat.filePath.empty())
     {
+		//Update path
+        if(PATH_JSON_BOATS + aBoat.displayName  != aBoat.imgPath)
+        {
+            fs::rename(aBoat.imgPath, PATH_JSON_BOATS + aBoat.displayName);
+            aBoat.filePath = PATH_JSON_BOATS + aBoat.displayName + "/boat.json";
+            aBoat.imgPath = PATH_JSON_BOATS + aBoat.displayName;
+        }
+
+		
       out = aBoat.filePath;
 
       EmpiricalShip empShip(aBoat);
