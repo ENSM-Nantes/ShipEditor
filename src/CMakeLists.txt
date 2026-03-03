@@ -40,7 +40,7 @@ file(GLOB SRC_FILES
     "*.cpp"
     "section/*.cpp"
 )
-add_executable(ShipEditor ${SRC_FILES})
+add_executable(ShipEditor ${SRC_FILES}  "resources.o")
 
 # Add folder with all headers:
 target_include_directories(ShipEditor PRIVATE hpp)
@@ -50,3 +50,7 @@ target_link_libraries(ShipEditor
     ${GTKMM_LIBRARIES}
     ${JSONCPP_LIBRARIES}
 )
+
+if (WIN32)
+    target_link_options(ShipEditor PRIVATE "-mwindows")
++endif()

@@ -345,7 +345,7 @@ bool BoatManager::SaveBoat(Boat& aBoat)
     {
       fs::path dest = fs::path(PATH_JSON_BOATS + aBoat.displayName);
       fs::create_directories(dest);
-      out = dest / "boat.json";
+       out = dest.string() + "/boat.json";
       fs::copy_file("../res/boat_empty.json", out.string(), fs::copy_options::overwrite_existing);
       aBoat.filePath = out.string();
       aBoat.imgPath = dest.string();
