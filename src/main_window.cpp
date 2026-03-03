@@ -327,13 +327,20 @@ void MainWindow::RefreshCbk()
 
 void MainWindow::Delete(void)
 {
-  BoatManager::RemoveBoat(mName);
-  RemoveList();
-  InitList();
+    if (mBoats.size() > 1)
+    {
 
-  BoatLineCbk((BoatRow*)mBoatList.get_row_at_index(0));
+        BoatManager::RemoveBoat(mName);
+        RemoveList();
+        InitList();
+        InfoBubble("Delete", "Boat \"" + mName + "\" has been removed successfully.");
 
-  InfoBubble("Delete", "Boat \"" + mName + "\" has been removed successfully.");
+        BoatLineCbk((BoatRow*)mBoatList.get_row_at_index(0));
+
+    }
+    else
+        InfoBubble("Delete", "Remove failed ! At least one vessel must be declared");
+
 }
 
 
