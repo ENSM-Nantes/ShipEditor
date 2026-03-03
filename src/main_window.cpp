@@ -383,12 +383,19 @@ void MainWindow::InitList(void)
 {
   mBoats = BoatManager::LoadBoats(PATH_JSON_BOATS);
 
-  for (Boat b : mBoats)
-    {
-      BoatRow* row = Gtk::manage(new BoatRow(b));
-      mBoatList.append(*row);
-      mBoatRows.push_back(row);
-    }
+  if (mBoats.empty())
+  {
+      New();
+  }
+  else
+  {
+      for (Boat b : mBoats)
+      {
+          BoatRow* row = Gtk::manage(new BoatRow(b));
+          mBoatList.append(*row);
+          mBoatRows.push_back(row);
+      }
+  }
 }
 
 void MainWindow::RemoveList(void)
