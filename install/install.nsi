@@ -14,7 +14,7 @@ InstallDir "$PROGRAMFILES64\ShipEditor"
 
 VIProductVersion "1.0.0.0"
 VIAddVersionKey "ProductName" "${APPNAME}"
-VIAddVersionKey "ProductVersion" "2.1"
+VIAddVersionKey "ProductVersion" "2.2"
 VIAddVersionKey "CompanyName" "ENSM-Nantes"
 VIAddVersionKey "FileDescription" "Tool to edit boat parameters"
 VIAddVersionKey "LegalCopyright" "2026 ENSM Nantes"
