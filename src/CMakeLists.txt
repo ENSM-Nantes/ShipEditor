@@ -40,7 +40,11 @@ file(GLOB SRC_FILES
     "*.cpp"
     "section/*.cpp"
 )
+if (WIN32)
 add_executable(ShipEditor ${SRC_FILES}  "resources.o")
+else()
+add_executable(ShipEditor ${SRC_FILES})
+endif()
 
 # Add folder with all headers:
 target_include_directories(ShipEditor PRIVATE hpp)

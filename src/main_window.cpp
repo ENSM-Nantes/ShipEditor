@@ -276,7 +276,7 @@ void MainWindow::InfoBubble(const std::string &aMessage, const std::string &aDet
 void MainWindow::Update()
 {
   bool sameName = false;
-  Gtk::ListBoxRow* currentBoatRow
+  Gtk::ListBoxRow* currentBoatRow;
   currentBoatRow = mBoatList.get_row_at_index(mCurrentRowIndex);
 
   mGeneralSection.update();
