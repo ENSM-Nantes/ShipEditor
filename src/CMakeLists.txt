@@ -53,4 +53,4 @@ target_link_libraries(ShipEditor
 
 if (WIN32)
     target_link_options(ShipEditor PRIVATE "-mwindows")
-+endif()
+endif()
