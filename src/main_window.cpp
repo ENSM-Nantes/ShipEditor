@@ -275,7 +275,9 @@ void MainWindow::InfoBubble(const std::string &aMessage, const std::string &aDet
 
 void MainWindow::Update()
 {
-  Gtk::ListBoxRow *currentBoatRow;
+  bool sameName = false;
+  Gtk::ListBoxRow* currentBoatRow
+  currentBoatRow = mBoatList.get_row_at_index(mCurrentRowIndex);
 
   mGeneralSection.update();
   mMeshSection.update();
@@ -291,7 +293,18 @@ void MainWindow::Update()
     
   currentBoatRow = mBoatList.get_row_at_index(mCurrentRowIndex);
 
-  if(BoatManager::SaveBoat(((BoatRow*)currentBoatRow)->mBoat))
+  //Do not save if a vessel have already this name^M
+  for (Boat b : mBoats)
+  {
+    if (((BoatRow*)currentBoatRow)->mBoat.displayName == b.displayName)
+     {
+      sameName = true;
+     }
+   }
+
+  if(sameName) 
+    InfoBubble("Error", "Failed to save the boat : " + ((BoatRow*)currentBoatRow)->mBoat.displayName + " already exists !");
+  else if (BoatManager::SaveBoat(((BoatRow*)currentBoatRow)->mBoat)) 
     InfoBubble("Saved", "The boat has been saved successfully");
   else
     InfoBubble("Error", "Failed to save the boat");
