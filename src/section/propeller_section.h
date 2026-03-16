@@ -6,7 +6,7 @@
 #include "../BoatManager.hpp"
 #include "section.h"
 
-#define PROPELLER_INPUT_COUNT 4
+#define PROPELLER_INPUT_COUNT 5
 
 using namespace Gtk;
 
@@ -23,8 +23,8 @@ public:
 protected:
   Grid mGrid;
 
-  InputArea mNumber, mDiameter, mForwardRotDir, mBackwardEff;
-  InputArea *mInputList[PROPELLER_INPUT_COUNT] = {&mNumber, &mDiameter, &mForwardRotDir, &mBackwardEff};
+  InputArea mNumber, mSpacing, mDiameter, mForwardRotDir, mBackwardEff;
+  InputArea *mInputList[PROPELLER_INPUT_COUNT] = {&mNumber, &mSpacing, &mDiameter, &mForwardRotDir, &mBackwardEff};
 
 };
 
