@@ -294,12 +294,17 @@ void MainWindow::Update()
   currentBoatRow = mBoatList.get_row_at_index(mCurrentRowIndex);
 
   //Do not save if a vessel have already this name
+  unsigned int boatIdx = 0;
   for (Boat b : mBoats)
   {
-    if (((BoatRow*)currentBoatRow)->mBoat.displayName == b.displayName)
-     {
-      sameName = true;
-     }
+      if (mCurrentRowIndex != boatIdx)
+      {
+          if (((BoatRow*)currentBoatRow)->mBoat.displayName == b.displayName)
+          {
+              sameName = true;
+          }
+      }
+      boatIdx++;
    }
 
   if(sameName) 
