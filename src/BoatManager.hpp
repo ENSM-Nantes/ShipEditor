@@ -41,6 +41,7 @@ struct RadarScreen
 struct Prop
 {
   int number;
+  float spacing;
   float diameter;
   float tFactor;
   float xp; 

@@ -170,6 +170,7 @@ void BoatManager::SetRudder(Boat& aBoat, Json::Value& aJsonRoot)
 void BoatManager::ParsePropeller(Boat& aBoat, Json::Value& aJsonRoot)
 {
   aBoat.prop.number = aJsonRoot["propeller"]["number"].asInt();
+  aBoat.prop.spacing = aJsonRoot["propeller"]["spacing"].asFloat();
   aBoat.prop.diameter = aJsonRoot["propeller"]["diameter"].asFloat();                  
   aBoat.prop.forwardRotDir = aJsonRoot["propeller"]["forwardRotDir"].asString();            
   aBoat.prop.backwardEff = aJsonRoot["propeller"]["backwardEff"].asFloat();
@@ -178,6 +179,7 @@ void BoatManager::ParsePropeller(Boat& aBoat, Json::Value& aJsonRoot)
 void BoatManager::SetPropeller(Boat& aBoat, Json::Value& aJsonRoot)
 {
   aJsonRoot["propeller"]["number"] = aBoat.prop.number;
+  aJsonRoot["propeller"]["spacing"] = aBoat.prop.spacing;
   aJsonRoot["propeller"]["diameter"] = aBoat.prop.diameter;
   aJsonRoot["propeller"]["thrustFactor"] = aBoat.prop.tFactor;
   aJsonRoot["propeller"]["longPosition"] = aBoat.prop.xp;

@@ -282,3 +282,4 @@ Box& InputArea::getBox(void)
 {
   return mBox;
 }
+
