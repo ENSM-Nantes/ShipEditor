@@ -79,7 +79,7 @@ MainWindow::MainWindow():
   //Footer
   mFooterBox.set_margin_top(15);
   mFooterBox.set_margin_start(1150);
-  mVersionNumber.set_text("Ship-Editor v2.2 - SOMOS Project 2026 - ENSM Nantes");
+  mVersionNumber.set_text("Ship-Editor v2.3 - SOMOS Project 2026 - ENSM Nantes");
   mFooterBox.append(mVersionNumber);
   mFooterBox.add_css_class("text-label");
   
