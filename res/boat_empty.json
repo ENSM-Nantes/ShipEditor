@@ -37,7 +37,8 @@
 		"pZ": 0 
     },
     "propeller": {
-		"number": 1,
+	        "number": 1,
+	        "spacing" : 0,
 		"diameter": 0,
 		"thrustFactor": 0, 
 		"longPosition": 0,

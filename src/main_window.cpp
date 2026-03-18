@@ -316,7 +316,7 @@ void MainWindow::Update()
   
   RemoveList();
   InitList();
-
+  
   //Focus 
   currentBoatRow = mBoatList.get_row_at_index(mCurrentRowIndex);
   BoatLineCbk(currentBoatRow);

@@ -11,6 +11,7 @@ PropellerSection::PropellerSection():
   
   // Show every field
   mNumber.getBox().show();
+  mSpacing.getBox().show();
   mDiameter.getBox().show();
   mForwardRotDir.getBox().show();
   mBackwardEff.getBox().show();
@@ -19,6 +20,7 @@ PropellerSection::PropellerSection():
   mGrid.attach(mBox, 0, 0);
 
   mGrid.attach(mNumber.getBox(), 0, 1);
+  mGrid.attach(mSpacing.getBox(), 1, 1);
   mGrid.attach(mDiameter.getBox(), 0, 2);
   mGrid.attach(mForwardRotDir.getBox(), 0, 3);
   mGrid.attach(mBackwardEff.getBox(), 1, 3);
@@ -31,6 +33,7 @@ PropellerSection::PropellerSection():
 void PropellerSection::set()
 {
   mNumber.set(&mBoat->prop.number);
+  mSpacing.set(&mBoat->prop.spacing);
   mDiameter.set(&mBoat->prop.diameter);
   mForwardRotDir.set(&mBoat->prop.forwardRotDir);
   mBackwardEff.set(&mBoat->prop.backwardEff);
@@ -39,6 +42,7 @@ void PropellerSection::set()
 void PropellerSection::init()
 {
   mNumber.init("Propeller number", &mBoat->prop.number);
+  mSpacing.init("Propeller spacing (if 2 propellers, not used if not)", &mBoat->prop.spacing);    
   mDiameter.init("Diameter", &mBoat->prop.diameter);
   mForwardRotDir.init("Forward rotation direction", &mBoat->prop.forwardRotDir);
   mBackwardEff.init("Backward efficiency", &mBoat->prop.backwardEff);
