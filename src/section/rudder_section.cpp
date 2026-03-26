@@ -10,6 +10,8 @@ RudderSection::RudderSection():
   mBox.set_margin_bottom(10);
   
   // Show every field
+  mNumber.getBox().show();
+  mSpacing.getBox().show();
   mSpanLenght.getBox().show();
   mAreaMobile.getBox().show();
   mAspectRatio.getBox().show();
@@ -18,11 +20,13 @@ RudderSection::RudderSection():
   // Fill the grid
   mGrid.attach(mBox, 0, 0);
 
-  mGrid.attach(mSpanLenght.getBox(), 0, 1);
-  mGrid.attach(mAreaMobile.getBox(), 1, 1);
-  mGrid.attach(mAspectRatio.getBox(), 2, 1);
-  mGrid.attach(mMaxSpeed.getBox(), 0, 2);
-  mGrid.attach(mMaxDelta.getBox(), 1, 2);
+  mGrid.attach(mNumber.getBox(), 0, 1);
+  mGrid.attach(mSpacing.getBox(), 1, 1);
+  mGrid.attach(mSpanLenght.getBox(), 0, 2);
+  mGrid.attach(mAreaMobile.getBox(), 1, 2);
+  mGrid.attach(mAspectRatio.getBox(), 2, 2);
+  mGrid.attach(mMaxSpeed.getBox(), 0, 3);
+  mGrid.attach(mMaxDelta.getBox(), 1, 3);
   
   // Show and set the grid as the child
   mGrid.show();
@@ -31,6 +35,8 @@ RudderSection::RudderSection():
 
 void RudderSection::set()
 {
+  mNumber.set(&mBoat->rudder.number);
+  mSpacing.set(&mBoat->rudder.spacing);
   mSpanLenght.set(&mBoat->rudder.hR);
   mAreaMobile.set(&mBoat->rudder.aR);
   mAspectRatio.set(&mBoat->rudder.lambdaR);
@@ -40,6 +46,8 @@ void RudderSection::set()
 
 void RudderSection::init()
 {
+  mNumber.init("Rudder number", &mBoat->rudder.number);
+  mSpacing.init("Rudder spacing (if 2 rudders, not used if not)", &mBoat->rudder.spacing);    
   mSpanLenght.init("Span Lenght", &mBoat->rudder.hR);
   mAreaMobile.init("Area mobile part", &mBoat->rudder.aR);
   mAspectRatio.init("Aspect ratio", &mBoat->rudder.lambdaR);

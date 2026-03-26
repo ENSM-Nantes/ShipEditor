@@ -26,7 +26,7 @@ EngineSection::EngineSection():
   mGrid.attach(mPower.getBox(), 0, 3);
   mGrid.attach(mRpmMax.getBox(), 1, 3);
   mGrid.attach(mFuelCons.getBox(), 2, 3);
-  
+
   // Show and set the grid as the child
   mGrid.show();
   set_child(mGrid);
