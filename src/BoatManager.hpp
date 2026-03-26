@@ -64,6 +64,8 @@ struct Engine {
 
 struct Rudder
 {
+  int number;
+  float spacing;
   float hR;
   float aR;
   float xPr;

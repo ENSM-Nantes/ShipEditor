@@ -121,6 +121,8 @@ void BoatManager::SetPhysical(Boat& aBoat, Json::Value& aJsonRoot)
 
 void BoatManager::ParseRudder(Boat& aBoat, Json::Value& aJsonRoot)
 {
+  aBoat.rudder.number = aJsonRoot["rudder"]["number"].asInt();
+  aBoat.rudder.spacing = aJsonRoot["rudder"]["spacing"].asFloat();
   aBoat.rudder.hR = aJsonRoot["rudder"]["spanLength"].asFloat();
   aBoat.rudder.aR = aJsonRoot["rudder"]["areaMobPart"].asFloat();                  
   aBoat.rudder.lambdaR = aJsonRoot["rudder"]["aspectRatio"].asFloat();            
@@ -151,6 +153,8 @@ void BoatManager::SetHull(Boat& aBoat, Json::Value& aJsonRoot)
 
 void BoatManager::SetRudder(Boat& aBoat, Json::Value& aJsonRoot)
 {
+  aJsonRoot["rudder"]["number"] = aBoat.rudder.number;
+  aJsonRoot["rudder"]["spacing"] = aBoat.rudder.spacing;
   aJsonRoot["rudder"]["spanLength"] = aBoat.rudder.hR;
   aJsonRoot["rudder"]["areaMobPart"] = aBoat.rudder.aR;
   aJsonRoot["rudder"]["longCoordinateRatio"] = aBoat.rudder.xPr;
