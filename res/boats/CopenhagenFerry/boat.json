@@ -22,10 +22,14 @@
 	"general" : 
 	{
 		"boatName" : "CopenhagenFerry",
-		"imgName" : "CopenhagenFerry.jpg"
+		"imgName" : "CopenhagenFerry.jpg",
+		"type" : "Ferry"
 	},
 	"geoParams" : 
 	{
+		"GM" : 1.0,
+		"KM" : 11.0,
+		"altGravityCenter" : -4.0,
 		"blockCoef" : 0.5,
 		"breadth" : 24.799999237060547,
 		"draugth" : 6.0,
@@ -40,6 +44,16 @@
 	},
 	"hull" : 
 	{
+		"kpB" : -0.25859999656677246,
+		"kpBBB" : -0.72930002212524414,
+		"kpBBG" : 0.22290000319480896,
+		"kpBBR" : 1.1474000215530396,
+		"kpBRG" : 0.5374000072479248,
+		"kpBRR" : -0.33509999513626099,
+		"kpG" : -0.018500000238418579,
+		"kpR" : 0.053199999034404755,
+		"kpRRG" : -0.092799998819828033,
+		"kpRRR" : -0.013199999928474426,
 		"npR" : -0.035535812377929688,
 		"npRRR" : -0.036185361444950104,
 		"npV" : -0.076701819896697998,

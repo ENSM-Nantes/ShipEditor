@@ -88,6 +88,9 @@ struct Physical
   float d;
   float volume;
   float xG;
+  float zG;
+  float gM;
+  float kM;
   float cB;
 };
 
@@ -116,6 +119,16 @@ struct Hull
   float npVVR;
   float npVRR;
   float npRRR;
+  float kpG;
+  float kpB;
+  float kpR;
+  float kpBBG;
+  float kpBRG;
+  float kpRRG;
+  float kpBBB;
+  float kpBBR;
+  float kpBRR;
+  float kpRRR;
 };
 
 
@@ -136,6 +149,7 @@ struct Boat
   std::string displayName;
   std::string imgPath;
   std::string imgName;
+  std::string type;
   bool hasGPS;
   bool hasDepthSounder;
   bool hasRadar;

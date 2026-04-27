@@ -12,12 +12,14 @@ GeneralSection::GeneralSection():
   // Show every field
   mBoatName.getBox().show();
   mImgName.getBox().show();
-    
+  mType.getBox().show();
+  
   // Fill the grid
   mGrid.attach(mBox, 0, 0);
 
-  mGrid.attach(mBoatName.getBox(), 0, 2);
-  mGrid.attach(mImgName.getBox(), 1, 2);
+  mGrid.attach(mBoatName.getBox(), 0, 1);
+  mGrid.attach(mImgName.getBox(), 1, 1);
+  mGrid.attach(mType.getBox(), 0, 2);
   
   // Show and set the grid as the child
   mGrid.show();
@@ -28,12 +30,14 @@ void GeneralSection::set()
 {
   mBoatName.set(&mBoat->displayName);
   mImgName.set(&mBoat->imgName);
+  mType.set(&mBoat->type);
 }
 
 void GeneralSection::init()
 {
   mBoatName.init("Boat name", &mBoat->displayName);
   mImgName.init("Image name", &mBoat->imgName);
+  mType.init("Type of Ship (Ferry or Container), Ferry by default", &mBoat->type);
 }
 
 

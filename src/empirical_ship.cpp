@@ -22,7 +22,15 @@ void EmpiricalShip::Process(void)
   Hull *pHull = &mBoat.hull;
   Prop *pProp = &mBoat.prop;
   Rudder *pRudder = &mBoat.rudder;
-
+  std::string typeStr = mBoat.type;
+  unsigned char type = 0; 
+  
+  if(typeStr == "Container")
+    type = 1;
+  else
+    type = 0;
+    
+  
   //Constants
   mDb = pPhy->d / pPhy->b;
   mLppB = pPhy->lPP / pPhy->b;
@@ -40,10 +48,12 @@ void EmpiricalShip::Process(void)
 	  ) * mMp; //Zhou et al.(1983)
 
   mJpZ = mMp * std::pow((0.01 * (33. - 76.85 * pPhy->cB * (1 - 0.784 * pPhy->cB) + 3.43 * mLppB * (1 - 0.63 * pPhy->cB))), 2); //Zhou et al.(1983)
-
+  
   pAddMass->mpX = 2 * mMpX;
   pAddMass->mpY = mMpY;
   pAddMass->jpZ = mJpZ;
+
+  pPhy->zG = pPhy->gM - pPhy->kM + pPhy->d;
 
   //Hull
   pHull->xp0 = 0.022;
@@ -64,6 +74,37 @@ void EmpiricalShip::Process(void)
   pHull->npVRR = -0.075 * (1. - pPhy->cB) * mLppB - 0.098; //Yoshimura and Masumoto (2012)
   pHull->npRRR = 0.25 * pPhy->cB / mLppB - 0.056; //Yoshimura and Masumoto (2012)
 
+  switch(type)
+    {
+
+    case 1://Container
+      pHull->kpG = -0.0299;
+      pHull->kpB = -0.1367;
+      pHull->kpR = 0.0085;
+      pHull->kpBBG = 0.2819;
+      pHull->kpBRG = 0.2997;
+      pHull->kpRRG = -0.0487;
+      pHull->kpBBB = -1.4352;
+      pHull->kpBBR = 1.1636;
+      pHull->kpBRR = -0.4233;
+      pHull->kpRRR = 0.0363;
+      break;
+      
+    case 0://Ferry or default
+    default:
+      pHull->kpG = -0.0185;
+      pHull->kpB = -0.2586;
+      pHull->kpR = 0.0532;
+      pHull->kpBBG = 0.2229;
+      pHull->kpBRG = 0.5374;
+      pHull->kpRRG = -0.0928;
+      pHull->kpBBB = -0.7293;
+      pHull->kpBBR = 1.1474;
+      pHull->kpBRR = -0.3351;
+      pHull->kpRRR = -0.0132;
+      break;
+    }
+  
   //Propeller
   pProp->tFactor = 0.27;
   pProp->xp = -0.48; 

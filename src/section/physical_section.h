@@ -6,7 +6,7 @@
 #include "../BoatManager.hpp"
 #include "section.h"
 
-#define PHYSICAL_INPUT_COUNT 7
+#define PHYSICAL_INPUT_COUNT 9
 
 using namespace Gtk;
 
@@ -22,8 +22,8 @@ public:
   
 protected:
   Grid mGrid;
-  InputArea mRho, mLength, mBreadth, mDraught, mCoeffBlock, mSubWaterVolume, mGravityCenter;
-  InputArea *mInputList[PHYSICAL_INPUT_COUNT] = {&mRho, &mLength, &mBreadth, &mDraught, &mCoeffBlock, &mSubWaterVolume, &mGravityCenter};
+  InputArea mRho, mLength, mBreadth, mDraught, mCoeffBlock, mSubWaterVolume, mGravityCenter, mGM, mKM;
+  InputArea *mInputList[PHYSICAL_INPUT_COUNT] = {&mRho, &mLength, &mBreadth, &mDraught, &mCoeffBlock, &mSubWaterVolume, &mGravityCenter, &mGM, &mKM};
 
 };
 

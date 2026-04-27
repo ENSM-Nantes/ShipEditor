@@ -50,12 +50,14 @@ void BoatManager::ParseGeneral(Boat& aBoat, Json::Value& aJsonRoot)
 {
   aBoat.displayName = aJsonRoot["general"]["boatName"].asString();
   aBoat.imgName = aJsonRoot["general"]["imgName"].asString();
+  aBoat.type = aJsonRoot["general"]["type"].asString();
 }
 
 void BoatManager::SetGeneral(Boat& aBoat, Json::Value& aJsonRoot)
 {
   aJsonRoot["general"]["boatName"] = aBoat.displayName;
   aJsonRoot["general"]["imgName"] = aBoat.imgName;
+  aJsonRoot["general"]["type"] = aBoat.type;
 }
 
 void BoatManager::ParseDepth(Boat& aBoat, Json::Value& aJsonRoot)
@@ -105,6 +107,9 @@ void BoatManager::ParsePhysical(Boat& aBoat, Json::Value& aJsonRoot)
   aBoat.physicalCharac.d = aJsonRoot["geoParams"]["draugth"].asFloat();
   aBoat.physicalCharac.volume = aJsonRoot["geoParams"]["subwaterVolume"].asFloat();
   aBoat.physicalCharac.xG = aJsonRoot["geoParams"]["longGravityCenter"].asFloat();
+  aBoat.physicalCharac.zG = aJsonRoot["geoParams"]["altGravityCenter"].asFloat();
+  aBoat.physicalCharac.gM = aJsonRoot["geoParams"]["GM"].asFloat();
+  aBoat.physicalCharac.kM = aJsonRoot["geoParams"]["KM"].asFloat();
   aBoat.physicalCharac.cB = aJsonRoot["geoParams"]["blockCoef"].asFloat();
 }
 
@@ -116,6 +121,9 @@ void BoatManager::SetPhysical(Boat& aBoat, Json::Value& aJsonRoot)
   aJsonRoot["geoParams"]["draugth"] = aBoat.physicalCharac.d;
   aJsonRoot["geoParams"]["subwaterVolume"] = aBoat.physicalCharac.volume;
   aJsonRoot["geoParams"]["longGravityCenter"] = aBoat.physicalCharac.xG;
+  aJsonRoot["geoParams"]["altGravityCenter"] = aBoat.physicalCharac.zG;
+  aJsonRoot["geoParams"]["GM"] = aBoat.physicalCharac.gM;
+  aJsonRoot["geoParams"]["KM"] = aBoat.physicalCharac.kM;
   aJsonRoot["geoParams"]["blockCoef"] = aBoat.physicalCharac.cB;
 }
 
@@ -149,6 +157,16 @@ void BoatManager::SetHull(Boat& aBoat, Json::Value& aJsonRoot)
   aJsonRoot["hull"]["npVVR"] = aBoat.hull.npVVR;
   aJsonRoot["hull"]["npVRR"] = aBoat.hull.npVRR;
   aJsonRoot["hull"]["npRRR"] = aBoat.hull.npRRR;
+  aJsonRoot["hull"]["kpG"] = aBoat.hull.kpG;
+  aJsonRoot["hull"]["kpB"] = aBoat.hull.kpB;
+  aJsonRoot["hull"]["kpR"] = aBoat.hull.kpR;
+  aJsonRoot["hull"]["kpBBG"] = aBoat.hull.kpBBG;
+  aJsonRoot["hull"]["kpBRG"] = aBoat.hull.kpBRG;
+  aJsonRoot["hull"]["kpRRG"] = aBoat.hull.kpRRG;
+  aJsonRoot["hull"]["kpBBB"] = aBoat.hull.kpBBB;
+  aJsonRoot["hull"]["kpBBR"] = aBoat.hull.kpBBR;
+  aJsonRoot["hull"]["kpBRR"] = aBoat.hull.kpBRR;
+  aJsonRoot["hull"]["kpRRR"] = aBoat.hull.kpRRR;
 }
 
 void BoatManager::SetRudder(Boat& aBoat, Json::Value& aJsonRoot)
