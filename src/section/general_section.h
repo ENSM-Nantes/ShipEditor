@@ -6,7 +6,7 @@
 #include "../BoatManager.hpp"
 #include "section.h"
 
-#define GENERAL_INPUT_COUNT 2
+#define GENERAL_INPUT_COUNT 3
 
 using namespace Gtk;
 
@@ -23,8 +23,8 @@ public:
 protected:
   Grid mGrid;
 
-  InputArea mBoatName, mImgName;
-  InputArea *mInputList[GENERAL_INPUT_COUNT] = {&mBoatName, &mImgName};
+  InputArea mBoatName, mImgName, mType;
+  InputArea *mInputList[GENERAL_INPUT_COUNT] = {&mBoatName, &mImgName, &mType};
 
 };
 

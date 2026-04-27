@@ -17,7 +17,8 @@ public:
     TYPE_FLOAT,
     TYPE_DOUBLE,
     TYPE_VECTOR,
-    TYPE_BOOL
+    TYPE_BOOL,
+    TYPE_MENU
   };
 
   InputArea();
@@ -59,6 +60,9 @@ protected:
   Entry mVectorEntry[MAX_ENTRY_VECTOR];
 
   CheckButton  m_checkbutton;
+  GMenu *mMenu;
+  GtkWidget *mButton;
+  
 }; 
 
 

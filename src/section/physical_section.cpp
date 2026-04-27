@@ -17,6 +17,8 @@ PhysicalSection::PhysicalSection():
   mCoeffBlock.getBox().show();
   mSubWaterVolume.getBox().show();
   mGravityCenter.getBox().show();
+  mGM.getBox().show();
+  mKM.getBox().show();
   
   // Fill the grid
   mGrid.attach(mBox, 0, 0);
@@ -31,6 +33,8 @@ PhysicalSection::PhysicalSection():
   mGrid.attach(mSubWaterVolume.getBox(), 1, 3);
   mGrid.attach(mGravityCenter.getBox(), 2, 3);
 
+  mGrid.attach(mGM.getBox(), 0, 4);
+  mGrid.attach(mKM.getBox(), 1, 4);
 
   mGrid.set_column_homogeneous(true);
   // Show and set the grid as the child
@@ -52,6 +56,8 @@ void PhysicalSection::set()
   mCoeffBlock.set(&mBoat->physicalCharac.cB);
   mSubWaterVolume.set(&mBoat->physicalCharac.volume);
   mGravityCenter.set(&mBoat->physicalCharac.xG);
+  mGM.set(&mBoat->physicalCharac.gM);
+  mKM.set(&mBoat->physicalCharac.kM);
 }
 
 void PhysicalSection::init()
@@ -63,6 +69,8 @@ void PhysicalSection::init()
   mCoeffBlock.init("Coefficient block", &mBoat->physicalCharac.cB);
   mSubWaterVolume.init("Sub water volume", &mBoat->physicalCharac.volume);
   mGravityCenter.init("Longitudinal gravity center", &mBoat->physicalCharac.xG);
+  mGM.init("GM", &mBoat->physicalCharac.gM);
+  mKM.init("KM", &mBoat->physicalCharac.kM);
 }
 
 

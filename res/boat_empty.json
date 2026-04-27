@@ -1,7 +1,8 @@
 {
     "general": {
 	"boatName": "NewBoat", 
-	"imgName": "default.png"		
+	"imgName": "default.png",
+	"type" : "type"
     },
     "initialSpeed": [ 0, 0, 0 ],
     "geoParams": {
@@ -10,6 +11,9 @@
 	"draugth": 0,
 	"subwaterVolume": 0,
 	"longGravityCenter": 0,
+	"GM": 0,
+	"KM": 0,
+	"altGravityCenter": 0,
 	"blockCoef": 0 
     },
     "hull": {
@@ -29,7 +33,17 @@
 	"npVVV": 0,
 	"npVVR": 0,
 	"npVRR": 0,
-	"npRRR": 0 
+	"npRRR": 0,
+	"kpG" : 0,
+        "kpB" : 0,
+        "kpR" : 0,
+        "kpBBG" : 0,
+        "kpBRG" : 0,
+        "kpRRG" : 0,
+        "kpBBB" : 0,
+        "kpBBR" : 0,
+        "kpBRR" : 0,
+        "kpRRR" : 0
     },
     "addedMass": {
 	"pX": 0, 
