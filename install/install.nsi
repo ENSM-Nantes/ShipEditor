@@ -9,7 +9,7 @@ RequestExecutionLevel admin
 Icon "..\res\ShipEditor.ico"	
 Name "${APPNAME}"
 
-OutFile "ShipEditor-Setup.exe"
+OutFile "Setup-ShipEditor-2.5.exe"
 InstallDir "$PROGRAMFILES64\ShipEditor"
 
 VIProductVersion "1.0.0.0"
