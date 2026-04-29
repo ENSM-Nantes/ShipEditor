@@ -129,6 +129,7 @@ struct Hull
   float kpBBR;
   float kpBRR;
   float kpRRR;
+  bool invertRoll;
 };
 
 
@@ -192,7 +193,7 @@ public:
   static void ParseMesh(Boat& aBoat, Json::Value& aJsonRoot);
   static void SetGeneral(Boat& aBoat, Json::Value& aJsonRoot);
   static void ParseGeneral(Boat& aBoat, Json::Value& aJsonRoot);
-
+  static void ParseHull(Boat& aBoat, Json::Value& aJsonRoot);
   
   static std::vector<Boat> LoadBoats(const std::string& aFolderPath);
   static bool SaveBoat(Boat& aBoat);

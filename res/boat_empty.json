@@ -43,7 +43,8 @@
         "kpBBB" : 0,
         "kpBBR" : 0,
         "kpBRR" : 0,
-        "kpRRR" : 0
+        "kpRRR" : 0,
+	"invertRoll" : false
     },
     "addedMass": {
 	"pX": 0, 

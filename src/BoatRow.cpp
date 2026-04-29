@@ -10,11 +10,21 @@ BoatRow::BoatRow(Boat aBoatIn) :
   mBoat = aBoatIn;
 
   try {
-    auto file = Gio::File::create_for_path("../res/default.png");
+    unsigned char extensionSize = 0;
+      if(mBoat.mesh.fileName.substr(mBoat.mesh.fileName.size()-2) == ".x")
+	{
+	  extensionSize = 1;
+	}
+      else
+	extensionSize = 3;
+      
+    auto file = Gio::File::create_for_path(mBoat.imgPath + "/" + mBoat.mesh.fileName.substr(0, mBoat.mesh.fileName.size() - extensionSize) + "jpg");
     auto texture = Gdk::Texture::create_from_file(file);
     mImage.set(texture);
   } catch (const Glib::Error& e) {
-    std::cerr << "Erreur chargement image : " << e.what() << std::endl;
+    auto file = Gio::File::create_for_path("../res/default.png");
+    auto texture = Gdk::Texture::create_from_file(file);
+    mImage.set(texture);
   }
 
   // Définir une taille fixe pour l'image (optionnel)

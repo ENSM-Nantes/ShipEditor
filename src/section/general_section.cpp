@@ -37,7 +37,7 @@ void GeneralSection::init()
 {
   mBoatName.init("Boat name", &mBoat->displayName);
   mImgName.init("Image name", &mBoat->imgName);
-  mType.init("Type of Ship (Ferry or Container), Ferry by default", &mBoat->type);
+  mType.init("Type of Ship : Ferry, Container, RoRo, Tanker, BulkCarrier, Cargo, Tug or CruiseLiner), Ferry by default", &mBoat->type);
 }
 
 

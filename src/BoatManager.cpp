@@ -138,6 +138,11 @@ void BoatManager::ParseRudder(Boat& aBoat, Json::Value& aJsonRoot)
   aBoat.rudder.deltaMax = aJsonRoot["rudder"]["maxAngle"].asFloat();
 }
 
+void BoatManager::ParseHull(Boat& aBoat, Json::Value& aJsonRoot)
+{
+  aBoat.hull.invertRoll = aJsonRoot["hull"]["invertRoll"].asBool();
+}
+
 void BoatManager::SetHull(Boat& aBoat, Json::Value& aJsonRoot)
 {
   aJsonRoot["hull"]["xp0"] = aBoat.hull.xp0;
@@ -317,6 +322,8 @@ std::vector<Boat> BoatManager::LoadBoats(const std::string& aFolderPath)
       ParseEngine(b, root);
       //Sails
       ParseSail(b, root);
+      //Hull
+      ParseHull(b, root);
     
       boats.push_back(b);
     }

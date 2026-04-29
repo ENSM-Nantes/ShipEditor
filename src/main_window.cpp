@@ -183,7 +183,15 @@ void MainWindow::BoatLineCbk(Gtk::ListBoxRow *aBoatRow)
 
   try
     {
-      auto file = Gio::File::create_for_path(pBoat->imgPath + "/" + pBoat->mesh.fileName.substr(0, pBoat->mesh.fileName.size() - 3) + "jpg");
+      unsigned char extensionSize = 0;
+      if(pBoat->mesh.fileName.substr(pBoat->mesh.fileName.size()-2) == ".x")
+	{
+	  extensionSize = 1;
+	}
+      else
+	extensionSize = 3;
+      
+      auto file = Gio::File::create_for_path(pBoat->imgPath + "/" + pBoat->mesh.fileName.substr(0, pBoat->mesh.fileName.size() - extensionSize) + "jpg");
       auto texture = Gdk::Texture::create_from_file(file);
       mBoatImg.set(texture);
     }

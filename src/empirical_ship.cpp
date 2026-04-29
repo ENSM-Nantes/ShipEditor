@@ -25,8 +25,20 @@ void EmpiricalShip::Process(void)
   std::string typeStr = mBoat.type;
   unsigned char type = 0; 
   
-  if(typeStr == "Container")
-    type = 1;
+  if(typeStr == "Container" ||
+     typeStr == "Cargo" ||
+     typeStr == "BulkCarrier" ||
+     typeStr == "Tanker")
+    {
+      type = 1;
+    }
+  else if(typeStr == "Ferry" ||
+	  typeStr == "Roro" ||
+	  typeStr == "CruiseLiner" ||
+	  typeStr == "Tug")
+    {
+      type = 0;
+    }
   else
     type = 0;
     

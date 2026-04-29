@@ -4,7 +4,11 @@
 #include <gtkmm.h>
 #include "BoatManager.hpp" 
 
-#define PATH_JSON_BOATS ("../res/boats/")
+#ifdef _WIN32
+#define PATH_JSON_BOATS ("C:\\Program Files\\Bridge Command SOMOS 2.5\\resources\\models\\Ownship\\")
+#else
+#define PATH_JSON_BOATS ("../../bc/resources/models/Ownship/")
+#endif
 
 class BoatRow : public Gtk::ListBoxRow {
 public:
