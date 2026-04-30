@@ -95,13 +95,16 @@ void InputArea::set(float *ref_var, bool aIsVector)
   if (ref_var == nullptr) mType = TYPE_NULL;
 }
 
-void InputArea::init(std::string str, float *ref_var)
+void InputArea::init(std::string str, float *ref_var, bool aIsSensitive)
 {
   set(ref_var);
   
   // Set the label name
   mLabel.set_text(str);
 
+  if(!aIsSensitive)
+    mOneEntry.set_sensitive(false);
+    
   // Show the variable mType in the placeholder (when it's empty)
   mOneEntry.set_placeholder_text("float");
 

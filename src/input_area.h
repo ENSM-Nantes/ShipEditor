@@ -28,7 +28,7 @@ public:
   
   void init(std::string str, std::string *ref_var);
   void init(std::string str, int *ref_var);
-  void init(std::string str, float *ref_var);
+  void init(std::string str, float *ref_var, bool aIsSensitive=true);
   void init(std::string str, double *ref_var);
   void init(std::string str, float *ref_var, int size);
   void init(std::string str, bool *ref_var);
@@ -59,10 +59,7 @@ protected:
   Entry mOneEntry;
   Entry mVectorEntry[MAX_ENTRY_VECTOR];
 
-  CheckButton  m_checkbutton;
-  GMenu *mMenu;
-  GtkWidget *mButton;
-  
+  CheckButton  m_checkbutton;  
 }; 
 
 

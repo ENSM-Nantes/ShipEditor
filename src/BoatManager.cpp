@@ -141,10 +141,38 @@ void BoatManager::ParseRudder(Boat& aBoat, Json::Value& aJsonRoot)
 void BoatManager::ParseHull(Boat& aBoat, Json::Value& aJsonRoot)
 {
   aBoat.hull.invertRoll = aJsonRoot["hull"]["invertRoll"].asBool();
+  aBoat.hull.xp0 = aJsonRoot["hull"]["xp0"].asFloat();
+  aBoat.hull.xpVV = aJsonRoot["hull"]["xpVV"].asFloat();
+  aBoat.hull.xpVR = aJsonRoot["hull"]["xpVR"].asFloat();
+  aBoat.hull.xpRR = aJsonRoot["hull"]["xpRR"].asFloat();
+  aBoat.hull.xpVVVV = aJsonRoot["hull"]["xpVVVV"].asFloat();
+  aBoat.hull.ypV = aJsonRoot["hull"]["ypV"].asFloat();
+  aBoat.hull.ypR = aJsonRoot["hull"]["ypR"].asFloat();
+  aBoat.hull.ypVVV = aJsonRoot["hull"]["ypVVV"].asFloat();
+  aBoat.hull.ypVVR = aJsonRoot["hull"]["ypVVR"].asFloat();
+  aBoat.hull.ypVRR = aJsonRoot["hull"]["ypVRR"].asFloat();
+  aBoat.hull.ypRRR = aJsonRoot["hull"]["ypRRR"].asFloat();
+  aBoat.hull.npV = aJsonRoot["hull"]["npV"].asFloat();
+  aBoat.hull.npR = aJsonRoot["hull"]["npR"].asFloat();
+  aBoat.hull.npVVV = aJsonRoot["hull"]["npVVV"].asFloat();
+  aBoat.hull.npVVR = aJsonRoot["hull"]["npVVR"].asFloat();
+  aBoat.hull.npVRR = aJsonRoot["hull"]["npVRR"].asFloat();
+  aBoat.hull.npRRR = aJsonRoot["hull"]["npRRR"].asFloat();
+  aBoat.hull.kpG = aJsonRoot["hull"]["kpG"].asFloat();
+  aBoat.hull.kpB = aJsonRoot["hull"]["kpB"].asFloat();
+  aBoat.hull.kpR = aJsonRoot["hull"]["kpR"].asFloat();
+  aBoat.hull.kpBBG = aJsonRoot["hull"]["kpBBG"].asFloat();
+  aBoat.hull.kpBRG = aJsonRoot["hull"]["kpBRG"].asFloat();
+  aBoat.hull.kpRRG = aJsonRoot["hull"]["kpRRG"].asFloat();
+  aBoat.hull.kpBBB = aJsonRoot["hull"]["kpBBB"].asFloat();
+  aBoat.hull.kpBBR = aJsonRoot["hull"]["kpBBR"].asFloat();
+  aBoat.hull.kpBRR = aJsonRoot["hull"]["kpBRR"].asFloat();
+  aBoat.hull.kpRRR = aJsonRoot["hull"]["kpRRR"].asFloat();
 }
 
 void BoatManager::SetHull(Boat& aBoat, Json::Value& aJsonRoot)
 {
+  aJsonRoot["hull"]["invertRoll"] = aBoat.hull.invertRoll;
   aJsonRoot["hull"]["xp0"] = aBoat.hull.xp0;
   aJsonRoot["hull"]["xpVV"] = aBoat.hull.xpVV;
   aJsonRoot["hull"]["xpVR"] = aBoat.hull.xpVR;

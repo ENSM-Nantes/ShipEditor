@@ -33,11 +33,14 @@ void EmpiricalShip::Process(void)
       type = 1;
     }
   else if(typeStr == "Ferry" ||
-	  typeStr == "Roro" ||
 	  typeStr == "CruiseLiner" ||
 	  typeStr == "Tug")
     {
       type = 0;
+    }
+  else if(typeStr == "Roro")
+    {
+      type = 2;
     }
   else
     type = 0;
@@ -91,6 +94,19 @@ void EmpiricalShip::Process(void)
 
     case 1://Container
       pHull->kpG = -0.0299;
+      pHull->kpB = -0.1367;
+      pHull->kpR = 0.0085;
+      pHull->kpBBG = 0.2819;
+      pHull->kpBRG = 0.2997;
+      pHull->kpRRG = -0.0487;
+      pHull->kpBBB = -1.4352;
+      pHull->kpBBR = 1.1636;
+      pHull->kpBRR = -0.4233;
+      pHull->kpRRR = 0.0363;
+      break;
+
+    case 2://Roro
+      pHull->kpG = -0.025;
       pHull->kpB = -0.1367;
       pHull->kpR = 0.0085;
       pHull->kpBBG = 0.2819;

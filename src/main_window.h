@@ -16,6 +16,7 @@
 #include "section/propeller_section.h"
 #include "section/engine_section.h"
 #include "section/sail_section.h"
+#include "section/hull_section.h"
 
 #define WINDOWS_SECTION_COUNT 11
 
@@ -76,7 +77,9 @@ private:
   PropellerSection mPropellerSection;
   EngineSection mEngineSection;
   SailSection mSailSection;
+  HullSection mHullSection;
 
+  
   Glib::RefPtr<Gtk::AlertDialog> mDialog;
 
   std::vector<Boat> mBoats;
