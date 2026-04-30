@@ -107,15 +107,15 @@ void EmpiricalShip::Process(void)
 
     case 2://Roro
       pHull->kpG = -0.024;
-      pHull->kpB = -0.21;
-      pHull->kpR = 0.032;
-      pHull->kpBBG = 0.25;
-      pHull->kpBRG = 0.46;
-      pHull->kpRRG = -0.07;
-      pHull->kpBBB = -1.05;
-      pHull->kpBBR = 1.15;
-      pHull->kpBRR = -0.36;
-      pHull->kpRRR = 0.01;
+      pHull->kpB = -0.1367;
+      pHull->kpR = 0.0085;
+      pHull->kpBBG = 0.26;
+      pHull->kpBRG = 0.3;
+      pHull->kpRRG = -0.06;
+      pHull->kpBBB = -1.4352;
+      pHull->kpBBR = 1.1636;
+      pHull->kpBRR = -0.4233;
+      pHull->kpRRR = 0.0363;
       break;
       
     case 0://Ferry or default
