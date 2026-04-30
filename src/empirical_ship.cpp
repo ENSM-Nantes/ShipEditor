@@ -38,7 +38,7 @@ void EmpiricalShip::Process(void)
     {
       type = 0;
     }
-  else if(typeStr == "Roro")
+  else if(typeStr == "RoRo")
     {
       type = 2;
     }
