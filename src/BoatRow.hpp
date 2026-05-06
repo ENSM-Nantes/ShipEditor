@@ -8,6 +8,7 @@
 #define PATH_JSON_BOATS ("C:\\Program Files\\Bridge Command SOMOS 3.0\\resources\\models\\Ownship\\")
 #else
 #define PATH_JSON_BOATS ("../../bc/resources/models/Ownship/")
+//#define PATH_JSON_BOATS ("../bridgecommand/models/Ownship/")
 #endif
 
 class BoatRow : public Gtk::ListBoxRow {

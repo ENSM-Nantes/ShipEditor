@@ -72,12 +72,12 @@ MainWindow::MainWindow():
 
   //Header
   mHeaderBox.set_margin_top(15);
-  mLogo.set_filename("../res/logo.png");
+  mLogo.set_filename("logo.png");
   mSoftName.set_text("\t\t\t\t\tShip Editor");
   mHeaderBox.add_css_class("header-label");
   mHeaderBox.append(mLogo);
   mHeaderBox.append(mSoftName);
-    
+
   //Footer
   mFooterBox.set_margin_top(15);
   mFooterBox.set_margin_start(1150);
@@ -114,7 +114,7 @@ MainWindow::MainWindow():
 
   //List
   InitList();
-  
+
   // Link the signals to function
   mBoatList.signal_row_activated().connect(sigc::mem_fun(*this, &MainWindow::BoatLineCbk));
   mSaveButton.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::Update));
@@ -144,7 +144,7 @@ MainWindow::MainWindow():
   mScrollBoat.set_child(mBoatList);
   mBoatList.add_css_class("backg");
   mBoatList.add_css_class("text-label");
-  
+
   // Pack the list and the buttons in the box
   mLeftSideBox.append(mScrollBoat);
   mLeftSideBox.append(mButtonsBox);
@@ -163,7 +163,7 @@ MainWindow::MainWindow():
 
   mMainBox.append(mPanes);
   mMainBox.add_css_class("backg");
-  
+
   //Show first boat
   BoatLineCbk((BoatRow*)mBoatList.get_row_at_index(0));
   
@@ -200,7 +200,7 @@ void MainWindow::BoatLineCbk(Gtk::ListBoxRow *aBoatRow)
     }
   catch (const Glib::Error& e)
     {
-      auto file = Gio::File::create_for_path("../res/default.png");
+      auto file = Gio::File::create_for_path("default.png");
       auto texture = Gdk::Texture::create_from_file(file);
       mBoatImg.set(texture);
     }
@@ -391,7 +391,7 @@ void MainWindow::New(void)
       counter++;
     }
 
-  std::ifstream file("../res/boat_empty.json");  
+  std::ifstream file("boat_empty.json");  
   Json::Value root;
   file >> root;
   

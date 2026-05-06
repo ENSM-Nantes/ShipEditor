@@ -22,7 +22,7 @@ BoatRow::BoatRow(Boat aBoatIn) :
     auto texture = Gdk::Texture::create_from_file(file);
     mImage.set(texture);
   } catch (const Glib::Error& e) {
-    auto file = Gio::File::create_for_path("../res/default.png");
+    auto file = Gio::File::create_for_path("default.png");
     auto texture = Gdk::Texture::create_from_file(file);
     mImage.set(texture);
   }

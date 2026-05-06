@@ -414,7 +414,7 @@ bool BoatManager::SaveBoat(Boat& aBoat)
       fs::path dest = fs::path(PATH_JSON_BOATS + aBoat.displayName);
       fs::create_directories(dest);
        out = dest.string() + "/boat.json";
-      fs::copy_file("../res/boat_empty.json", out.string(), fs::copy_options::overwrite_existing);
+      fs::copy_file("boat_empty.json", out.string(), fs::copy_options::overwrite_existing);
       aBoat.filePath = out.string();
       aBoat.imgPath = dest.string();
       aBoat.imgName= aBoat.displayName + ".png";
@@ -444,9 +444,9 @@ bool BoatManager::SaveBoat(Boat& aBoat)
 
 bool BoatManager::RemoveBoat(std::string aName)
 {
-  std::string dirBoatToRemove = "../res/boats/" + aName;
+  std::string dirBoatToRemove = PATH_JSON_BOATS + aName;
   
-  for(const auto& dirEntry : fs::directory_iterator("../res/boats/"))
+  for(const auto& dirEntry : fs::directory_iterator(PATH_JSON_BOATS))
     {
       if(dirEntry.path().string() == dirBoatToRemove)
 	{
