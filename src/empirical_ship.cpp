@@ -27,8 +27,7 @@ void EmpiricalShip::Process(void)
   
   if(typeStr == "Container" ||
      typeStr == "Cargo" ||
-     typeStr == "BulkCarrier" ||
-     typeStr == "Tanker")
+     typeStr == "BulkCarrier")
     {
       type = 1;
     }
@@ -42,6 +41,11 @@ void EmpiricalShip::Process(void)
     {
       type = 2;
     }
+  else if(typeStr == "Tanker")
+    {
+      type = 3;
+    }
+ 
   else
     type = 0;
     
@@ -92,6 +96,37 @@ void EmpiricalShip::Process(void)
   switch(type)
     {
 
+    case 3://Tanker
+
+ 
+      pHull->ypV = -0.2790; 
+      pHull->ypR = 0.0094; 
+      pHull->ypVVV =-1.7349 ; 
+      pHull->ypVVR = 0.9066;
+      pHull->ypVRR = -0.3647; 
+      pHull->ypRRR = 0.0190;
+
+      pHull->npV = -0.1357; 
+      pHull->npR = -0.0434; 
+      pHull->npVVV = -0.857; 
+      pHull->npVVR = -0.2; 
+      pHull->npVRR = 0.0076;
+      pHull->npRRR = -0.477;
+      
+      pHull->kpG = -0.0299;
+      pHull->kpB = -0.1367;
+      pHull->kpR = 0.0085;
+      pHull->kpBBG = 0.2819;
+      pHull->kpBRG = 0.2997;
+      pHull->kpRRG = -0.0487;
+      pHull->kpBBB = -1.4352;
+      pHull->kpBBR = 1.1636;
+      pHull->kpBRR = -0.4233;
+      pHull->kpRRR = 0.0363;
+
+      break;
+
+      
     case 1://Container
       pHull->kpG = -0.0299;
       pHull->kpB = -0.1367;
