@@ -24,9 +24,9 @@ public:
   InputArea();
   ~InputArea();
 
-  void initLayout(void) ;
+  void initLayout(bool aIsScrollable);
   
-  void init(std::string str, std::string *ref_var);
+  void init(std::string str, std::string *ref_var, bool aIsDescription=false);
   void init(std::string str, int *ref_var);
   void init(std::string str, float *ref_var, bool aIsSensitive=true);
   void init(std::string str, double *ref_var);
@@ -58,7 +58,9 @@ protected:
   Label mLabel;
   Entry mOneEntry;
   Entry mVectorEntry[MAX_ENTRY_VECTOR];
-
+  TextView mTextEntry;
+  ScrolledWindow mScrolledWindow;
+  
   CheckButton  m_checkbutton;  
 }; 
 

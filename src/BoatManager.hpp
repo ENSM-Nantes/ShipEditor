@@ -130,6 +130,7 @@ struct Hull
   float kpBRR;
   float kpRRR;
   bool invertRoll;
+  float linearExtCoeff;
 };
 
 
@@ -151,6 +152,7 @@ struct Boat
   std::string imgPath;
   std::string imgName;
   std::string type;
+  std::string desc;
   bool hasGPS;
   bool hasDepthSounder;
   bool hasRadar;

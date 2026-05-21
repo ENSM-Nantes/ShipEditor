@@ -47,12 +47,12 @@ void RudderSection::set()
 void RudderSection::init()
 {
   mNumber.init("Rudder number", &mBoat->rudder.number);
-  mSpacing.init("Rudder spacing (if 2 rudders, not used if not)", &mBoat->rudder.spacing);    
-  mSpanLenght.init("Span Lenght", &mBoat->rudder.hR);
-  mAreaMobile.init("Area mobile part", &mBoat->rudder.aR);
+  mSpacing.init("Rudder spacing (if 2 rudders, not used if not) (m)", &mBoat->rudder.spacing);    
+  mSpanLenght.init("Span Lenght (m)", &mBoat->rudder.hR);
+  mAreaMobile.init("Area mobile part (m2)", &mBoat->rudder.aR);
   mAspectRatio.init("Aspect ratio", &mBoat->rudder.lambdaR);
-  mMaxSpeed.init("Maximum speed", &mBoat->rudder.rrMax);
-  mMaxDelta.init("Maximum angle", &mBoat->rudder.deltaMax);
+  mMaxSpeed.init("Maximum speed (rad/s)", &mBoat->rudder.rrMax);
+  mMaxDelta.init("Maximum angle (rad)", &mBoat->rudder.deltaMax);
 }
 
 

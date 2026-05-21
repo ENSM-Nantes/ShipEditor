@@ -15,7 +15,7 @@ InputArea::~InputArea()
   
 }
 
-void InputArea::initLayout(void) 
+void InputArea::initLayout(bool aIsScrollable) 
 {
   // Layout
   mBox.set_margin_top(2);
@@ -25,14 +25,24 @@ void InputArea::initLayout(void)
 
   mOneEntry.set_margin_start(5);
   mOneEntry.add_css_class("gray-entry");
+  mTextEntry.add_css_class("gray-entry");
   
   // Display the content
   mLabel.show();
-  mOneEntry.show();
+  
 
   // Create the box
   mBox.append(mLabel);
-  mBox.append(mOneEntry);
+  if(!aIsScrollable)
+    {
+      mOneEntry.show();
+      mBox.append(mOneEntry);
+    }
+  else
+    {
+      mTextEntry.show();
+      mBox.append(mScrolledWindow);
+    }
 }
 
 void InputArea::set(std::string *ref_var) 
@@ -43,7 +53,7 @@ void InputArea::set(std::string *ref_var)
   if (ref_var == nullptr) mType = TYPE_NULL;
 }
 
-void InputArea::init(std::string str, std::string *ref_var) 
+void InputArea::init(std::string str, std::string *ref_var, bool aIsDescription) 
 {  
   set(ref_var);
   
@@ -51,9 +61,19 @@ void InputArea::init(std::string str, std::string *ref_var)
   mLabel.set_text(str);
 
   // Show the variable mType in the placeholder (when it's empty)
-  mOneEntry.set_placeholder_text("string");
-
-  initLayout();
+  if(!aIsDescription)
+    {
+      mOneEntry.set_placeholder_text("string");
+      initLayout(false);
+    }
+  else
+    {
+      mScrolledWindow.set_size_request(1024, 128);
+      mTextEntry.set_wrap_mode(Gtk::WrapMode::WORD);
+      mScrolledWindow.set_child(mTextEntry);
+      mScrolledWindow.set_policy(Gtk::PolicyType::AUTOMATIC, Gtk::PolicyType::AUTOMATIC);
+      initLayout(true);
+    }
 }
 
 void InputArea::set(int *ref_var) 
@@ -74,7 +94,7 @@ void InputArea::init(std::string str, int *ref_var)
   // Show the variable mType in the placeholder (when it's empty)
   mOneEntry.set_placeholder_text("integer");
 
-  initLayout();
+  initLayout(false);
 }
 
 void InputArea::set(float *ref_var, bool aIsVector)
@@ -108,7 +128,7 @@ void InputArea::init(std::string str, float *ref_var, bool aIsSensitive)
   // Show the variable mType in the placeholder (when it's empty)
   mOneEntry.set_placeholder_text("float");
 
-  initLayout();
+  initLayout(false);
 }
 
 void InputArea::set(double *ref_var)
@@ -129,7 +149,7 @@ void InputArea::init(std::string str, double *ref_var)
   // Show the variable mType in the placeholder (when it's empty)
   mOneEntry.set_placeholder_text("float");
 
-  initLayout();
+  initLayout(false);
 }
 
 
@@ -240,6 +260,22 @@ void InputArea::update()
 	}
 		  
       }
+
+    raw_text = mTextEntry.get_buffer()->get_text();
+    if(!raw_text.empty())
+      {
+	switch(mType) {
+	case TYPE_STRING:
+	  // Copy the value
+	  *var_str = raw_text;
+	  break;
+       
+	default:
+	  // TODO: create an error
+	  break;
+	}
+		  
+      }
   }
 }
 
@@ -277,6 +313,7 @@ void InputArea::refresh()
 
     if (raw_text.length()) {
       mOneEntry.get_buffer()->set_text(raw_text);
+      mTextEntry.get_buffer()->set_text(raw_text);
     }
   }
 }

@@ -51,6 +51,7 @@ void BoatManager::ParseGeneral(Boat& aBoat, Json::Value& aJsonRoot)
   aBoat.displayName = aJsonRoot["general"]["boatName"].asString();
   aBoat.imgName = aJsonRoot["general"]["imgName"].asString();
   aBoat.type = aJsonRoot["general"]["type"].asString();
+  aBoat.desc = aJsonRoot["general"]["desc"].asString();
 }
 
 void BoatManager::SetGeneral(Boat& aBoat, Json::Value& aJsonRoot)
@@ -58,6 +59,7 @@ void BoatManager::SetGeneral(Boat& aBoat, Json::Value& aJsonRoot)
   aJsonRoot["general"]["boatName"] = aBoat.displayName;
   aJsonRoot["general"]["imgName"] = aBoat.imgName;
   aJsonRoot["general"]["type"] = aBoat.type;
+  aJsonRoot["general"]["desc"] = aBoat.desc;
 }
 
 void BoatManager::ParseDepth(Boat& aBoat, Json::Value& aJsonRoot)
@@ -141,6 +143,7 @@ void BoatManager::ParseRudder(Boat& aBoat, Json::Value& aJsonRoot)
 void BoatManager::ParseHull(Boat& aBoat, Json::Value& aJsonRoot)
 {
   aBoat.hull.invertRoll = aJsonRoot["hull"]["invertRoll"].asBool();
+  aBoat.hull.linearExtCoeff = aJsonRoot["hull"]["linearExtCoeff"].asFloat();
   aBoat.hull.xp0 = aJsonRoot["hull"]["xp0"].asFloat();
   aBoat.hull.xpVV = aJsonRoot["hull"]["xpVV"].asFloat();
   aBoat.hull.xpVR = aJsonRoot["hull"]["xpVR"].asFloat();
@@ -173,6 +176,7 @@ void BoatManager::ParseHull(Boat& aBoat, Json::Value& aJsonRoot)
 void BoatManager::SetHull(Boat& aBoat, Json::Value& aJsonRoot)
 {
   aJsonRoot["hull"]["invertRoll"] = aBoat.hull.invertRoll;
+  aJsonRoot["hull"]["linearExtCoeff"] = aBoat.hull.linearExtCoeff;
   aJsonRoot["hull"]["xp0"] = aBoat.hull.xp0;
   aJsonRoot["hull"]["xpVV"] = aBoat.hull.xpVV;
   aJsonRoot["hull"]["xpVR"] = aBoat.hull.xpVR;
@@ -417,7 +421,7 @@ bool BoatManager::SaveBoat(Boat& aBoat)
       fs::copy_file("boat_empty.json", out.string(), fs::copy_options::overwrite_existing);
       aBoat.filePath = out.string();
       aBoat.imgPath = dest.string();
-      aBoat.imgName= aBoat.displayName + ".png";
+      aBoat.imgName= aBoat.displayName + ".jpg";
 
       std::ifstream jsonFile(out);
       jsonFile >> root;

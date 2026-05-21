@@ -81,7 +81,7 @@ MainWindow::MainWindow():
   //Footer
   mFooterBox.set_margin_top(15);
   mFooterBox.set_margin_start(1150);
-  mVersionNumber.set_text("Ship-Editor v3.1 - SOMOS Project 2026 - ENSM Nantes");
+  mVersionNumber.set_text("Ship-Editor v3.2 - SOMOS Project 2026 - ENSM Nantes");
   mFooterBox.append(mVersionNumber);
   mFooterBox.add_css_class("text-label");
   
@@ -399,6 +399,8 @@ void MainWindow::New(void)
 
   //General
   newBoat.displayName = uniqueName;
+  newBoat.desc = "Type here some additionnal informations";
+  newBoat.type = "type";
   
   if(BoatManager::SaveBoat(newBoat))
     {

@@ -49,8 +49,8 @@ void SailSection::set()
 void SailSection::init()
 {
   mNumber.init("Sail number", &mBoat->sails.number);
-  mType.init("Type", &mBoat->sails.type);
-  mSize.init("Size", &mBoat->sails.size);
+  mType.init("Type ", &mBoat->sails.type);
+  mSize.init("Size ", &mBoat->sails.size);
   
   for(unsigned char i=0; i<MAX_SAILS; i++)
     {

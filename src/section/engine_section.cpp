@@ -47,9 +47,9 @@ void EngineSection::init()
   mNumber.init("Engine number", &mBoat->engine.number);
   mBrand.init("Brand", &mBoat->engine.brand);
   mType.init("Type", &mBoat->engine.type);
-  mPower.init("Power", &mBoat->engine.power);
-  mRpmMax.init("Maximum rotation per minute", &mBoat->engine.rpmMax);
-  mFuelCons.init("Fuel consumption", &mBoat->engine.fuelCons);
+  mPower.init("Power (kW)", &mBoat->engine.power);
+  mRpmMax.init("Maximum propeller rotation (rpm)", &mBoat->engine.rpmMax);
+  mFuelCons.init("Fuel consumption (g/kWh)", &mBoat->engine.fuelCons);
 }
 
 

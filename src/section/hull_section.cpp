@@ -38,45 +38,49 @@ HullSection::HullSection():
   mKpBRR.getBox().show();
   mKpRRR.getBox().show();
   mInvertRoll.getBox().show();
+  mLinearExtCoeff.getBox().show();
   
   // Fill the grid
   mGrid.attach(mBox, 0, 0);
 
-  mGrid.attach(mXp0.getBox(), 0, 1);
-  mGrid.attach(mXpVV.getBox(), 0, 2);
-  mGrid.attach(mXpVR.getBox(), 0, 3);
-  mGrid.attach(mXpRR.getBox(), 0, 4);
-  
-  mGrid.attach(mXpVVVV.getBox(), 1, 1);
-  mGrid.attach(mYpV.getBox(), 1, 2);
-  mGrid.attach(mYpR.getBox(), 1, 3);
-  mGrid.attach(mYpVVV.getBox(), 1, 4);
-  
-  mGrid.attach(mYpVVR.getBox(), 2, 1);
-  mGrid.attach(mYpVRR.getBox(), 2, 2);
-  mGrid.attach(mYpRRR.getBox(), 2, 3);
-  mGrid.attach(mNpV.getBox(), 2, 4);
-  
-  mGrid.attach(mNpR.getBox(), 3, 1);
-  mGrid.attach(mNpVVV.getBox(), 3, 2);
-  mGrid.attach(mNpVVR.getBox(), 3, 3);
-  mGrid.attach(mNpVRR.getBox(), 3, 4);
-  
-  mGrid.attach(mNpRRR.getBox(), 4, 1);
-  mGrid.attach(mKpG.getBox(), 4, 2);
-  mGrid.attach(mKpB.getBox(), 4, 3);
-  mGrid.attach(mKpR.getBox(), 4, 4);
-  
-  mGrid.attach(mKpBBG.getBox(), 5, 1);
-  mGrid.attach(mKpBRG.getBox(), 5, 2);
-  mGrid.attach(mKpRRG.getBox(), 5, 3);
-  mGrid.attach(mKpBBB.getBox(), 5, 4);
-  
-  mGrid.attach(mKpBBR.getBox(), 6, 1);
-  mGrid.attach(mKpBRR.getBox(), 6, 2);
-  mGrid.attach(mKpRRR.getBox(), 6, 3);
+  mGrid.attach(mInvertRoll.getBox(), 0, 2);
+  mGrid.attach(mLinearExtCoeff.getBox(), 0, 1);
 
-  mGrid.attach(mInvertRoll.getBox(), 0, 5);
+  mGrid.attach(mXp0.getBox(), 1, 1);
+  mGrid.attach(mXpVV.getBox(), 1, 2);
+  mGrid.attach(mXpVR.getBox(), 1, 3);
+  mGrid.attach(mXpRR.getBox(), 1, 4);
+  
+  mGrid.attach(mXpVVVV.getBox(), 2, 1);
+  mGrid.attach(mYpV.getBox(), 2, 2);
+  mGrid.attach(mYpR.getBox(), 2, 3);
+  mGrid.attach(mYpVVV.getBox(), 2, 4);
+  
+  mGrid.attach(mYpVVR.getBox(), 3, 1);
+  mGrid.attach(mYpVRR.getBox(), 3, 2);
+  mGrid.attach(mYpRRR.getBox(), 3, 3);
+  mGrid.attach(mNpV.getBox(), 3, 4);
+  
+  mGrid.attach(mNpR.getBox(), 4, 1);
+  mGrid.attach(mNpVVV.getBox(), 4, 2);
+  mGrid.attach(mNpVVR.getBox(), 4, 3);
+  mGrid.attach(mNpVRR.getBox(), 4, 4);
+  
+  mGrid.attach(mNpRRR.getBox(), 5, 1);
+  mGrid.attach(mKpG.getBox(), 5, 2);
+  mGrid.attach(mKpB.getBox(), 5, 3);
+  mGrid.attach(mKpR.getBox(), 5, 4);
+  
+  mGrid.attach(mKpBBG.getBox(), 6, 1);
+  mGrid.attach(mKpBRG.getBox(), 6, 2);
+  mGrid.attach(mKpRRG.getBox(), 6, 3);
+  mGrid.attach(mKpBBB.getBox(), 6, 4);
+  
+  mGrid.attach(mKpBBR.getBox(), 7, 1);
+  mGrid.attach(mKpBRR.getBox(), 7, 2);
+  mGrid.attach(mKpRRR.getBox(), 7, 3);
+
+  
 
   // Show and set the grid as the child
   mGrid.show();
@@ -113,6 +117,7 @@ void HullSection::set()
   mKpBRR.set(&mBoat->hull.kpBRR);
   mKpRRR.set(&mBoat->hull.kpRRR);
   mInvertRoll.set(&mBoat->hull.invertRoll);
+  mLinearExtCoeff.set(&mBoat->hull.linearExtCoeff);
 }
 
 void HullSection::init()
@@ -145,6 +150,7 @@ void HullSection::init()
   mKpBRR.init("K'brr", &mBoat->hull.kpBRR, false);
   mKpRRR.init("K'rrr", &mBoat->hull.kpRRR, false);
   mInvertRoll.init("Invert roll", &mBoat->hull.invertRoll);
+  mLinearExtCoeff.init("Roll exctinction coeff", &mBoat->hull.linearExtCoeff);
 }
 
 

@@ -67,8 +67,8 @@ void MeshSection::set()
 void MeshSection::init()
 {
   mFilename.init("File name", &mBoat->mesh.fileName);
-  mYcorrection.init("Y correction", &mBoat->mesh.yCorrection);
-  mAngleCorrection.init("Angle correction", &mBoat->mesh.angleCorrection);
+  mYcorrection.init("Y correction (m)", &mBoat->mesh.yCorrection);
+  mAngleCorrection.init("Angle correction (deg)", &mBoat->mesh.angleCorrection);
   mScaleFactor.init("Scale factor", &mBoat->mesh.scaleFactor);
   mMakeTransparent.init("Make transparent", &mBoat->mesh.makeTransparent);
 

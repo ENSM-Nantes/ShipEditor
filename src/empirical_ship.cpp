@@ -103,6 +103,7 @@ void EmpiricalShip::Process(void)
       pHull->kpBBR = 1.1636;
       pHull->kpBRR = -0.4233;
       pHull->kpRRR = 0.0363;
+
       break;
 
     case 2://Roro

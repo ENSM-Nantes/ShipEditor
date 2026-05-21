@@ -6,7 +6,7 @@
 #include "../BoatManager.hpp"
 #include "section.h"
 
-#define HULL_INPUT_COUNT 28
+#define HULL_INPUT_COUNT 29
 
 using namespace Gtk;
 
@@ -23,9 +23,9 @@ public:
 protected:
   Grid mGrid;
 
-  InputArea mXp0, mXpVV, mXpVR, mXpRR, mXpVVVV, mYpV, mYpR, mYpVVV, mYpVVR, mYpVRR, mYpRRR, mNpV, mNpR, mNpVVV, mNpVVR, mNpVRR, mNpRRR, mKpG, mKpB, mKpR, mKpBBG, mKpBRG, mKpRRG, mKpBBB, mKpBBR, mKpBRR, mKpRRR, mInvertRoll;
+  InputArea mXp0, mXpVV, mXpVR, mXpRR, mXpVVVV, mYpV, mYpR, mYpVVV, mYpVVR, mYpVRR, mYpRRR, mNpV, mNpR, mNpVVV, mNpVVR, mNpVRR, mNpRRR, mKpG, mKpB, mKpR, mKpBBG, mKpBRG, mKpRRG, mKpBBB, mKpBBR, mKpBRR, mKpRRR, mInvertRoll, mLinearExtCoeff;
 ;
-  InputArea *mInputList[HULL_INPUT_COUNT] = {&mXp0, &mXpVV, &mXpVR, &mXpRR, &mXpVVVV, &mYpV, &mYpR, &mYpVVV, &mYpVVR, &mYpVRR, &mYpRRR, &mNpV, &mNpR, &mNpVVV, &mNpVVR, &mNpVRR, &mNpRRR, &mKpG, &mKpB, &mKpR, &mKpBBG, &mKpBRG, &mKpRRG, &mKpBBB, &mKpBBR, &mKpBRR, &mKpRRR, &mInvertRoll};
+  InputArea *mInputList[HULL_INPUT_COUNT] = {&mXp0, &mXpVV, &mXpVR, &mXpRR, &mXpVVVV, &mYpV, &mYpR, &mYpVVV, &mYpVVR, &mYpVRR, &mYpRRR, &mNpV, &mNpR, &mNpVVV, &mNpVVR, &mNpVRR, &mNpRRR, &mKpG, &mKpB, &mKpR, &mKpBBG, &mKpBRG, &mKpRRG, &mKpBBB, &mKpBBR, &mKpBRR, &mKpRRR, &mInvertRoll, &mLinearExtCoeff};
 
 };
 

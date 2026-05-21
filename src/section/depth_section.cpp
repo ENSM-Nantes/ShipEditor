@@ -33,7 +33,7 @@ void DepthSection::set()
 void DepthSection::init()
 {
   mDepthSounder.init("Depth sounder", &mBoat->hasDepthSounder);
-  mMaxDepth.init("Max depth", &mBoat->maxDepth);
+  mMaxDepth.init("Max depth (m)", &mBoat->maxDepth);
 }
 
 

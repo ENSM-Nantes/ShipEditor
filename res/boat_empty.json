@@ -1,8 +1,9 @@
 {
     "general": {
 	"boatName": "NewBoat", 
-	"imgName": "default.png",
-	"type" : "type"
+	"imgName": "default.jpg",
+	"type" : "type",
+	"desc" : "Description or additionnal informations"
     },
     "initialSpeed": [ 0, 0, 0 ],
     "geoParams": {
@@ -44,7 +45,8 @@
         "kpBBR" : 0,
         "kpBRR" : 0,
         "kpRRR" : 0,
-	"invertRoll" : false
+	"invertRoll" : false,
+	"linearExtCoeff" : 0
     },
     "addedMass": {
 	"pX": 0, 
@@ -118,7 +120,7 @@
 	"tilt": 0
     },
     "mesh": {
-	"name": "mesh",
+	"name": "NewBoat.obj",
 	"makeTransparent" : 0, 
 	"scaleFactor": 0,
 	"yCorrection": 0,

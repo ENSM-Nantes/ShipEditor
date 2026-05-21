@@ -63,14 +63,14 @@ void PhysicalSection::set()
 void PhysicalSection::init()
 {
   mRho.init("Rho", &mBoat->rho);
-  mLength.init("Length", &mBoat->physicalCharac.lPP);
-  mBreadth.init("Breadth", &mBoat->physicalCharac.b);
-  mDraught.init("Draught", &mBoat->physicalCharac.d);
-  mCoeffBlock.init("Coefficient block", &mBoat->physicalCharac.cB);
-  mSubWaterVolume.init("Sub water volume", &mBoat->physicalCharac.volume);
-  mGravityCenter.init("Longitudinal gravity center", &mBoat->physicalCharac.xG);
-  mGM.init("GM", &mBoat->physicalCharac.gM);
-  mKM.init("KM", &mBoat->physicalCharac.kM);
+  mLength.init("Length (m)", &mBoat->physicalCharac.lPP);
+  mBreadth.init("Breadth (m)", &mBoat->physicalCharac.b);
+  mDraught.init("Draught (m)", &mBoat->physicalCharac.d);
+  mCoeffBlock.init("Coefficient block (0-1)", &mBoat->physicalCharac.cB);
+  mSubWaterVolume.init("Sub water volume (m3)", &mBoat->physicalCharac.volume);
+  mGravityCenter.init("Longitudinal gravity center from center (m)", &mBoat->physicalCharac.xG);
+  mGM.init("GM (m)", &mBoat->physicalCharac.gM);
+  mKM.init("KM (m)", &mBoat->physicalCharac.kM);
 }
 
 

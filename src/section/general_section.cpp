@@ -13,13 +13,18 @@ GeneralSection::GeneralSection():
   mBoatName.getBox().show();
   mImgName.getBox().show();
   mType.getBox().show();
+  mDescription.getBox().show();
   
   // Fill the grid
   mGrid.attach(mBox, 0, 0);
 
   mGrid.attach(mBoatName.getBox(), 0, 1);
-  mGrid.attach(mImgName.getBox(), 1, 1);
-  mGrid.attach(mType.getBox(), 0, 2);
+  mGrid.attach(mImgName.getBox(), 0, 2);
+  mGrid.attach(mType.getBox(), 0, 3);
+  mGrid.attach(mDescription.getBox(), 0, 4);
+
+  mGrid.set_row_spacing(10);
+  mGrid.set_margin_bottom(10);
   
   // Show and set the grid as the child
   mGrid.show();
@@ -31,6 +36,7 @@ void GeneralSection::set()
   mBoatName.set(&mBoat->displayName);
   mImgName.set(&mBoat->imgName);
   mType.set(&mBoat->type);
+  mDescription.set(&mBoat->desc);
 }
 
 void GeneralSection::init()
@@ -38,6 +44,7 @@ void GeneralSection::init()
   mBoatName.init("Boat name", &mBoat->displayName);
   mImgName.init("Image name", &mBoat->imgName);
   mType.init("Type of Ship : Ferry, Container, RoRo, Tanker, BulkCarrier, Cargo, Tug or CruiseLiner), Ferry by default", &mBoat->type);
+  mDescription.init("Description or additionnal information :   ", &mBoat->desc, true);
 }
 
 

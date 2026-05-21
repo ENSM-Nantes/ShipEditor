@@ -42,10 +42,10 @@ void PropellerSection::set()
 void PropellerSection::init()
 {
   mNumber.init("Propeller number", &mBoat->prop.number);
-  mSpacing.init("Propeller spacing (if 2 propellers, not used if not)", &mBoat->prop.spacing);    
-  mDiameter.init("Diameter", &mBoat->prop.diameter);
-  mForwardRotDir.init("Forward rotation direction", &mBoat->prop.forwardRotDir);
-  mBackwardEff.init("Backward efficiency", &mBoat->prop.backwardEff);
+  mSpacing.init("Propeller spacing (if 2 propellers, not used if not) (m)", &mBoat->prop.spacing);    
+  mDiameter.init("Diameter (m)", &mBoat->prop.diameter);
+  mForwardRotDir.init("Forward rotation direction (right or left)", &mBoat->prop.forwardRotDir);
+  mBackwardEff.init("Backward efficiency (0-1)", &mBoat->prop.backwardEff);
 }
 
 

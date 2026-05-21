@@ -44,9 +44,9 @@ void RadarSection::set()
 void RadarSection::init()
 {
   mRadar.init("Radar", &mBoat->hasRadar);
-  mTilt.init("Tilt", &mBoat->radarScreen.tilt);
-  mSize.init("Size", &mBoat->radarScreen.size);
-  mPos.init("Position", mBoat->radarScreen.vector, 3); 
+  mTilt.init("Tilt (deg)", &mBoat->radarScreen.tilt);
+  mSize.init("Size (pixels)", &mBoat->radarScreen.size);
+  mPos.init("Position (m)", mBoat->radarScreen.vector, 3); 
 }
 
 
