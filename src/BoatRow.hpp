@@ -5,7 +5,7 @@
 #include "BoatManager.hpp" 
 
 #ifdef _WIN32
-#define PATH_JSON_BOATS ("C:\\Program Files\\Bridge Command SOMOS 3.3\\resources\\models\\Ships\\")
+#define PATH_JSON_BOATS ("C:\\Program Files\\Bridge Command SOMOS 3.2\\resources\\models\\Ships\\")
 #else
 #define PATH_JSON_BOATS ("../../bc/resources/models/Ships/")
 //#define PATH_JSON_BOATS ("../bridgecommand/models/Ships/")
