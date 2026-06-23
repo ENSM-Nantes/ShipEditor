@@ -13,6 +13,7 @@ class EmpiricalShip
   ~EmpiricalShip();
 
   void Process(void);
+  unsigned char GetType(void);
 
  private:
 
@@ -25,6 +26,8 @@ class EmpiricalShip
   float mMpX;
   float mMpY;
   float mJpZ;
+
+  unsigned char mType;
 };
 
 #endif

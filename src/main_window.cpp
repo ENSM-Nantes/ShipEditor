@@ -44,7 +44,8 @@ MainWindow::MainWindow():
   mPropellerSection(),
   mEngineSection(),
   mSailSection(),
-  mHullSection()
+  mHullSection(),
+  mLightSection()
 {
   // Configure this window:
   set_default_size(1920, 1024);
@@ -69,6 +70,7 @@ MainWindow::MainWindow():
   mEngineSection.show();
   mSailSection.show();
   mHullSection.show();
+  mLightSection.show();
 
   //Header
   mHeaderBox.set_margin_top(15);
@@ -106,6 +108,7 @@ MainWindow::MainWindow():
   mConfBoatBox.append(mDepthSection);
   mConfBoatBox.append(mRadarSection);
   mConfBoatBox.append(mRotSection);
+  mConfBoatBox.append(mLightSection);
   mConfBoatBox.add_css_class("text-label");
   
   // Make the box visible and usable with the scroll bar
@@ -121,6 +124,12 @@ MainWindow::MainWindow():
   mRefreshButton.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::RefreshCbk));
   mNewButton.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::New));
   mDeleteButton.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::Delete));
+
+  // Keyboard navigation for the boat list
+  mKeyController = Gtk::EventControllerKey::create();
+  mKeyController->set_propagation_phase(Gtk::PropagationPhase::CAPTURE);
+  mKeyController->signal_key_pressed().connect(sigc::mem_fun(*this, &MainWindow::OnKeyPressed), false);
+  add_controller(mKeyController);
 
   // Put an icon in the buttons
   // TODO
@@ -231,7 +240,8 @@ void MainWindow::LoadBoat(Boat *aBoat)
   mPropellerSection.load(aBoat);
   mEngineSection.load(aBoat);
   mSailSection.load(aBoat);
-  mHullSection.load(aBoat); 
+  mHullSection.load(aBoat);
+  mLightSection.load(aBoat); 
 }
 
 void MainWindow::Set(void)
@@ -248,6 +258,7 @@ void MainWindow::Set(void)
   mEngineSection.set();
   mSailSection.set();
   mHullSection.set();
+  mLightSection.set();
 }
 
 void MainWindow::Init(void)
@@ -264,6 +275,7 @@ void MainWindow::Init(void)
   mEngineSection.init();
   mSailSection.init();
   mHullSection.init();
+  mLightSection.init();
 }
 
 void MainWindow::InfoBubble(const std::string &aMessage, const std::string &aDetail)
@@ -279,7 +291,6 @@ void MainWindow::InfoBubble(const std::string &aMessage, const std::string &aDet
   mDialog->set_cancel_button(-1);
 
   mDialog->set_modal(); // Block the window until the dialog closes
-
 
   mDialog->set_message(aMessage);
   mDialog->set_detail(aDetail);
@@ -305,6 +316,7 @@ void MainWindow::Update()
   mEngineSection.update();
   mSailSection.update();
   mHullSection.update();
+  mLightSection.update();
   
   currentBoatRow = mBoatList.get_row_at_index(mCurrentRowIndex);
 
@@ -351,6 +363,7 @@ void MainWindow::Refresh()
   mEngineSection.refresh();
   mSailSection.refresh();
   mHullSection.refresh();
+  mLightSection.refresh();
 }
 
 void MainWindow::RefreshCbk()
@@ -400,7 +413,12 @@ void MainWindow::New(void)
   //General
   newBoat.displayName = uniqueName;
   newBoat.desc = "Type here some additionnal informations";
-  newBoat.type = "type";
+  newBoat.typeStr = "type";
+  newBoat.type = 0;
+  newBoat.mmsi = 0;
+  newBoat.imo = 0;
+  newBoat.callSign = "XX";
+  newBoat.dest = "XXXX";  
   
   if(BoatManager::SaveBoat(newBoat))
     {
@@ -441,5 +459,28 @@ void MainWindow::RemoveList(void)
       mBoatList.remove(*row);
     }
   mBoatRows.clear();
+}
 
+bool MainWindow::OnKeyPressed(guint keyval, guint keycode, Gdk::ModifierType state)
+{
+  int newIndex = mCurrentRowIndex;
+  int maxIndex = (int)mBoatRows.size() - 1;
+
+  if (keyval == GDK_KEY_Up || keyval == GDK_KEY_KP_Up)
+    newIndex = std::max(0, newIndex - 1);
+  else if (keyval == GDK_KEY_Down || keyval == GDK_KEY_KP_Down)
+    newIndex = std::min(maxIndex, newIndex + 1);
+  else
+    return false;
+
+  if (newIndex != mCurrentRowIndex)
+    {
+      auto *row = mBoatList.get_row_at_index(newIndex);
+      if (row)
+        {
+          mBoatList.select_row(*row);
+          BoatLineCbk(row);
+        }
+    }
+  return true;
 }

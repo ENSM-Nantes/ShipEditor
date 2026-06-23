@@ -31,6 +31,17 @@ struct SailList
   std::string size;
 };
 
+struct Light
+{
+  float data[9];
+};
+
+struct LightList
+{
+  int number;
+  Light light[5];
+};
+
 struct RadarScreen
 {
   float vector[3];
@@ -151,8 +162,13 @@ struct Boat
   std::string displayName;
   std::string imgPath;
   std::string imgName;
-  std::string type;
+  int type;
+  std::string typeStr;
   std::string desc;
+  std::string dest;
+  int mmsi;
+  int imo;
+  std::string callSign;
   bool hasGPS;
   bool hasDepthSounder;
   bool hasRadar;
@@ -167,7 +183,8 @@ struct Boat
   Hull hull;
   Prop prop;
   Rudder rudder;
-  SailList sails;  
+  SailList sails;
+  LightList light;
 };
 
 class BoatManager {
@@ -185,6 +202,7 @@ public:
   static void SetRadar(Boat& aBoat, Json::Value& aJsonRoot);
   static void SetDepth(Boat& aBoat, Json::Value& aJsonRoot);
   static void SetMesh(Boat& aBoat, Json::Value& aJsonRoot);
+  static void SetLight(Boat& aBoat, Json::Value& aJsonRoot);
   static void ParseSail(Boat& aBoat, Json::Value& aJsonRoot);
   static void ParseEngine(Boat& aBoat, Json::Value& aJsonRoot);
   static void ParsePropeller(Boat& aBoat, Json::Value& aJsonRoot);
@@ -196,6 +214,7 @@ public:
   static void SetGeneral(Boat& aBoat, Json::Value& aJsonRoot);
   static void ParseGeneral(Boat& aBoat, Json::Value& aJsonRoot);
   static void ParseHull(Boat& aBoat, Json::Value& aJsonRoot);
+  static void ParseLight(Boat& aBoat, Json::Value& aJsonRoot);
   
   static std::vector<Boat> LoadBoats(const std::string& aFolderPath);
   static bool SaveBoat(Boat& aBoat);

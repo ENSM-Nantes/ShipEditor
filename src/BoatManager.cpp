@@ -50,16 +50,26 @@ void BoatManager::ParseGeneral(Boat& aBoat, Json::Value& aJsonRoot)
 {
   aBoat.displayName = aJsonRoot["general"]["boatName"].asString();
   aBoat.imgName = aJsonRoot["general"]["imgName"].asString();
-  aBoat.type = aJsonRoot["general"]["type"].asString();
+  aBoat.typeStr = aJsonRoot["general"]["typeStr"].asString();
   aBoat.desc = aJsonRoot["general"]["desc"].asString();
+  aBoat.dest = aJsonRoot["general"]["dest"].asString();
+  aBoat.type = aJsonRoot["general"]["type"].asInt();
+  aBoat.mmsi = aJsonRoot["general"]["mmsi"].asInt();
+  aBoat.imo = aJsonRoot["general"]["imo"].asInt();
+  aBoat.callSign = aJsonRoot["general"]["callSign"].asString();
 }
 
 void BoatManager::SetGeneral(Boat& aBoat, Json::Value& aJsonRoot)
 {
   aJsonRoot["general"]["boatName"] = aBoat.displayName;
   aJsonRoot["general"]["imgName"] = aBoat.imgName;
-  aJsonRoot["general"]["type"] = aBoat.type;
+  aJsonRoot["general"]["typeStr"] = aBoat.typeStr;
   aJsonRoot["general"]["desc"] = aBoat.desc;
+  aJsonRoot["general"]["dest"] = aBoat.dest;
+  aJsonRoot["general"]["type"] = aBoat.type;
+  aJsonRoot["general"]["mmsi"] = aBoat.mmsi;
+  aJsonRoot["general"]["imo"] = aBoat.imo;
+  aJsonRoot["general"]["callSign"] = aBoat.callSign;
 }
 
 void BoatManager::ParseDepth(Boat& aBoat, Json::Value& aJsonRoot)
@@ -204,6 +214,42 @@ void BoatManager::SetHull(Boat& aBoat, Json::Value& aJsonRoot)
   aJsonRoot["hull"]["kpBBR"] = aBoat.hull.kpBBR;
   aJsonRoot["hull"]["kpBRR"] = aBoat.hull.kpBRR;
   aJsonRoot["hull"]["kpRRR"] = aBoat.hull.kpRRR;
+}
+
+void BoatManager::SetLight(Boat& aBoat, Json::Value& aJsonRoot)
+{
+  aJsonRoot["lights"]["numberOfLights"] = aBoat.light.number;
+
+  for(unsigned char i=0; i<5; i++)
+    {
+      aJsonRoot["lights"]["list"][i]["x"] = aBoat.light.light[i].data[0];
+      aJsonRoot["lights"]["list"][i]["y"] = aBoat.light.light[i].data[1];
+      aJsonRoot["lights"]["list"][i]["z"] = aBoat.light.light[i].data[2];
+      aJsonRoot["lights"]["list"][i]["range"] = aBoat.light.light[i].data[3];
+      aJsonRoot["lights"]["list"][i]["red"] = aBoat.light.light[i].data[4];
+      aJsonRoot["lights"]["list"][i]["green"] = aBoat.light.light[i].data[5];
+      aJsonRoot["lights"]["list"][i]["blue"] = aBoat.light.light[i].data[6];
+      aJsonRoot["lights"]["list"][i]["startAngle"] = aBoat.light.light[i].data[7];
+      aJsonRoot["lights"]["list"][i]["endAngle"] = aBoat.light.light[i].data[8];
+    }
+}
+
+void BoatManager::ParseLight(Boat& aBoat, Json::Value& aJsonRoot)
+{
+  aBoat.light.number = aJsonRoot["lights"]["numberOfLights"].asInt();
+    
+  for (unsigned char i=0; i<5; i++)
+    {
+      aBoat.light.light[i].data[0] = aJsonRoot["lights"]["list"][i]["x"].asFloat();
+      aBoat.light.light[i].data[1] = aJsonRoot["lights"]["list"][i]["y"].asFloat();
+      aBoat.light.light[i].data[2] = aJsonRoot["lights"]["list"][i]["z"].asFloat();      
+      aBoat.light.light[i].data[3] = aJsonRoot["lights"]["list"][i]["range"].asFloat();
+      aBoat.light.light[i].data[4] = aJsonRoot["lights"]["list"][i]["red"].asFloat();
+      aBoat.light.light[i].data[5] = aJsonRoot["lights"]["list"][i]["green"].asFloat();
+      aBoat.light.light[i].data[6] = aJsonRoot["lights"]["list"][i]["blue"].asFloat();
+      aBoat.light.light[i].data[7] = aJsonRoot["lights"]["list"][i]["startAngle"].asFloat();
+      aBoat.light.light[i].data[8] = aJsonRoot["lights"]["list"][i]["endAngle"].asFloat();
+    }
 }
 
 void BoatManager::SetRudder(Boat& aBoat, Json::Value& aJsonRoot)
@@ -356,7 +402,9 @@ std::vector<Boat> BoatManager::LoadBoats(const std::string& aFolderPath)
       ParseSail(b, root);
       //Hull
       ParseHull(b, root);
-    
+      //Light
+      ParseLight(b, root);
+      
       boats.push_back(b);
     }
 
@@ -370,19 +418,19 @@ bool BoatManager::SaveBoat(Boat& aBoat)
   
   if (!aBoat.filePath.empty())
     {
-		//Update path
-        if(PATH_JSON_BOATS + aBoat.displayName  != aBoat.imgPath)
-        {
-            fs::rename(aBoat.imgPath, PATH_JSON_BOATS + aBoat.displayName);
-            aBoat.filePath = PATH_JSON_BOATS + aBoat.displayName + "/boat.json";
-            aBoat.imgPath = PATH_JSON_BOATS + aBoat.displayName;
+      //Update path
+      if(PATH_JSON_BOATS + aBoat.displayName  != aBoat.imgPath)
+	{
+	  fs::rename(aBoat.imgPath, PATH_JSON_BOATS + aBoat.displayName);
+	  aBoat.filePath = PATH_JSON_BOATS + aBoat.displayName + "/boat.json";
+	  aBoat.imgPath = PATH_JSON_BOATS + aBoat.displayName;
         }
 
-		
       out = aBoat.filePath;
 
       EmpiricalShip empShip(aBoat);
       empShip.Process();
+
       //General
       SetGeneral(aBoat, root);
       //Initial Speed
@@ -393,6 +441,8 @@ bool BoatManager::SaveBoat(Boat& aBoat)
       SetAddedMass(aBoat, root);
       //Hull
       SetHull(aBoat, root);
+      //Light
+      SetLight(aBoat, root);
       //Rudder
       SetRudder(aBoat, root);
       //Propeller

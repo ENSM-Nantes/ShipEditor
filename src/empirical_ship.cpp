@@ -1,5 +1,6 @@
 #include <cmath>
 #include "empirical_ship.h"
+#include "BoatType.hpp"
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
@@ -15,6 +16,11 @@ EmpiricalShip::~EmpiricalShip()
 
 }
 
+unsigned char EmpiricalShip::GetType(void)
+{
+  return mType;
+}
+
 void EmpiricalShip::Process(void)
 {
   Physical *pPhy = &mBoat.physicalCharac;
@@ -22,34 +28,21 @@ void EmpiricalShip::Process(void)
   Hull *pHull = &mBoat.hull;
   Prop *pProp = &mBoat.prop;
   Rudder *pRudder = &mBoat.rudder;
-  std::string typeStr = mBoat.type;
-  unsigned char type = 0; 
+  std::string typeStr = mBoat.typeStr;
   
-  if(typeStr == "Container" ||
-     typeStr == "Cargo" ||
-     typeStr == "BulkCarrier")
-    {
-      type = 1;
-    }
-  else if(typeStr == "Ferry" ||
-	  typeStr == "CruiseLiner" ||
-	  typeStr == "Tug")
-    {
-      type = 0;
-    }
-  else if(typeStr == "RoRo")
-    {
-      type = 2;
-    }
-  else if(typeStr == "Tanker")
-    {
-      type = 3;
-    }
- 
+  if(typeStr == "Container") mType = CARGO_CONTAINER;
+  else if(typeStr == "Cargo") mType = CARGO_ALL;
+  else if(typeStr == "BulkCarrier") mType = CARGO_BULK;
+  else if(typeStr == "CruiseLiner") mType = PASSENGER_CRUISE;
+  else if(typeStr == "Ferry") mType = PASSENGER_FERRY;
+  else if(typeStr == "RoRo") mType = CARGO_RORO;
+  else if(typeStr == "Tanker") mType = TANKER_NON_HAZARDOUS;
+  else if(typeStr == "Tug") mType = TUG;
   else
-    type = 0;
+    mType = NOT_AVAILABLE;
+
+  mBoat.type = mType;
     
-  
   //Constants
   mDb = pPhy->d / pPhy->b;
   mLppB = pPhy->lPP / pPhy->b;
@@ -93,12 +86,10 @@ void EmpiricalShip::Process(void)
   pHull->npVRR = -0.075 * (1. - pPhy->cB) * mLppB - 0.098; //Yoshimura and Masumoto (2012)
   pHull->npRRR = 0.25 * pPhy->cB / mLppB - 0.056; //Yoshimura and Masumoto (2012)
 
-  switch(type)
+  switch(mType)
     {
 
-    case 3://Tanker
-
- 
+    case TANKER_NON_HAZARDOUS: 
       pHull->ypV = -0.2790; 
       pHull->ypR = 0.0094; 
       pHull->ypVVV =-1.7349 ; 
@@ -127,7 +118,9 @@ void EmpiricalShip::Process(void)
       break;
 
       
-    case 1://Container
+    case CARGO_CONTAINER:
+    case CARGO_ALL:
+    case CARGO_BULK:
       pHull->kpG = -0.0299;
       pHull->kpB = -0.1367;
       pHull->kpR = 0.0085;
@@ -141,7 +134,7 @@ void EmpiricalShip::Process(void)
 
       break;
 
-    case 2://Roro
+    case CARGO_RORO:
       pHull->kpG = -0.024;
       pHull->kpB = -0.1367;
       pHull->kpR = 0.0085;
@@ -154,7 +147,9 @@ void EmpiricalShip::Process(void)
       pHull->kpRRR = 0.0363;
       break;
       
-    case 0://Ferry or default
+    case PASSENGER_CRUISE:
+    case PASSENGER_FERRY:
+    case TUG:
     default:
       pHull->kpG = -0.0185;
       pHull->kpB = -0.2586;

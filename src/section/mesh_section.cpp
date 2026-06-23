@@ -118,24 +118,30 @@ void MeshSection::refresh(void)
       mIsViewTop[i]->refresh();
     }
   
-  if(mViewsAttachedCounter > mBoat->mesh.nbrViews)
+  if(mViewsAttachedCounter > (int)mBoat->mesh.nbrViews)
     {
-      for(int j=0; j<(mViewsAttachedCounter - mBoat->mesh.nbrViews); j++)
+      int toRemove = mViewsAttachedCounter - (int)mBoat->mesh.nbrViews;
+      for(int j=0; j<toRemove; j++)
 	{
-	  mGrid.remove(mViews[mViews.size()-1-j]->getBox());
-	  mGrid.remove(mIsViewTop[mViews.size()-1-j]->getBox());
-	  mViewsAttachedCounter--;
+	  int idx = mViewsAttachedCounter - 1 - j;
+	  mGrid.remove(mViews[idx]->getBox());
+	  mGrid.remove(mIsViewTop[idx]->getBox());
 	}
+      mViewsAttachedCounter -= toRemove;
     }
 
-  if(mViewsAttachedCounter < mBoat->mesh.nbrViews)
+  if(mViewsAttachedCounter < (int)mBoat->mesh.nbrViews)
     {
-       for(int j=0; j<(mBoat->mesh.nbrViews - mViewsAttachedCounter); j++)
+      int toAttach = (int)mBoat->mesh.nbrViews - mViewsAttachedCounter;
+      for(int j=0; j<toAttach; j++)
 	{
-	  mGrid.attach(mViews[mViewsAttachedCounter+j]->getBox(), 0, 3+mViewsAttachedCounter+j);
-	  mGrid.attach(mIsViewTop[mViewsAttachedCounter+j]->getBox(), 1, 3+mViewsAttachedCounter+j);
-	  mViewsAttachedCounter++;
+	  int idx = mViewsAttachedCounter + j;
+	  mViews[idx]->getBox().show();
+	  mIsViewTop[idx]->getBox().show();
+	  mGrid.attach(mViews[idx]->getBox(), 0, 3+idx);
+	  mGrid.attach(mIsViewTop[idx]->getBox(), 1, 3+idx);
 	}
+      mViewsAttachedCounter += toAttach;
     }
        
 }

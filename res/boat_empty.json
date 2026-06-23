@@ -2,7 +2,12 @@
     "general": {
 	"boatName": "NewBoat", 
 	"imgName": "default.jpg",
-	"type" : "type",
+	"typeStr" : "type",
+	"type" : 0,
+	"mmsi" : 0,
+	"imo" : 0,
+	"callSign" : "XX",
+	"dest" : "XXXX",
 	"desc" : "Description or additionnal informations"
     },
     "initialSpeed": [ 0, 0, 0 ],

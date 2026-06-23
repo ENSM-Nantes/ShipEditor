@@ -30,7 +30,7 @@ public:
   void init(std::string str, int *ref_var);
   void init(std::string str, float *ref_var, bool aIsSensitive=true);
   void init(std::string str, double *ref_var);
-  void init(std::string str, float *ref_var, int size);
+  void init(std::string str, float *ref_var, int size, bool aIsSensitive=true);
   void init(std::string str, bool *ref_var);
 
   void set(std::string *ref_var);
@@ -55,13 +55,15 @@ protected:
   float *var_vector;
   bool *var_bool;
 
+  bool mIsScrollable;
+
   Label mLabel;
   Entry mOneEntry;
   Entry mVectorEntry[MAX_ENTRY_VECTOR];
   TextView mTextEntry;
   ScrolledWindow mScrolledWindow;
-  
-  CheckButton  m_checkbutton;  
+
+  CheckButton  m_checkbutton;
 }; 
 
 

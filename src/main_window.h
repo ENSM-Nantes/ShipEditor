@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <gtkmm.h>
+#include <gdk/gdkkeysyms.h>
 #include "BoatRow.hpp"
 #include "BoatManager.hpp"
 #include "section/general_section.h"
@@ -17,8 +18,9 @@
 #include "section/engine_section.h"
 #include "section/sail_section.h"
 #include "section/hull_section.h"
+#include "section/light_section.h"
 
-#define WINDOWS_SECTION_COUNT 11
+#define WINDOWS_SECTION_COUNT 12
 
 class MainWindow : public Gtk::Window {
 public:
@@ -38,6 +40,7 @@ public:
   void New(void);
   void Delete(void);
   void InfoBubble(const std::string &aMessage, const std::string &aDetail);
+  bool OnKeyPressed(guint keyval, guint keycode, Gdk::ModifierType state);
 
 private:
 
@@ -78,9 +81,10 @@ private:
   EngineSection mEngineSection;
   SailSection mSailSection;
   HullSection mHullSection;
-
+  LightSection mLightSection;
   
   Glib::RefPtr<Gtk::AlertDialog> mDialog;
+  Glib::RefPtr<Gtk::EventControllerKey> mKeyController;
 
   std::vector<Boat> mBoats;
   std::vector<BoatRow*> mBoatRows;

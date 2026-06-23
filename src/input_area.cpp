@@ -8,6 +8,7 @@
 InputArea::InputArea(): mBox(Orientation::HORIZONTAL)
 {
   mType = TYPE_NULL;
+  mIsScrollable = false;
 }
 
 InputArea::~InputArea()
@@ -15,8 +16,9 @@ InputArea::~InputArea()
   
 }
 
-void InputArea::initLayout(bool aIsScrollable) 
+void InputArea::initLayout(bool aIsScrollable)
 {
+  mIsScrollable = aIsScrollable;
   // Layout
   mBox.set_margin_top(2);
   mBox.set_margin_bottom(2);
@@ -153,7 +155,7 @@ void InputArea::init(std::string str, double *ref_var)
 }
 
 
-void InputArea::init(std::string str, float *ref_var, int aSize) 
+void InputArea::init(std::string str, float *ref_var, int aSize, bool aIsSensitive) 
 {
   set(ref_var, true);
 
@@ -169,8 +171,13 @@ void InputArea::init(std::string str, float *ref_var, int aSize)
       mVectorEntry[i].set_placeholder_text("Entry n° " + std::to_string(i));
       mVectorEntry[i].show();
       mVectorEntry[i].add_css_class("gray-entry");
+
+      if(!aIsSensitive)
+	mVectorEntry[i].set_sensitive(false);
+    
     }
-   // Layout
+
+  // Layout
   mBox.set_margin_top(2);
   mBox.set_margin_bottom(2);
   mBox.set_margin_start(2);
@@ -261,21 +268,19 @@ void InputArea::update()
 		  
       }
 
-    raw_text = mTextEntry.get_buffer()->get_text();
-    if(!raw_text.empty())
-      {
-	switch(mType) {
-	case TYPE_STRING:
-	  // Copy the value
-	  *var_str = raw_text;
-	  break;
-       
-	default:
-	  // TODO: create an error
-	  break;
-	}
-		  
-      }
+    if(mIsScrollable) {
+      raw_text = mTextEntry.get_buffer()->get_text();
+      if(!raw_text.empty())
+        {
+	  switch(mType) {
+	  case TYPE_STRING:
+	    *var_str = raw_text;
+	    break;
+	  default:
+	    break;
+	  }
+        }
+    }
   }
 }
 
