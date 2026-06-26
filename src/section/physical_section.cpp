@@ -19,6 +19,9 @@ PhysicalSection::PhysicalSection():
   mGravityCenter.getBox().show();
   mGM.getBox().show();
   mKM.getBox().show();
+  mH.getBox().show();
+  mCoefH.getBox().show();
+  mCoefL.getBox().show();
   
   // Fill the grid
   mGrid.attach(mBox, 0, 0);
@@ -36,6 +39,10 @@ PhysicalSection::PhysicalSection():
   mGrid.attach(mGM.getBox(), 0, 4);
   mGrid.attach(mKM.getBox(), 1, 4);
 
+  mGrid.attach(mH.getBox(), 0, 5);
+  mGrid.attach(mCoefH.getBox(), 1, 5);
+  mGrid.attach(mCoefL.getBox(), 2, 5);
+  
   mGrid.set_column_homogeneous(true);
   // Show and set the grid as the child
   mGrid.show();
@@ -58,6 +65,9 @@ void PhysicalSection::set()
   mGravityCenter.set(&mBoat->physicalCharac.xG);
   mGM.set(&mBoat->physicalCharac.gM);
   mKM.set(&mBoat->physicalCharac.kM);
+  mH.set(&mBoat->physicalCharac.h);
+  mCoefH.set(&mBoat->physicalCharac.coefH);
+  mCoefL.set(&mBoat->physicalCharac.coefL);
 }
 
 void PhysicalSection::init()
@@ -71,6 +81,9 @@ void PhysicalSection::init()
   mGravityCenter.init("Longitudinal gravity center from center (m)", &mBoat->physicalCharac.xG);
   mGM.init("GM (m)", &mBoat->physicalCharac.gM);
   mKM.init("KM (m)", &mBoat->physicalCharac.kM);
+  mH.init("Air height (m)", &mBoat->physicalCharac.h);
+  mCoefH.init("Air draft height coefficient (0-1)", &mBoat->physicalCharac.coefH);
+  mCoefL.init("Air draft length coefficient (0-1)", &mBoat->physicalCharac.coefL);
 }
 
 

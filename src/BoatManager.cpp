@@ -123,6 +123,9 @@ void BoatManager::ParsePhysical(Boat& aBoat, Json::Value& aJsonRoot)
   aBoat.physicalCharac.gM = aJsonRoot["geoParams"]["GM"].asFloat();
   aBoat.physicalCharac.kM = aJsonRoot["geoParams"]["KM"].asFloat();
   aBoat.physicalCharac.cB = aJsonRoot["geoParams"]["blockCoef"].asFloat();
+  aBoat.physicalCharac.h = aJsonRoot["geoParams"]["airHeight"].asFloat();
+  aBoat.physicalCharac.coefH = aJsonRoot["geoParams"]["airDraftCoefH"].asFloat();
+  aBoat.physicalCharac.coefL = aJsonRoot["geoParams"]["airDraftCoefL"].asFloat();
 }
 
 void BoatManager::SetPhysical(Boat& aBoat, Json::Value& aJsonRoot)
@@ -137,6 +140,9 @@ void BoatManager::SetPhysical(Boat& aBoat, Json::Value& aJsonRoot)
   aJsonRoot["geoParams"]["GM"] = aBoat.physicalCharac.gM;
   aJsonRoot["geoParams"]["KM"] = aBoat.physicalCharac.kM;
   aJsonRoot["geoParams"]["blockCoef"] = aBoat.physicalCharac.cB;
+  aJsonRoot["geoParams"]["airHeight"] = aBoat.physicalCharac.h;
+  aJsonRoot["geoParams"]["airDraftCoefH"] = aBoat.physicalCharac.coefH;
+  aJsonRoot["geoParams"]["airDraftCoefL"] = aBoat.physicalCharac.coefL;
 }
 
 void BoatManager::ParseRudder(Boat& aBoat, Json::Value& aJsonRoot)

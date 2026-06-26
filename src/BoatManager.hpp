@@ -103,6 +103,9 @@ struct Physical
   float gM;
   float kM;
   float cB;
+  float h;
+  float coefH;
+  float coefL;
 };
 
 struct AddedMass{
