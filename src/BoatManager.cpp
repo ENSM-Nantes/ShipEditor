@@ -50,8 +50,7 @@ void BoatManager::ParseGeneral(Boat& aBoat, Json::Value& aJsonRoot)
 {
   aBoat.displayName = aJsonRoot["general"]["boatName"].asString();
   aBoat.imgName = aJsonRoot["general"]["imgName"].asString();
-  aBoat.typeStr = aJsonRoot["general"]["typeStr"].asString();
-  aBoat.desc = aJsonRoot["general"]["desc"].asString();
+  aBoat.typeStr = aJsonRoot["general"]["typeStr"].asString();  aBoat.desc = aJsonRoot["general"]["desc"].asString();
   aBoat.dest = aJsonRoot["general"]["dest"].asString();
   aBoat.type = aJsonRoot["general"]["type"].asInt();
   aBoat.mmsi = aJsonRoot["general"]["mmsi"].asInt();
@@ -323,6 +322,31 @@ void BoatManager::SetEngine(Boat& aBoat, Json::Value& aJsonRoot)
   aJsonRoot["engine"]["fuelCons"] = aBoat.engine.fuelCons;
 }
 
+void BoatManager::ParseThruster(Boat& aBoat, Json::Value& aJsonRoot)
+{
+  aBoat.thruster.hasBowThruster = aJsonRoot["thruster"]["bow"].asBool();
+  aBoat.thruster.hasSternThruster = aJsonRoot["thruster"]["stern"].asBool();
+  aBoat.thruster.brand = aJsonRoot["thruster"]["brand"].asString();
+  aBoat.thruster.type = aJsonRoot["thruster"]["type"].asString();
+  aBoat.thruster.power = aJsonRoot["thruster"]["power"].asFloat();
+  aBoat.thruster.rpmMax = aJsonRoot["thruster"]["rpmMax"].asFloat();
+  aBoat.thruster.fuelCons = aJsonRoot["thruster"]["fuelCons"].asFloat();
+  aBoat.thruster.propDiam = aJsonRoot["thruster"]["propDiam"].asFloat();
+}
+
+void BoatManager::SetThruster(Boat& aBoat, Json::Value& aJsonRoot)
+{
+  aJsonRoot["thruster"]["bow"] = aBoat.thruster.hasBowThruster;
+  aJsonRoot["thruster"]["stern"] = aBoat.thruster.hasSternThruster;
+  aJsonRoot["thruster"]["brand"] = aBoat.thruster.brand;
+  aJsonRoot["thruster"]["type"] = aBoat.thruster.type;
+  aJsonRoot["thruster"]["power"] = aBoat.thruster.power;
+  aJsonRoot["thruster"]["rpmMax"] = aBoat.thruster.rpmMax;
+  aJsonRoot["thruster"]["fuelCons"] = aBoat.thruster.fuelCons;
+  aJsonRoot["thruster"]["propDiam"] = aBoat.thruster.propDiam;
+}
+
+
 void BoatManager::SetInitialSpeed(Boat& aBoat, Json::Value& aJsonRoot)
 {
   aJsonRoot["initialSpeed"][0] = 0;
@@ -404,6 +428,8 @@ std::vector<Boat> BoatManager::LoadBoats(const std::string& aFolderPath)
       ParsePropeller(b, root);
       //Engine
       ParseEngine(b, root);
+      //Thruster
+      ParseThruster(b, root);
       //Sails
       ParseSail(b, root);
       //Hull
@@ -455,6 +481,8 @@ bool BoatManager::SaveBoat(Boat& aBoat)
       SetPropeller(aBoat, root);
       //Engine
       SetEngine(aBoat, root);
+      //Thruster
+      SetThruster(aBoat, root);
       //Sails
       SetSail(aBoat, root);
       //Mesh

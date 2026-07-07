@@ -45,7 +45,8 @@ MainWindow::MainWindow():
   mEngineSection(),
   mSailSection(),
   mHullSection(),
-  mLightSection()
+  mLightSection(),
+  mThrusterSection()
 {
   // Configure this window:
   set_default_size(1920, 1024);
@@ -71,6 +72,7 @@ MainWindow::MainWindow():
   mSailSection.show();
   mHullSection.show();
   mLightSection.show();
+  mThrusterSection.show();
 
   //Header
   mHeaderBox.set_margin_top(15);
@@ -102,6 +104,7 @@ MainWindow::MainWindow():
   mConfBoatBox.append(mRudderSection);
   mConfBoatBox.append(mPropellerSection);
   mConfBoatBox.append(mEngineSection);
+  mConfBoatBox.append(mThrusterSection);
   mConfBoatBox.append(mHullSection);
   mConfBoatBox.append(mSailSection);
   mConfBoatBox.append(mGpsSection);
@@ -241,7 +244,8 @@ void MainWindow::LoadBoat(Boat *aBoat)
   mEngineSection.load(aBoat);
   mSailSection.load(aBoat);
   mHullSection.load(aBoat);
-  mLightSection.load(aBoat); 
+  mLightSection.load(aBoat);
+  mThrusterSection.load(aBoat);
 }
 
 void MainWindow::Set(void)
@@ -259,6 +263,7 @@ void MainWindow::Set(void)
   mSailSection.set();
   mHullSection.set();
   mLightSection.set();
+  mThrusterSection.set();
 }
 
 void MainWindow::Init(void)
@@ -276,6 +281,7 @@ void MainWindow::Init(void)
   mSailSection.init();
   mHullSection.init();
   mLightSection.init();
+  mThrusterSection.init();
 }
 
 void MainWindow::InfoBubble(const std::string &aMessage, const std::string &aDetail)
@@ -317,6 +323,7 @@ void MainWindow::Update()
   mSailSection.update();
   mHullSection.update();
   mLightSection.update();
+  mThrusterSection.update();
   
   currentBoatRow = mBoatList.get_row_at_index(mCurrentRowIndex);
 
@@ -364,6 +371,7 @@ void MainWindow::Refresh()
   mSailSection.refresh();
   mHullSection.refresh();
   mLightSection.refresh();
+  mThrusterSection.refresh();
 }
 
 void MainWindow::RefreshCbk()

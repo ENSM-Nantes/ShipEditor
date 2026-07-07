@@ -19,8 +19,7 @@
 #include "section/sail_section.h"
 #include "section/hull_section.h"
 #include "section/light_section.h"
-
-#define WINDOWS_SECTION_COUNT 12
+#include "section/thruster_section.h"
 
 class MainWindow : public Gtk::Window {
 public:
@@ -82,6 +81,7 @@ private:
   SailSection mSailSection;
   HullSection mHullSection;
   LightSection mLightSection;
+  ThrusterSection mThrusterSection;
   
   Glib::RefPtr<Gtk::AlertDialog> mDialog;
   Glib::RefPtr<Gtk::EventControllerKey> mKeyController;

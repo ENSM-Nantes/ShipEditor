@@ -96,6 +96,16 @@
 	"rpmMax": 0,
 	"fuelCons": 0 
     },
+    "thruster": {
+	"bow": false,
+	"stern": false,
+	"brand": "Thruster", 
+	"type": "type",
+	"power": 0,
+	"rpmMax": 0,
+	"fuelCons": 0,
+	"propDiam" : 0
+    },
     "sail": {
 	"number": 1, 
 	"type": "type", 

@@ -73,6 +73,18 @@ struct Engine {
   float fuelCons;
 };
 
+struct Thruster {
+  bool hasBowThruster;
+  bool hasSternThruster;
+  std::string brand;
+  std::string type;
+  float power;
+  float rpmMax;
+  float fuelCons;
+  float propDiam;
+};
+
+
 struct Rudder
 {
   int number;
@@ -188,6 +200,7 @@ struct Boat
   Rudder rudder;
   SailList sails;
   LightList light;
+  Thruster thruster;
 };
 
 class BoatManager {
@@ -199,6 +212,7 @@ public:
   static void SetAddedMass(Boat& aBoat, Json::Value& aJsonRoot);
   static void SetSail(Boat& aBoat, Json::Value& aJsonRoot);
   static void SetEngine(Boat& aBoat, Json::Value& aJsonRoot);
+  static void SetThruster(Boat& aBoat, Json::Value& aJsonRoot);
   static void SetPropeller(Boat& aBoat, Json::Value& aJsonRoot);
   static void SetRudder(Boat& aBoat, Json::Value& aJsonRoot);
   static void SetPhysical(Boat& aBoat, Json::Value& aJsonRoot);
@@ -208,6 +222,7 @@ public:
   static void SetLight(Boat& aBoat, Json::Value& aJsonRoot);
   static void ParseSail(Boat& aBoat, Json::Value& aJsonRoot);
   static void ParseEngine(Boat& aBoat, Json::Value& aJsonRoot);
+  static void ParseThruster(Boat& aBoat, Json::Value& aJsonRoot);
   static void ParsePropeller(Boat& aBoat, Json::Value& aJsonRoot);
   static void ParseRudder(Boat& aBoat, Json::Value& aJsonRoot);
   static void ParsePhysical(Boat& aBoat, Json::Value& aJsonRoot);
