@@ -15,6 +15,7 @@ PropellerSection::PropellerSection():
   mDiameter.getBox().show();
   mForwardRotDir.getBox().show();
   mBackwardEff.getBox().show();
+  mXStern.getBox().show();
   
   // Fill the grid
   mGrid.attach(mBox, 0, 0);
@@ -24,7 +25,8 @@ PropellerSection::PropellerSection():
   mGrid.attach(mDiameter.getBox(), 0, 2);
   mGrid.attach(mForwardRotDir.getBox(), 0, 3);
   mGrid.attach(mBackwardEff.getBox(), 1, 3);
-
+  mGrid.attach(mXStern.getBox(), 0, 8);
+  
   // Show and set the grid as the child
   mGrid.show();
   set_child(mGrid);
@@ -37,6 +39,7 @@ void PropellerSection::set()
   mDiameter.set(&mBoat->prop.diameter);
   mForwardRotDir.set(&mBoat->prop.forwardRotDir);
   mBackwardEff.set(&mBoat->prop.backwardEff);
+  mXStern.set(&mBoat->prop.xp);
 }
 
 void PropellerSection::init()
@@ -46,6 +49,7 @@ void PropellerSection::init()
   mDiameter.init("Diameter (m)", &mBoat->prop.diameter);
   mForwardRotDir.init("Forward rotation direction (right or left)", &mBoat->prop.forwardRotDir);
   mBackwardEff.init("Backward efficiency (0-1)", &mBoat->prop.backwardEff);
+  mXStern.init("Non dimensional longitudinal position from midship (Stern)", &mBoat->prop.xp );
 }
 
 

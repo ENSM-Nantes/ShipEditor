@@ -284,6 +284,7 @@ void BoatManager::ParsePropeller(Boat& aBoat, Json::Value& aJsonRoot)
   aBoat.prop.diameter = aJsonRoot["propeller"]["diameter"].asFloat();                  
   aBoat.prop.forwardRotDir = aJsonRoot["propeller"]["forwardRotDir"].asString();            
   aBoat.prop.backwardEff = aJsonRoot["propeller"]["backwardEff"].asFloat();
+  aBoat.prop.xp = aJsonRoot["propeller"]["longPosition"].asFloat();
 }
 
 void BoatManager::SetPropeller(Boat& aBoat, Json::Value& aJsonRoot)
@@ -332,6 +333,15 @@ void BoatManager::ParseThruster(Boat& aBoat, Json::Value& aJsonRoot)
   aBoat.thruster.rpmMax = aJsonRoot["thruster"]["rpmMax"].asFloat();
   aBoat.thruster.fuelCons = aJsonRoot["thruster"]["fuelCons"].asFloat();
   aBoat.thruster.propDiam = aJsonRoot["thruster"]["propDiam"].asFloat();
+  aBoat.thruster.tFactor = aJsonRoot["thruster"]["thrustFactor"].asFloat(); 
+  aBoat.thruster.w0fraction = aJsonRoot["thruster"]["nominalWake"].asFloat();
+  aBoat.thruster.k0 = aJsonRoot["thruster"]["k0"].asFloat();
+  aBoat.thruster.k1 = aJsonRoot["thruster"]["k1"].asFloat();
+  aBoat.thruster.k2 = aJsonRoot["thruster"]["k2"].asFloat();
+  aBoat.thruster.forwardRotDir = aJsonRoot["thruster"]["forwardRotDir"].asString();
+  aBoat.thruster.backwardEff = aJsonRoot["thruster"]["backwardEff"].asFloat();
+  aBoat.thruster.pos.xBow = aJsonRoot["thruster"]["pos"]["bow"]["x"].asFloat();
+  aBoat.thruster.pos.xStern = aJsonRoot["thruster"]["pos"]["stern"]["x"].asFloat();
 }
 
 void BoatManager::SetThruster(Boat& aBoat, Json::Value& aJsonRoot)
@@ -344,6 +354,16 @@ void BoatManager::SetThruster(Boat& aBoat, Json::Value& aJsonRoot)
   aJsonRoot["thruster"]["rpmMax"] = aBoat.thruster.rpmMax;
   aJsonRoot["thruster"]["fuelCons"] = aBoat.thruster.fuelCons;
   aJsonRoot["thruster"]["propDiam"] = aBoat.thruster.propDiam;
+  aJsonRoot["thruster"]["thrustFactor"] = aBoat.thruster.tFactor; 
+  aJsonRoot["thruster"]["nominalWake"] = aBoat.thruster.w0fraction;
+  aJsonRoot["thruster"]["k0"] = aBoat.thruster.k0;
+  aJsonRoot["thruster"]["k1"] = aBoat.thruster.k1;
+  aJsonRoot["thruster"]["k2"] = aBoat.thruster.k2;
+  aJsonRoot["thruster"]["forwardRotDir"] = aBoat.thruster.forwardRotDir;
+  aJsonRoot["thruster"]["backwardEff"] = aBoat.thruster.backwardEff;
+  aJsonRoot["thruster"]["pos"]["bow"]["x"] = aBoat.thruster.pos.xBow;
+  aJsonRoot["thruster"]["pos"]["stern"]["x"] = aBoat.thruster.pos.xStern;
+
 }
 
 

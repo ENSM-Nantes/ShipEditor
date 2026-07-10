@@ -104,7 +104,24 @@
 	"power": 0,
 	"rpmMax": 0,
 	"fuelCons": 0,
-	"propDiam" : 0
+	"propDiam" : 0,
+	"thrustFactor": 0, 
+	"nominalWake": 0,
+	"k0": 0,
+	"k1": 0,
+	"k2": 0,
+	"forwardRotDir": "right",
+	"backwardEff": 0,
+	"pos":
+	{
+	    "bow": { 
+		"x" : 0
+	    },
+
+	    "stern": { 
+		"x" : 0
+	    }
+	}	
     },
     "sail": {
 	"number": 1, 

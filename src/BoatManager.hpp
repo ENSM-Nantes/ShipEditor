@@ -73,6 +73,11 @@ struct Engine {
   float fuelCons;
 };
 
+struct PosThruster {
+  float xBow;
+  float xStern;
+};
+
 struct Thruster {
   bool hasBowThruster;
   bool hasSternThruster;
@@ -82,6 +87,15 @@ struct Thruster {
   float rpmMax;
   float fuelCons;
   float propDiam;
+  PosThruster pos;
+  float tFactor;
+  float w0fraction;
+  float k0; 
+  float k1; 
+  float k2 ;
+  std::string forwardRotDir;
+  float backwardEff;
+
 };
 
 

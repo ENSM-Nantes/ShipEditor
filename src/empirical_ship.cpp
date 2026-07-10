@@ -27,6 +27,7 @@ void EmpiricalShip::Process(void)
   AddedMass *pAddMass = &mBoat.addedMass;
   Hull *pHull = &mBoat.hull;
   Prop *pProp = &mBoat.prop;
+  Thruster *pThruster = &mBoat.thruster;
   Rudder *pRudder = &mBoat.rudder;
   std::string typeStr = mBoat.typeStr;
   
@@ -166,12 +167,18 @@ void EmpiricalShip::Process(void)
   
   //Propeller
   pProp->tFactor = 0.27;
-  pProp->xp = -0.48; 
   pProp->w0fraction = 0.5 * pPhy->cB - 0.05; //Kijima et al.(1990)
   pProp->k0 = 0.293; 
   pProp->k1 = -0.275; 
   pProp->k2 = -0.139;
 
+  //Thruster
+  pThruster->tFactor = 0.27;
+  pThruster->w0fraction = 0.5 * pPhy->cB - 0.05; //Kijima et al.(1990)
+  pThruster->k0 = 0.293; 
+  pThruster->k1 = -0.275; 
+  pThruster->k2 = -0.139;
+  
   //Rudder
   pRudder->xPr= -0.5;
   pRudder->aH = 3.6 * pPhy->cB / mLppB; //Yoshimura and Masumoto (2012) 
