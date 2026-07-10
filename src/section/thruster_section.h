@@ -6,7 +6,7 @@
 #include "../BoatManager.hpp"
 #include "section.h"
 
-#define THRUSTER_INPUT_COUNT 12
+#define THRUSTER_INPUT_COUNT 11
 
 using namespace Gtk;
 
@@ -23,8 +23,8 @@ public:
 protected:
   Grid mGrid;
 
-  InputArea mBow, mStern, mBrand, mType, mPower, mRpmMax, mFuelCons, mPropellerDiameter, mForwardRotDir, mBackwardEff, mXBow, mXStern;
-  InputArea *mInputList[THRUSTER_INPUT_COUNT] = {&mBow, &mStern, &mBrand, &mType, &mPower, &mRpmMax, &mFuelCons, &mPropellerDiameter, &mForwardRotDir, &mBackwardEff, &mXBow, &mXStern};
+  InputArea mBow, mStern, mBrand, mType, mPower, mRpmMax, mFuelCons, mPropellerDiameter, mForwardRotDir, mXBow, mXStern;
+  InputArea *mInputList[THRUSTER_INPUT_COUNT] = {&mBow, &mStern, &mBrand, &mType, &mPower, &mRpmMax, &mFuelCons, &mPropellerDiameter, &mForwardRotDir, &mXBow, &mXStern};
 
 };
 

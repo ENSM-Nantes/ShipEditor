@@ -94,8 +94,6 @@ struct Thruster {
   float k1; 
   float k2 ;
   std::string forwardRotDir;
-  float backwardEff;
-
 };
 
 

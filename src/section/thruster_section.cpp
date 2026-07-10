@@ -19,7 +19,6 @@ ThrusterSection::ThrusterSection():
   mFuelCons.getBox().show();
   mPropellerDiameter.getBox().show();
   mForwardRotDir.getBox().show();
-  mBackwardEff.getBox().show();
   mXBow.getBox().show();
   mXStern.getBox().show();
   
@@ -35,7 +34,6 @@ ThrusterSection::ThrusterSection():
   mGrid.attach(mFuelCons.getBox(), 2, 3);
   mGrid.attach(mPropellerDiameter.getBox(), 3, 3);
   mGrid.attach(mForwardRotDir.getBox(), 0, 4);
-  mGrid.attach(mBackwardEff.getBox(), 1, 4);
   mGrid.attach(mXBow.getBox(), 0, 5);
   mGrid.attach(mXStern.getBox(), 0, 8);
   
@@ -55,7 +53,6 @@ void ThrusterSection::set()
   mFuelCons.set(&mBoat->thruster.fuelCons);
   mPropellerDiameter.set(&mBoat->thruster.propDiam);
   mForwardRotDir.set(&mBoat->thruster.forwardRotDir);
-  mBackwardEff.set(&mBoat->thruster.backwardEff);
   mXBow.set(&mBoat->thruster.pos.xBow);
   mXStern.set(&mBoat->thruster.pos.xStern);
 }
@@ -72,7 +69,6 @@ void ThrusterSection::init()
   mFuelCons.init("Fuel consumption (g/kWh)", &mBoat->engine.fuelCons);
   mPropellerDiameter.init("Thruster propeller diameter (m)", &mBoat->thruster.propDiam);
   mForwardRotDir.init("Forward rotation direction (right or left)", &mBoat->thruster.forwardRotDir);
-  mBackwardEff.init("Backward efficiency (0-1)", &mBoat->thruster.backwardEff);
   mXBow.init("Non dimensional longitudinal position from midship (Bow)", &mBoat->thruster.pos.xBow);
   mXStern.init("Non dimensional longitudinal position from midship (Stern)", &mBoat->thruster.pos.xStern);
 }
