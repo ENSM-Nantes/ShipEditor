@@ -43,8 +43,12 @@ cmake ../src
 cmake --build .
 ```
 
-##Génération installeur Win64
+## Génération installeur Win64
 - Exécuter install.nsi depuis install/
+
+## Wiki
+
+https://somos-project.fr/dokuwiki/doku.php?id=start
 
 ## Example
 ![alt text](https://github.com/ENSM-Nantes/ShipEditor/blob/main/res/Screenshot_ShipEditorv2.png)
