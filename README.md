@@ -51,4 +51,4 @@ cmake --build .
 https://somos-project.fr/dokuwiki/doku.php?id=start
 
 ## Example
-![alt text](https://github.com/ENSM-Nantes/ShipEditor/blob/main/res/Screenshot_ShipEditorv2.png)
+![alt text](https://github.com/ENSM-Nantes/ShipEditor/blob/main/res/Screenshot_ShipEditorv3.3.png)
