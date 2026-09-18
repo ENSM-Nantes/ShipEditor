@@ -1,6 +1,8 @@
 #include <iostream>
 #include <filesystem>
 #include <fstream>
+#include <algorithm>
+#include <cctype>
 #include "main_window.h"
 #include "BoatManager.hpp"
 
@@ -30,6 +32,7 @@ MainWindow::MainWindow():
   mRefreshButton("Refresh"),
   mSaveButton("Save"),
   mNewButton("New"),
+  mCopyButton("Copy"),
   mDeleteButton("Delete"),
 
   // Edit area
@@ -51,6 +54,7 @@ MainWindow::MainWindow():
   // Configure this window:
   set_default_size(1920, 1024);
   mPanes.set_position(360);
+  mPanes.set_shrink_start_child(false);
 	
   // Configure the scrooled window
   mScrollBoat.set_policy(Gtk::PolicyType::AUTOMATIC, Gtk::PolicyType::ALWAYS);
@@ -84,7 +88,7 @@ MainWindow::MainWindow():
 
   //Footer
   mFooterBox.set_margin_top(15);
-  mFooterBox.set_margin_start(1150);
+  mFooterBox.set_margin_start(1050);
   mVersionNumber.set_text("Ship-Editor v3.4 - SOMOS Project 2026 - ENSM Nantes");
   mFooterBox.append(mVersionNumber);
   mFooterBox.add_css_class("text-label");
@@ -126,6 +130,7 @@ MainWindow::MainWindow():
   mSaveButton.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::Update));
   mRefreshButton.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::RefreshCbk));
   mNewButton.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::New));
+  mCopyButton.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::Copy));
   mDeleteButton.signal_clicked().connect(sigc::mem_fun(*this, &MainWindow::Delete));
 
   // Keyboard navigation for the boat list
@@ -139,6 +144,7 @@ MainWindow::MainWindow():
 
   // Show the buttons
   mNewButton.show();
+  mCopyButton.show();
   mDeleteButton.show();
   mSaveButton.show();
   mRefreshButton.show();
@@ -146,6 +152,7 @@ MainWindow::MainWindow():
   // Pack the button in the box
   mButtonsBox.set_margin_top(15);
   mButtonsBox.append(mNewButton);
+  mButtonsBox.append(mCopyButton);
   mButtonsBox.append(mDeleteButton);
   mButtonsBox.append(mSaveButton);
   mButtonsBox.append(mRefreshButton);
@@ -158,6 +165,7 @@ MainWindow::MainWindow():
   mBoatList.add_css_class("text-label");
 
   // Pack the list and the buttons in the box
+  mLeftSideBox.set_size_request(360, -1);
   mLeftSideBox.append(mScrollBoat);
   mLeftSideBox.append(mButtonsBox);
   
@@ -441,9 +449,69 @@ void MainWindow::New(void)
     }
 }
 
+void MainWindow::Copy(void)
+{
+  Gtk::ListBoxRow* currentBoatRow = mBoatList.get_row_at_index(mCurrentRowIndex);
+  if (currentBoatRow == nullptr) return;
+
+  Boat sourceBoat = ((BoatRow*)currentBoatRow)->mBoat;
+
+  std::string baseName = sourceBoat.displayName + "_copy";
+  std::string uniqueName = baseName;
+  int counter = 1;
+
+  fs::path jsonPath(PATH_JSON_BOATS);
+
+  while(fs::exists(jsonPath / uniqueName))
+    {
+      uniqueName = baseName + std::to_string(counter);
+      counter++;
+    }
+
+  fs::path destDir = jsonPath / uniqueName;
+
+  // Duplicate the whole boat folder (boat.json + mesh/texture assets)
+  std::error_code ec;
+  fs::copy(sourceBoat.imgPath, destDir, fs::copy_options::recursive, ec);
+
+  if (ec)
+    {
+      InfoBubble("Error", "Failed to copy the boat \"" + sourceBoat.displayName + "\" : " + ec.message());
+      return;
+    }
+
+  Boat newBoat = sourceBoat;
+  newBoat.displayName = uniqueName;
+  newBoat.filePath = (destDir / "boat.json").string();
+  newBoat.imgPath = destDir.string();
+
+  if(BoatManager::SaveBoat(newBoat))
+    {
+      RemoveList();
+      InitList();
+
+      InfoBubble("Boat Copied", "The boat \"" + sourceBoat.displayName + "\" has been duplicated as \"" + uniqueName + "\".");
+    }
+  else
+    {
+      InfoBubble("Error", "Failed to save the copied boat.");
+    }
+}
+
 void MainWindow::InitList(void)
 {
   mBoats = BoatManager::LoadBoats(PATH_JSON_BOATS);
+
+  std::sort(mBoats.begin(), mBoats.end(), [](const Boat& a, const Boat& b)
+    {
+      std::string nameA = a.displayName;
+      std::string nameB = b.displayName;
+      std::transform(nameA.begin(), nameA.end(), nameA.begin(),
+		     [](unsigned char c){ return std::tolower(c); });
+      std::transform(nameB.begin(), nameB.end(), nameB.begin(),
+		     [](unsigned char c){ return std::tolower(c); });
+      return nameA < nameB;
+    });
 
   if (mBoats.empty())
   {

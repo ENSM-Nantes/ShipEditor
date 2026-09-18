@@ -37,6 +37,7 @@ public:
   void BoatLineCbk(Gtk::ListBoxRow *aBoatRow);
   void RefreshCbk(void);
   void New(void);
+  void Copy(void);
   void Delete(void);
   void InfoBubble(const std::string &aMessage, const std::string &aDetail);
   bool OnKeyPressed(guint keyval, guint keycode, Gdk::ModifierType state);
@@ -63,6 +64,7 @@ private:
   Gtk::Button mRefreshButton;
   Gtk::Button mSaveButton;
   Gtk::Button mNewButton;
+  Gtk::Button mCopyButton;
   Gtk::Button mDeleteButton;
 
   std::string mName;
