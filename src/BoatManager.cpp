@@ -30,13 +30,16 @@ void BoatManager::ParseMesh(Boat& aBoat, Json::Value& aJsonRoot)
 
 void BoatManager::SetMesh(Boat& aBoat, Json::Value& aJsonRoot)
 {
+  if (aBoat.mesh.nbrViews < 0) aBoat.mesh.nbrViews = 0;
+  aBoat.mesh.viewList.views.resize(aBoat.mesh.nbrViews);
+
   aJsonRoot["mesh"]["name"] = aBoat.mesh.fileName;
-  aJsonRoot["mesh"]["makeTransparent"] = aBoat.mesh.makeTransparent;    
+  aJsonRoot["mesh"]["makeTransparent"] = aBoat.mesh.makeTransparent;
   aJsonRoot["mesh"]["scaleFactor"] = aBoat.mesh.scaleFactor;
   aJsonRoot["mesh"]["yCorrection"] = aBoat.mesh.yCorrection;
   aJsonRoot["mesh"]["angleCorrection"] = aBoat.mesh.angleCorrection;
   aJsonRoot["mesh"]["numberOfViews"] = aBoat.mesh.nbrViews;
-  
+
   for(unsigned char i=0; i<aBoat.mesh.nbrViews; i++)
     {
       aJsonRoot["mesh"]["views"][i][0] = aBoat.mesh.viewList.views[i].vector[0];

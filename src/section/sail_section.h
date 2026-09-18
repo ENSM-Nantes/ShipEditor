@@ -23,10 +23,22 @@ public:
   
 protected:
   Grid mGrid;
+  int mSailLinesAttachedCounter;
   InputArea mNumber, mType, mSize;
   std::vector<InputArea*> mPos;
   InputArea *mInputList[SAIL_INPUT_COUNT] = {&mNumber, &mType, &mSize};
 
+  Box mPolarBox;
+  Label mPolarLabel;
+  Button mBrowsePolarButton;
+  Label mPolarStatusLabel;
+  Image mPolarStatusIcon;
+  Glib::RefPtr<FileDialog> mFileDialog;
+
+  std::string GetPolarFilePath(void);
+  void UpdatePolarStatusLabel(void);
+  void OnBrowsePolarClicked(void);
+  void OnPolarFileChosen(Glib::RefPtr<Gio::AsyncResult>& aResult);
 };
 
 

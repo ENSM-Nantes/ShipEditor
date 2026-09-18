@@ -6,7 +6,7 @@
 #include "../BoatManager.hpp"
 #include "section.h"
 
-#define MESH_INPUT_COUNT 5
+#define MESH_INPUT_COUNT 6
 
 using namespace Gtk;
 
@@ -19,14 +19,14 @@ public:
   virtual void set(void);
   virtual void update(void);
   virtual void refresh(void);
-  
+
 protected:
   Grid mGrid;
   int mViewsAttachedCounter;
-  InputArea mFilename, mYcorrection, mAngleCorrection, mScaleFactor, mMakeTransparent;
+  InputArea mFilename, mYcorrection, mAngleCorrection, mScaleFactor, mMakeTransparent, mNbrViews;
   std::vector<InputArea*> mViews;
   std::vector<InputArea*> mIsViewTop;
-  InputArea *mInputList[MESH_INPUT_COUNT] = {&mFilename, &mYcorrection, &mAngleCorrection, &mScaleFactor, &mMakeTransparent};
+  InputArea *mInputList[MESH_INPUT_COUNT] = {&mFilename, &mYcorrection, &mAngleCorrection, &mScaleFactor, &mMakeTransparent, &mNbrViews};
 
 };
 
