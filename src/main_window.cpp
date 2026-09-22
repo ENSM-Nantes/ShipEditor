@@ -32,7 +32,7 @@ MainWindow::MainWindow():
   mRefreshButton("Refresh"),
   mSaveButton("Save"),
   mNewButton("New"),
-  mCopyButton("Copy"),
+  mCopyButton("Duplicate"),
   mDeleteButton("Delete"),
 
   // Edit area
